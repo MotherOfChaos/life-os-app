@@ -6,598 +6,254 @@
 <title>The Times of Chaos</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0a0a0f;
-  --surface: #0f0f1a;
-  --card: #12121f;
-  --border: #1a1a2e;
-  --text: #e0d8f0;
-  --muted: #5a5a8a;
-  --gold: #c8a830;
-  --gold-dim: rgba(200,168,48,0.1);
-  --gold-border: rgba(200,168,48,0.25);
-  --fire: #e05a20;
-  --rose: #c0304a;
-  --teal: #20a090;
-  --lavender: #7060b0;
-  --green: #30a060;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Crimson Pro', Georgia, serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(200,168,48,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(112,96,176,0.05) 0%, transparent 50%);
-}
-
-/* MASTHEAD */
-.masthead {
-  text-align: center;
-  padding: 32px 20px 20px;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.masthead::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-.masthead-top {
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.4em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.masthead-title {
-  font-family: 'UnifrakturMaguntia', cursive;
-  font-size: clamp(2.4rem, 8vw, 4.5rem);
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 4px;
-  text-shadow: 0 0 40px rgba(200,168,48,0.2);
-}
-.masthead-sub {
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.35em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.masthead-date {
-  font-family: 'Crimson Pro', serif;
-  font-size: 0.8rem;
-  color: var(--muted);
-  font-style: italic;
-}
-.masthead-rule {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
-  margin-top: 16px;
-}
-
-/* NAV */
-.nav-bar {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px 16px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
-  background: rgba(10,10,20,0.6);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(8px);
-}
-.nav-pill {
-  font-family: 'Cinzel', serif;
-  font-size: 0.52rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  text-decoration: none;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.nav-pill:hover { color: var(--gold); border-color: var(--gold-border); }
-
-/* HOME LINK */
-.home-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--border);
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-.home-link:hover { color: var(--gold); }
-
-/* CONTAINER */
-.container { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
-
-/* SECTION */
-.section { margin-top: 28px; }
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-.section-icon { font-size: 1.1rem; flex-shrink: 0; }
-.section-title {
-  font-family: 'Cinzel', serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  flex: 1;
-}
-.section-date {
-  font-size: 0.6rem;
-  color: var(--muted);
-  font-style: italic;
-}
-
-/* STORY CARD */
-.story {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.story::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 100%;
-  background: var(--accent, var(--gold));
-  opacity: 0.5;
-}
-.story-headline {
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--text);
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-.story-body {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: rgba(224,216,240,0.8);
-}
-.story-body p { margin-bottom: 6px; }
-.story-body p:last-child { margin-bottom: 0; }
-.story-tag {
-  display: inline-block;
-  font-family: 'Cinzel', serif;
-  font-size: 0.48rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 8px;
-  margin-bottom: 6px;
-}
-.tag-breaking { background: rgba(192,48,74,0.15); color: #e05070; border: 1px solid rgba(192,48,74,0.3); }
-.tag-developing { background: rgba(224,90,32,0.12); color: #e07040; border: 1px solid rgba(224,90,32,0.25); }
-.tag-analysis { background: rgba(112,96,176,0.12); color: #9080d0; border: 1px solid rgba(112,96,176,0.25); }
-.tag-science { background: rgba(32,160,144,0.12); color: #40c0b0; border: 1px solid rgba(32,160,144,0.25); }
-.tag-culture { background: rgba(200,168,48,0.12); color: var(--gold); border: 1px solid var(--gold-border); }
-.tag-star { background: rgba(32,160,144,0.2); color: #40d0c0; border: 1px solid rgba(32,160,144,0.4); }
-
-.fact-box {
-  background: rgba(200,168,48,0.05);
-  border: 1px solid var(--gold-border);
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-top: 8px;
-  font-size: 0.8rem;
-  color: rgba(200,168,48,0.85);
-}
-.fact-box strong { color: var(--gold); }
-
-/* PERSPECTIVES */
-.perspectives { margin-top: 8px; }
-.perspective {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 5px;
-  font-size: 0.82rem;
-}
-.perspective-source {
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  min-width: 80px;
-  padding-top: 2px;
-  flex-shrink: 0;
-  text-transform: uppercase;
-}
-
-/* CALENDAR */
-.cal-today { display: flex; flex-direction: column; gap: 8px; }
-.cal-event {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  padding: 8px 10px;
-  background: rgba(255,255,255,0.02);
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.cal-time {
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  color: var(--gold);
-  min-width: 44px;
-  padding-top: 2px;
-  flex-shrink: 0;
-  letter-spacing: 0.05em;
-}
-.cal-title { font-size: 0.85rem; line-height: 1.35; }
-.cal-note { font-size: 0.73rem; color: var(--muted); margin-top: 2px; font-style: italic; }
-.cal-week { display: flex; flex-direction: column; gap: 5px; margin-top: 14px; }
-.cal-day {
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-  padding: 7px 10px;
-  border-radius: 8px;
-}
-.cal-day.important { background: rgba(200,168,48,0.06); border: 1px solid var(--gold-border); }
-.cal-day-label {
-  font-family: 'Cinzel', serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  min-width: 38px;
-  color: var(--muted);
-  flex-shrink: 0;
-}
-.cal-day.important .cal-day-label { color: var(--gold); }
-.cal-day-events { font-size: 0.82rem; flex: 1; }
-.cal-week-header {
-  font-family: 'Cinzel', serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-top: 14px;
-  margin-bottom: 6px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* STALE */
-.stale-note {
-  display: flex;
-  gap: 8px;
-  background: rgba(224,90,32,0.08);
-  border: 1px solid rgba(224,90,32,0.2);
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 0.78rem;
-  color: #e07040;
-  margin-bottom: 12px;
-}
-
-/* DIVIDER */
-.rule { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 24px 0; }
-
-/* SOURCES */
-.sources {
-  font-size: 0.72rem;
-  color: var(--muted);
-  font-style: italic;
-  line-height: 1.6;
-  padding: 12px 16px;
-  background: var(--card);
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
+:root{--bg:#0a0a0f;--surface:#0f0f1a;--card:#12121f;--border:#1a1a2e;--text:#e0d8f0;--muted:#5a5a8a;--gold:#c8a830;--gold-dim:rgba(200,168,48,0.1);--gold-border:rgba(200,168,48,0.25);--fire:#e05a20;--rose:#c0304a;--teal:#20a090;--lavender:#7060b0;--green:#30a060}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 50% 0%,rgba(200,168,48,0.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(112,96,176,0.05) 0%,transparent 50%)}
+.masthead{text-align:center;padding:32px 20px 20px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.masthead::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.masthead-top{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.masthead-title{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2.4rem,8vw,4.5rem);color:var(--gold);line-height:1;margin-bottom:4px;text-shadow:0 0 40px rgba(200,168,48,0.2)}
+.masthead-sub{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.35em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.masthead-date{font-family:'Crimson Pro',serif;font-size:0.8rem;color:var(--muted);font-style:italic}
+.masthead-rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);margin-top:16px}
+.nav-bar{display:flex;justify-content:center;gap:6px;padding:10px 16px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:rgba(10,10,20,0.6);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+.nav-pill{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:12px;border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:all 0.2s;white-space:nowrap}
+.nav-pill:hover{color:var(--gold);border-color:var(--gold-border)}
+.home-link{display:flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;padding:10px 20px;border-bottom:1px solid var(--border);text-transform:uppercase;transition:color 0.2s}
+.home-link:hover{color:var(--gold)}
+.container{max-width:680px;margin:0 auto;padding:0 16px 60px}
+.section{margin-top:28px}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-icon{font-size:1.1rem;flex-shrink:0}
+.section-title{font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);flex:1}
+.story{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;position:relative;overflow:hidden}
+.story::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent,var(--gold));opacity:0.5}
+.story-headline{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.04em;color:var(--text);margin-bottom:6px;line-height:1.4}
+.story-body{font-size:0.88rem;line-height:1.6;color:rgba(224,216,240,0.8)}
+.story-body p{margin-bottom:6px}
+.story-body p:last-child{margin-bottom:0}
+.story-tag{display:inline-block;font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:8px;margin-bottom:6px}
+.tag-breaking{background:rgba(192,48,74,0.15);color:#e05070;border:1px solid rgba(192,48,74,0.3)}
+.tag-developing{background:rgba(224,90,32,0.12);color:#e07040;border:1px solid rgba(224,90,32,0.25)}
+.tag-analysis{background:rgba(112,96,176,0.12);color:#9080d0;border:1px solid rgba(112,96,176,0.25)}
+.tag-science{background:rgba(32,160,144,0.12);color:#40c0b0;border:1px solid rgba(32,160,144,0.25)}
+.tag-culture{background:rgba(200,168,48,0.12);color:var(--gold);border:1px solid var(--gold-border)}
+.tag-star{background:rgba(32,160,144,0.2);color:#40d0c0;border:1px solid rgba(32,160,144,0.4)}
+.fact-box{background:rgba(200,168,48,0.05);border:1px solid var(--gold-border);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(200,168,48,0.85)}
+.fact-box strong{color:var(--gold)}
+.perspective{display:flex;gap:8px;margin-bottom:5px;font-size:0.82rem}
+.perspective-source{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.06em;color:var(--muted);min-width:80px;padding-top:2px;flex-shrink:0;text-transform:uppercase}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:24px 0}
+.sources{font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.6;padding:12px 16px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
 </style>
 </head>
 <body>
-
 <a class="home-link" href="index.html">← Home</a>
-
 <div class="masthead">
   <div class="masthead-top">Est. 2026 · Barcelona Edition · Curated by M</div>
   <div class="masthead-title">The Times of Chaos</div>
   <div class="masthead-sub">Intelligence for a Life in Motion</div>
-  <div class="masthead-date">Thursday, 21 May 2026 · Morning Edition</div>
+  <div class="masthead-date">Friday, 22 May 2026 · Morning Edition</div>
   <div class="masthead-rule"></div>
 </div>
-
 <nav class="nav-bar">
   <a class="nav-pill" href="#conflicts">⚔️ Conflicts</a>
-  <a class="nav-pill" href="#spain">🇪🇸 Spain</a>
-  <a class="nav-pill" href="#italy">🇮🇹 Italy</a>
-  <a class="nav-pill" href="#europe">🇪🇺 Europe</a>
   <a class="nav-pill" href="#world">🌍 World</a>
+  <a class="nav-pill" href="#europe">🇪🇺 Europe</a>
+  <a class="nav-pill" href="#italy">🇮🇹 Italy</a>
   <a class="nav-pill" href="#science">🧠 Science</a>
   <a class="nav-pill" href="#tech">💻 Tech</a>
   <a class="nav-pill" href="#arts">🎭 Arts</a>
 </nav>
-
 <div class="container">
 
 <!-- CONFLICTS -->
 <section class="section" id="conflicts">
-  <div class="section-header">
-    <span class="section-icon">⚔️</span>
-    <span class="section-title">Active Conflicts</span>
-  </div>
+  <div class="section-header"><span class="section-icon">⚔️</span><span class="section-title">Active Conflicts</span></div>
 
-  <div class="story" style="--accent: var(--rose);">
-    <span class="story-tag tag-breaking">Breaking</span>
-    <div class="story-headline">Gaza Flotilla: 430 Activists Deported After Ben Gvir Humiliation Video</div>
-    <div class="story-body">
-      <p>Israel has deported all foreign activists detained after its navy intercepted the Global Sumud Flotilla in international waters on May 19. Security Minister Ben Gvir posted videos mocking activists held kneeling with hands bound — drawing condemnation from across Europe and a rare public rebuke from Netanyahu himself.</p>
-      <p>Among those detained: Italian MP Dario Carotenuto (M5S) and journalist Alessandro Mantovani, who returned to Rome Thursday describing physical beatings. "They beat us and said 'Welcome to Israel,'" Carotenuto said at Fiumicino. Ireland's President's sister was among roughly 15 Irish citizens detained.</p>
-    </div>
-    <div class="fact-box"><strong>Numbers:</strong> ~430 activists detained · 60 boats intercepted · Deported to Turkey · Ben Gvir sanctioned? Italy has formally requested EU sanctions against him.</div>
-    <div class="perspectives">
-      <div class="perspective"><span class="perspective-source">Al Jazeera</span> Israel violated international law by intercepting vessels in international waters</div>
-      <div class="perspective"><span class="perspective-source">Times of Israel</span> Israel says the naval blockade of Gaza is lawful; activists were attempting to breach it</div>
-      <div class="perspective"><span class="perspective-source">Reuters</span> Netanyahu's rebuke of Ben Gvir — rare, and driven by diplomatic pressure</div>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--fire);">
+  <div class="story" style="--accent:var(--rose)">
     <span class="story-tag tag-developing">Developing</span>
-    <div class="story-headline">Strait of Hormuz: Still Closed, Global Economy Paying the Price</div>
+    <div class="story-headline">Gaza Flotilla Aftermath: US Sanctions Activists as International Pressure Mounts</div>
     <div class="story-body">
-      <p>The Strait of Hormuz has been largely blocked since February 28, when the US and Israel attacked Iran and assassinated Supreme Leader Khamenei. Iran retaliated by closing the strait to international shipping. A US-led aerial campaign has been ongoing since March 19, with a naval blockade of Iranian ports from April 13.</p>
-      <p>A ceasefire was agreed on April 8, but shipping remains at a practical standstill — just 10 commercial ships per day transiting, versus 130 before the crisis. The UN has cut its global growth forecast; the EU cut its 2026 forecast today, projecting 3.1% inflation, a full point higher than expected.</p>
+      <p>The United States has imposed sanctions on four flotilla organisers, alleging without evidence links to Hamas. The move comes after roughly 430 activists from 46+ countries were detained by Israel during interceptions of the Global Sumud Flotilla last week. All have since been deported, mostly to Turkey.</p>
+      <p>Ben Gvir's video mocking kneeling detainees continues to reverberate — analysts note it dismantled millions in Israeli PR spending in an instant. Netanyahu rebuked him publicly, but the damage internationally is significant. Italy formally demanded EU sanctions against Ben Gvir after MP Carotenuto and journalist Mantovani returned describing physical beatings.</p>
     </div>
-    <div class="fact-box"><strong>Scale:</strong> One of the world's key oil/gas chokepoints. Every $10 sustained price rise = approx. 0.4% drop in GDP growth globally.</div>
-  </div>
-</section>
-
-<!-- SPAIN -->
-<section class="section" id="spain">
-  <div class="section-header">
-    <span class="section-icon">🇪🇸</span>
-    <span class="section-title">Spain</span>
+    <div class="fact-box"><strong>Numbers:</strong> 430+ detained · 46 countries represented · 72,000+ Palestinians killed since Oct 2023 · 800+ killed since October "ceasefire"</div>
+    <div class="perspective"><span class="perspective-source">Al Jazeera</span> US sanctions on activists viewed as cover for Israeli crackdown on legitimate humanitarian action</div>
+    <div class="perspective"><span class="perspective-source">Times of Israel</span> Organisers had prior ties to groups with Hamas links; blockade is lawful under Israeli law</div>
   </div>
 
-  <div class="story" style="--accent: var(--gold);">
-    <span class="story-tag tag-analysis">Analysis</span>
-    <div class="story-headline">Andalucia: PP Wins But Needs Vox — Sánchez's PSOE Records Historic Low</div>
+  <div class="story" style="--accent:var(--fire)">
+    <span class="story-tag tag-developing">Ongoing</span>
+    <div class="story-headline">Iran War: Trump Claims Hostilities "Terminated" — Congress Unconvinced</div>
     <div class="story-body">
-      <p>In the May 17 Andalucian regional election, Juanma Moreno's PP took 53 seats — first place, but 2 short of the 55-seat majority needed to govern alone. Moreno is expected to rely on Vox (15 seats) for support. The surprise of the night was Adelante Andalucia surging from 2 to 8 seats.</p>
-      <p>The biggest story: PSOE recorded its worst-ever result in Andalucia, falling to 28 seats. Prime Minister Sánchez congratulated the left's effort but acknowledged a difficult result. With 61.9% turnout — notably higher than 2022 — the fragmented parliament now requires coalition negotiations.</p>
+      <p>Trump wrote to Congressional leaders claiming the Iran hostilities that began February 28 have "terminated" — a legally significant but widely disputed assertion that sidesteps the May 1 War Powers deadline for Congressional approval. Republicans continue to defer to the president, delaying any vote into June.</p>
+      <p>Meanwhile Trump escalated rhetoric on Cuba, telling Politico "Cuba is going to fall too" after finishing with Iran. The US has charged former Cuban president Raúl Castro with conspiracy and imposed new sanctions on Cuban government agencies. The Strait of Hormuz remains a practical bottleneck — just 10 ships/day versus 130 pre-conflict.</p>
     </div>
-    <div class="fact-box"><strong>Seats:</strong> PP 53 · PSOE 28 · Vox 15 · Adelante Andalucia 8 · Por Andalucia 5</div>
-    <div class="perspectives">
-      <div class="perspective"><span class="perspective-source">El País</span> A blow to Sánchez nationally; PSOE's southern stronghold continues to erode</div>
-      <div class="perspective"><span class="perspective-source">Euronews</span> Moreno wins but far right gains leverage — pattern seen across European regions</div>
-    </div>
-  </div>
-</section>
-
-<!-- ITALY -->
-<section class="section" id="italy">
-  <div class="section-header">
-    <span class="section-icon">🇮🇹</span>
-    <span class="section-title">Italy</span>
+    <div class="fact-box"><strong>Context:</strong> US + Israel struck Iran Feb 28 → Hormuz closed → EU growth forecast cut → global inflation spike. Cuba next on Trump's list.</div>
   </div>
 
-  <div class="story" style="--accent: var(--rose);">
-    <span class="story-tag tag-breaking">Breaking</span>
-    <div class="story-headline">Italian Flotilla Detainees Return: "They Beat Us Savagely"</div>
+  <div class="story" style="--accent:var(--lavender)">
+    <span class="story-tag tag-developing">NATO</span>
+    <div class="story-headline">Zelenskyy Confirmed for NATO Ankara Summit — Rutte Warns US Reducing Europe Commitment</div>
     <div class="story-body">
-      <p>M5S MP Dario Carotenuto and journalist Alessandro Mantovani landed at Rome Fiumicino Thursday, eyes welling, describing physical abuse in Israeli detention. Carotenuto: "They beat us and said 'Welcome to Israel.'" Italy has summoned the Israeli ambassador and formally requested EU sanctions against Ben Gvir for "violating human dignity."</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--lavender);">
-    <span class="story-tag tag-analysis">Diplomacy</span>
-    <div class="story-headline">Meloni Declares "Special Strategic Partnership" With India</div>
-    <div class="story-body">
-      <p>After talks with PM Modi at Villa Pamphili, Meloni announced the highest-level bilateral relationship ever achieved between Italy and India. Foreign Minister Tajani highlighted economic and trade dimensions. Italy is the second-largest foreign delegation at Sipsa Filaha 2026 with 32 exhibitors — signalling a push into emerging markets amid Europe's economic slowdown.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--muted);">
-    <div class="story-headline">Italy's Prisons: 64,436 Inmates, Capacity for 46,318</div>
-    <div class="story-body">
-      <p>ANSA reported the country holds nearly 40% more prisoners than its penal system was built for. A recurring crisis with no current legislative solution on the table.</p>
-    </div>
-  </div>
-</section>
-
-<!-- EUROPE -->
-<section class="section" id="europe">
-  <div class="section-header">
-    <span class="section-icon">🇪🇺</span>
-    <span class="section-title">Europe</span>
-  </div>
-
-  <div class="story" style="--accent: var(--fire);">
-    <span class="story-tag tag-developing">Economy</span>
-    <div class="story-headline">EU Slashes 2026 Growth Forecast — Hormuz Energy Shock Driving Inflation to 3.1%</div>
-    <div class="story-body">
-      <p>The European Commission today downgraded its 2026 economic growth forecast, citing the ongoing Strait of Hormuz crisis as the primary driver. EU inflation is now forecast to reach 3.1% — a full percentage point above previous projections — fuelled by surging energy costs. Brussels compared the shock to the 2022 Russian energy crisis but noted the EU is better positioned this time, given years of diversification and renewables investment.</p>
-      <p>The UN also cut its global growth forecast separately, with the Middle East/North Africa region bearing the heaviest revision (−2.8 points to 1.1%).</p>
+      <p>At the NATO foreign ministers' meeting in Helsingborg today, Secretary General Rutte confirmed Zelenskyy will attend the July summit in Ankara. Rubio restated US irritation that NATO allies didn't join the Iran war. Rutte separately acknowledged discussions about reducing the US military contribution to NATO's force model — "the US cannot be everywhere at the same time" — without giving details.</p>
     </div>
   </div>
 </section>
 
 <!-- WORLD -->
 <section class="section" id="world">
-  <div class="section-header">
-    <span class="section-icon">🌍</span>
-    <span class="section-title">World</span>
-  </div>
+  <div class="section-header"><span class="section-icon">🌍</span><span class="section-title">World</span></div>
 
-  <div class="story" style="--accent: var(--teal);">
-    <span class="story-tag tag-breaking">Climate</span>
-    <div class="story-headline">UN Backs Historic Climate Ruling Despite US Pushback</div>
+  <div class="story" style="--accent:var(--teal)">
+    <span class="story-tag tag-breaking">Trade</span>
+    <div class="story-headline">EU-US Trade Deal Finalised: Zero Tariffs on Industrial Goods</div>
     <div class="story-body">
-      <p>The United Nations has backed a historic climate ruling today, resisting US efforts to derail it. Details on enforcement mechanisms remain under debate, but the ruling establishes new legal obligations for state-level climate action and is expected to face immediate challenges from the current US administration.</p>
+      <p>The EU Council and European Parliament agreed this week to implement the EU-US trade deal: zero tariffs on all US industrial goods, with preferential market access for certain US agricultural and seafood products. A significant diplomatic reset after years of tariff disputes — driven partly by both sides needing economic breathing room during the Iran crisis.</p>
     </div>
   </div>
 
-  <div class="story" style="--accent: var(--rose);">
-    <div class="story-headline">Iran Secretly Executes Four as It Hits Global Death Sentence Record</div>
+  <div class="story" style="--accent:var(--muted)">
+    <div class="story-headline">US Threatens Military Action Against Cuba — Havana Unlikely to Accept Aid Deal</div>
     <div class="story-body">
-      <p>Iran has carried out four secret executions, according to Euronews, as the country continues to set records for the highest number of death sentences globally. Human rights organisations have been tracking a significant escalation in executions since the 2026 Iran war began.</p>
+      <p>US officials confirmed Trump's threats against Cuba are serious but say no imminent action is planned. A proposed deal — tens of millions in humanitarian aid plus Starlink access — is being dismissed by Havana. The US energy blockade on Cuba has caused rolling power cuts; Cuba's national grid went dark for 16 hours in March. Senate Republicans blocked Democratic legislation that would have required Congressional approval to continue the blockade.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EUROPE -->
+<section class="section" id="europe">
+  <div class="section-header"><span class="section-icon">🇪🇺</span><span class="section-title">Europe</span></div>
+
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-analysis">Italy · Today</span>
+    <div class="story-headline">No News of US Troop Withdrawal From Italy, Says Tajani</div>
+    <div class="story-body">
+      <p>Foreign Minister Tajani said Friday the Italian government has received no official notification of US troop withdrawals from Italy, while reiterating such a move would be "a mistake." Trump pulled 5,000 troops from Germany earlier this month — then in a surprise reversal, sent the same number to Poland. Italy is watching carefully.</p>
     </div>
   </div>
 
-  <div class="story" style="--accent: var(--muted);">
-    <div class="story-headline">US Accuses Raúl Castro of Conspiracy</div>
+  <div class="story" style="--accent:var(--lavender)">
+    <div class="story-headline">Hantavirus: 14-Day Home Quarantine Ends for Negative Cases</div>
     <div class="story-body">
-      <p>US authorities are now formally accusing former Cuban president Raúl Castro of conspiracy. Details of the charges and what enforcement mechanism the US intends to use remain unclear, but the move escalates diplomatic tensions with Cuba significantly.</p>
+      <p>Euronews reports the final 14 days of home quarantine for people who tested negative for Hantavirus are now ending. The outbreak, which originated in rural areas, appears to be winding down — no new cluster announcements in the past week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ITALY -->
+<section class="section" id="italy">
+  <div class="section-header"><span class="section-icon">🇮🇹</span><span class="section-title">Italy</span></div>
+
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-culture">Obituary</span>
+    <div class="story-headline">Carlo Petrini, Founder of Slow Food, Dies at 76</div>
+    <div class="story-body">
+      <p>Carlo Petrini, who founded the Slow Food movement in 1986 in protest against McDonald's opening at Rome's Spanish Steps, died Thursday at his home in Bra, Piedmont. He had been diagnosed with prostate cancer in recent years.</p>
+      <p>Petrini built Slow Food from a small group of friends in the Italian countryside into a global movement in 160+ countries, championing small-scale farmers, biodiversity and the right to "good, clean and fair food." Italian President Mattarella called his passing "a huge void not only in the world of food and wine, but in society as a whole." Named European Hero by Time in 2004; The Guardian listed him among 50 people who could save the world in 2008.</p>
+    </div>
+    <div class="fact-box">"Those who sow utopia, reap reality." — Carlo Petrini</div>
+  </div>
+
+  <div class="story" style="--accent:var(--lavender)">
+    <div class="story-headline">Orient Express to Launch Rome–Istanbul Luxury Rail Journey</div>
+    <div class="story-body">
+      <p>A new Orient Express route connecting Rome and Istanbul has been announced, reviving one of travel's great romantic corridors. Details on schedule and pricing to follow; launch expected later this year.</p>
+    </div>
+  </div>
+
+  <div class="story" style="--accent:var(--muted)">
+    <div class="story-headline">Italian Local Elections Set for 24–25 May — Venice, Reggio Calabria Among Key Races</div>
+    <div class="story-body">
+      <p>626 municipalities vote this weekend. Venice and Reggio Calabria are the most closely watched. Results will be an early read on the centre-right coalition's durability after Meloni's recent constitutional referendum defeat.</p>
     </div>
   </div>
 </section>
 
 <!-- SCIENCE -->
 <section class="section" id="science">
-  <div class="section-header">
-    <span class="section-icon">🧠</span>
-    <span class="section-title">Science & Neuroscience</span>
-  </div>
+  <div class="section-header"><span class="section-icon">🧠</span><span class="section-title">Science & Neuroscience</span></div>
 
-  <div class="story" style="--accent: var(--teal);">
-    <span class="story-tag tag-star">⭐ ADHD Relevant</span>
-    <div class="story-headline">Your "Ums" Map Your Brain: Speech Pauses Reveal Executive Function</div>
+  <div class="story" style="--accent:var(--teal)">
+    <span class="story-tag tag-star">⭐ HMI · Major</span>
+    <div class="story-headline">AI Is Rewiring How Professionals Think — EEG Study Shows Measurable Brain Changes</div>
     <div class="story-body">
-      <p>A study published in May found that everyday speech disfluencies — pauses, filler words, moments of word-finding difficulty — are closely tied to executive function, the exact cognitive domain affected by ADHD. AI analysis of natural conversation can now predict memory capacity, planning ability, and attention control with surprising accuracy. The research suggests speech patterns may serve as a non-invasive diagnostic window into prefrontal cortex function.</p>
+      <p>A new neuroscience study from Lardi & Partner Consulting (Zurich, May 22) used wearable EEG devices to monitor brain activity in professionals performing realistic tasks with and without AI assistance. It tracked five parameters: mental effort, attention, creativity, familiarity, and relaxation — in real time, continuously.</p>
+      <p>Finding: AI is not just changing what people do at work. It is changing how their brains process the work itself. The study raises questions about long-term cognitive adaptation, skill atrophy, and what "thinking" looks like when a portion of it is routinely offloaded.</p>
     </div>
-    <div class="fact-box"><strong>Why it matters:</strong> This is HMI territory — natural language as cognitive biomarker. Potential for early screening tools that require no specialist equipment.</div>
+    <div class="fact-box"><strong>Why it matters for M:</strong> This is the exact intersection of HMI + neuroscience + AI that defines the frontier. The brain adapts to tools — always has. The question is how we design tools that enhance rather than replace cognition.</div>
   </div>
 
-  <div class="story" style="--accent: var(--teal);">
-    <span class="story-tag tag-star">⭐ Major Finding</span>
-    <div class="story-headline">Mitochondria Link to Memory Loss — And It's Reversible</div>
+  <div class="story" style="--accent:var(--teal)">
+    <span class="story-tag tag-science">ScienceDaily · May 21</span>
+    <div class="story-headline">Junk Food in Early Life May Rewire Brain's Reward System Permanently</div>
     <div class="story-body">
-      <p>Researchers showed for the first time that malfunctioning mitochondria — the cell's energy generators — may directly cause cognitive decline in neurodegenerative disease. Crucially, a new tool that temporarily boosts mitochondrial function reversed memory loss in trials. Published May 16; implications for Alzheimer's and related conditions are significant.</p>
+      <p>New research suggests early exposure to high-fat, high-sugar diets doesn't just create bad habits — it may structurally alter the brain's reward circuitry in ways that persist into adulthood, making healthy food choices neurologically harder to sustain later on. Implications for childhood nutrition policy are significant.</p>
     </div>
   </div>
 
-  <div class="story" style="--accent: var(--teal);">
-    <span class="story-tag tag-science">Nature · May 21</span>
-    <div class="story-headline">Exercise Hormone Protects Neurons in MS and Neurodegeneration</div>
+  <div class="story" style="--accent:var(--teal)">
+    <div class="story-headline">Abdominal Muscles and Brain Health: Every Core Contraction Matters</div>
     <div class="story-body">
-      <p>A study in Nature Metabolism found that irisin — a hormone released by muscles during exercise — promotes the survival of neurons in inflammation-driven neurodegenerative conditions, including multiple sclerosis models. Another layer of evidence for exercise as a disease-modifying intervention, not merely symptomatic relief.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--teal);">
-    <div class="story-headline">Anxiety Linked to Brain Choline Deficit — Especially in Prefrontal Cortex</div>
-    <div class="story-body">
-      <p>A major brain scan analysis found people with anxiety disorders show measurably lower choline levels, with the strongest effect in the prefrontal cortex — the region governing emotional regulation and executive control. Choline is a nutrient found in eggs, fish, and legumes. The finding opens dietary and supplement pathways alongside existing interventions.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--teal);">
-    <div class="story-headline">Spatial Memory Reshapes for Decades — Not Stored, Continuously Rebuilt</div>
-    <div class="story-body">
-      <p>New research from Nature Human Behaviour tracked memory for real-world navigational episodes over up to 30 years, finding that spatial memory is not stored statically but continuously reshaped — shifting from episode-specific representations toward generalised schematic knowledge over time. Memory is less a recording and more an ongoing reconstruction.</p>
+      <p>Scientists found a direct link between abdominal muscle activation and brain health markers — even brief, low-intensity core engagement appears to trigger beneficial neurological responses. One more reason the basic spinal routine has deeper effects than it looks.</p>
     </div>
   </div>
 </section>
 
 <!-- TECH -->
 <section class="section" id="tech">
-  <div class="section-header">
-    <span class="section-icon">💻</span>
-    <span class="section-title">Tech & AI</span>
-  </div>
+  <div class="section-header"><span class="section-icon">💻</span><span class="section-title">Tech & AI</span></div>
 
-  <div class="story" style="--accent: var(--lavender);">
+  <div class="story" style="--accent:var(--lavender)">
     <span class="story-tag tag-breaking">Major</span>
-    <div class="story-headline">SpaceX Files $80B IPO — Largest in History, With AI Chatbot and $6.4B in Losses Inside</div>
+    <div class="story-headline">Karpathy Joins Anthropic — One of the Biggest AI Talent Moves in Years</div>
     <div class="story-body">
-      <p>SpaceX filed an $80 billion IPO prospectus Wednesday — the largest in US history — with a chatbot subsidiary embedded and $6.4 billion in AI-related losses declared. OpenAI is reportedly days from filing its own IPO, targeting a trillion-dollar valuation by September. After years of private AI investment accessible only to venture capital and sovereign wealth funds, the AI boom is beginning to go public.</p>
+      <p>Andrej Karpathy — OpenAI co-founder, former Tesla AI Director, one of the most respected researchers in the field — announced this week he is joining Anthropic's pre-training team. He will build a team focused on using Claude to accelerate pre-training research.</p>
+      <p>The significance: Karpathy left OpenAI twice and chose Anthropic at the most competitive moment in AI history. Pre-training is the foundational layer — where models acquire their core knowledge. His arrival signals Anthropic's belief that AI-assisted research, not just raw compute, is how it stays competitive.</p>
+    </div>
+    <div class="fact-box"><strong>Also this week:</strong> Anthropic co-founder Jack Clark told Oxford that AI will collaborate on a Nobel Prize discovery within a year.</div>
+  </div>
+
+  <div class="story" style="--accent:var(--lavender)">
+    <div class="story-headline">Google Rebuilding Search from Scratch — Gemini at the Core</div>
+    <div class="story-body">
+      <p>Reports from Google I/O this week confirm the company is undertaking a ground-up rebuild of Search around Gemini. Not an overlay — a fundamental architectural rethink. The implications for how billions of people access information are enormous.</p>
     </div>
   </div>
 
-  <div class="story" style="--accent: var(--lavender);">
-    <div class="story-headline">OpenAI Launches Ads Inside ChatGPT — Targeting $2.5B This Year</div>
+  <div class="story" style="--accent:var(--lavender)">
+    <div class="story-headline">OpenAI's ChatGPT Pro Now Connects to Your Bank Accounts</div>
     <div class="story-body">
-      <p>OpenAI has introduced a self-serve Ads Manager for ChatGPT, allowing advertisers to run campaigns directly inside AI conversations. The company is targeting $2.5 billion in ad revenue this year and $100 billion annually by 2030. OpenAI insists ads will not influence ChatGPT's organic responses — a claim that will face scrutiny. Partners include Dentsu, WPP, Publicis, Adobe, and Criteo.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--lavender);">
-    <div class="story-headline">Governments Now Testing Frontier AI Before Public Release</div>
-    <div class="story-body">
-      <p>US government scientists are now testing unreleased AI systems from major labs for cybersecurity, biosecurity, and misuse vulnerabilities. Companies are providing stripped-down model variants. Previous evaluations uncovered prompt manipulation and system bypass vulnerabilities later patched. A clear signal that the "move fast" era of AI deployment is giving way to something more regulated.</p>
+      <p>ChatGPT Pro subscribers now have Plaid integration connecting accounts at 12,000+ institutions. The feature surfaces spending, portfolios, subscriptions and payments for over 200 million users who already ask ChatGPT financial questions monthly. Data removed within 30 days per user settings. This marks AI moving from advisor to participant in personal finance.</p>
     </div>
   </div>
 </section>
 
 <!-- ARTS -->
 <section class="section" id="arts">
-  <div class="section-header">
-    <span class="section-icon">🎭</span>
-    <span class="section-title">Arts & Culture — Barcelona</span>
-  </div>
+  <div class="section-header"><span class="section-icon">🎭</span><span class="section-title">Arts & Culture</span></div>
 
-  <div class="story" style="--accent: var(--gold);">
-    <span class="story-tag tag-culture">Opens Today</span>
-    <div class="story-headline">CaixaForum: "Out of Focus — A Different Vision of Art" Opens May 21</div>
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-culture">Barcelona · This Weekend</span>
+    <div class="story-headline">Italian Local Elections, Fira Modernista Next Weekend, Museums Night Saturday</div>
     <div class="story-body">
-      <p>A new exhibition opens today at CaixaForum Barcelona, running through September 27. Also on now: "At Matisse's" featuring works from the Centre Pompidou collection (until August 16) — a rare opportunity to see the Matisse holdings in Barcelona. Both at CaixaForum.</p>
+      <p>Rome's Museum Night takes place Saturday May 23 — free late-night access across the city's museums. Barcelona's Fira Modernista (dedicated this year to Àngel Guimerà) opens May 29–31. Barcelona remains World Capital of Architecture 2026, with 1,500+ events through December.</p>
     </div>
   </div>
 
-  <div class="story" style="--accent: var(--gold);">
-    <span class="story-tag tag-culture">This Weekend</span>
-    <div class="story-headline">Bad Bunny at Estadi Olímpic — Saturday May 23</div>
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-culture">Obituary</span>
+    <div class="story-headline">Teatro Valle, Rome: Historic Theatre to Reopen After Restoration</div>
     <div class="story-body">
-      <p>DeBÍ TiRAR MáS FOToS World Tour lands in Barcelona this Saturday (8pm, Estadi Olímpic Lluis Companys). Expect significant metro and traffic disruption around Montjuïc from early afternoon.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent: var(--gold);">
-    <span class="story-tag tag-culture">May 29–31</span>
-    <div class="story-headline">Fira Modernista — Dedicated to Àngel Guimerà</div>
-    <div class="story-body">
-      <p>The 18th edition of the Fira Modernista takes place next weekend, dedicated to the poet and playwright Àngel Guimerà. Barcelona remains World Capital of Architecture 2026 throughout the year, with 1,500+ events running until December.</p>
+      <p>Rome's Teatro Valle — one of Italy's oldest theatres, built in 1727 — is set to reopen following a major restoration. The venue had been occupied by artists and activists for years; its return to programming is a significant moment for Italian theatre culture.</p>
     </div>
   </div>
 </section>
 
 <div class="rule"></div>
-
-<div class="sources">
-  Sources consulted: Reuters (C) · AP (L) · Al Jazeera (C) · ANSA (C) · Euronews (C) · The Local Italy · CNN · Times of Israel · Washington Post · Irish Times · Gulf News · ScienceDaily · Nature · Nature Human Behaviour · Journal of Neuroscience · AI Weekly · MarketingProfs · euroweeklynews · The Olive Press · democrata.es · barcelona.com
-</div>
-
+<div class="sources">Sources: NPR · PBS NewsHour · Al Jazeera · Reuters · ANSA · Euronews · TechCrunch · CNBC · Axios · ScienceDaily · Wanted in Rome · EINPresswire · NeuralBuddies</div>
 </div>
 </body>
 </html>
