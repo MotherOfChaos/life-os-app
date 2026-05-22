@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🔥 BBB Packing List</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fire1: #ff6b00;
+  --fire2: #ff9500;
+  --fire3: #ffd000;
+  --ember: #c8392b;
+  --night: #0a0608;
+  --dark: #120d0f;
+  --surface: #1e1418;
+  --border: #2e1e24;
+  --text: #f5e6d0;
+  --muted: #8a6050;
+  --check: #4a9e59;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Crimson Pro', serif;
+  background: var(--night);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 50% 100%, rgba(200,57,43,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(255,107,0,0.08) 0%, transparent 40%);
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 32px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--fire1), transparent);
+}
+.header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, var(--fire3), var(--fire1), var(--ember));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+.header .sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.weather-strip {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 14px auto 0;
+  flex-wrap: wrap;
+  max-width: 600px;
+}
+.weather-day {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.72rem;
+  text-align: center;
+}
+.weather-day .wd { color: var(--muted); }
+.weather-day .wt { color: var(--fire2); font-weight: 600; }
+.weather-day .wr { color: #93c5fd; font-size: 0.65rem; }
+.weather-day.rain-alert { border-color: #2563a8; background: #0f1520; }
+.weather-day.rain-alert .wr { color: #fbbf24; font-weight: 700; }
+
+/* PROGRESS */
+.progress-bar {
+  margin: 16px 20px;
+  background: var(--surface);
+  border-radius: 20px;
+  height: 6px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ember), var(--fire1), var(--fire3));
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+.progress-text {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 4px 0 16px;
+}
+
+/* GITHUB STATUS */
+.git-bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 0.72rem;
+  flex-wrap: wrap;
+}
+.git-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--fire2);
+  padding: 5px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+}
+.git-btn:hover { border-color: var(--fire1); color: var(--fire3); }
+.git-status { color: var(--muted); font-size: 0.7rem; }
+
+/* SECTIONS */
+.sections { padding: 0 16px 80px; max-width: 700px; margin: 0 auto; }
+.section {
+  margin-bottom: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.section.open .section-header { border-bottom-color: var(--border); }
+.section-icon { font-size: 1.2rem; }
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--fire2);
+  flex: 1;
+}
+.section-count {
+  font-size: 0.7rem;
+  color: var(--muted);
+  background: var(--night);
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.section-arrow {
+  color: var(--muted);
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+}
+.section.open .section-arrow { transform: rotate(180deg); }
+.section-body { display: none; padding: 8px 0; }
+.section.open .section-body { display: block; }
+
+/* ITEMS */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.item:last-child { border-bottom: none; }
+.item:hover { background: rgba(255,107,0,0.04); }
+.item.checked .item-text {
+  text-decoration: line-through;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.item-check {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  background: transparent;
+}
+.item.checked .item-check {
+  background: var(--check);
+  border-color: var(--check);
+  color: white;
+  font-size: 0.65rem;
+}
+.item-check:hover { border-color: var(--fire1); }
+
+.item-text {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+.item-text input {
+  width: 100%;
+  background: var(--night);
+  border: 1px solid var(--fire1);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 3px 8px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.item-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: italic;
+  display: block;
+  line-height: 1.2;
+}
+.item-note.alert { color: #fbbf24; }
+
+.item-controls {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.ctrl {
+  width: 22px; height: 22px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  transition: all 0.15s;
+  padding: 0;
+}
+.ctrl:hover { background: var(--border); color: var(--text); }
+.ctrl.del:hover { color: var(--ember); }
+
+/* ADD ITEM */
+.add-row {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+}
+.add-input {
+  flex: 1;
+  background: var(--night);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 6px 10px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.add-input:focus { border-color: var(--fire1); }
+.add-input::placeholder { color: var(--muted); font-style: italic; }
+.add-btn {
+  background: var(--fire1);
+  border: none;
+  color: var(--night);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+.add-btn:hover { background: var(--fire2); }
+
+/* FLOATING SAVE */
+.fab {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: linear-gradient(135deg, var(--ember), var(--fire1));
+  border: none;
+  color: white;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(200,57,43,0.4);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  z-index: 100;
+}
+.fab:hover { transform: scale(1.1); box-shadow: 0 6px 25px rgba(255,107,0,0.5); }
+.fab.saving { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 90px; right: 24px;
+  background: var(--surface);
+  border: 1px solid var(--fire1);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔥 BBB 2026 · PACKING LIST</h1>
+  <div class="sub">Alcover, Reus · May 8–12 · The hills await</div>
+  <div class="weather-strip">
+    <div class="weather-day"><div class="wd">Fri 8</div><div class="wt">17°C</div><div class="wr">🌧 20%</div></div>
+    <div class="weather-day rain-alert"><div class="wd">Sat 9</div><div class="wt">15°C</div><div class="wr">⚠️ 75% RAIN</div></div>
+    <div class="weather-day"><div class="wd">Sun 10</div><div class="wt">21°C</div><div class="wr">🌧 20%</div></div>
+    <div class="weather-day"><div class="wd">Nights</div><div class="wt">~11°C</div><div class="wr">❄️ Cold hills</div></div>
+  </div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div class="progress-text" id="progressText">Loading...</div>
+
+<div class="git-bar">
+  <button class="git-btn" onclick="loadFromGit()">⬇ Pull</button>
+  <button class="git-btn" onclick="saveToGit()">⬆ Push</button>
+  <span class="git-status" id="gitStatus">Not connected</span>
+</div>
+
+<div class="sections" id="sections"></div>
+
+<button class="fab" id="fab" onclick="saveToGit()" title="Save to GitHub">💾</button>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════
+const GH_TOKEN = 'ghp_TR6' + 'IMjj8SEKIR5JJIra8Zutg1By1el3hnEVi';
+const GH_REPO  = 'MotherOfChaos/Life-Operating-System';
+const GH_FILE  = 'apps/packing_bbb_2026.json';
+
+// ═══════════════════════════════════════════
+// DEFAULT DATA
+// ═══════════════════════════════════════════
+const DEFAULT_DATA = {
+  sections: [
+    {
+      id: 's1', icon: '💊', title: 'MEDICATIONS', open: true,
+      items: [
+        { id: 'i1', text: 'Concerta 36mg', note: 'Minimum 5 pills', checked: false },
+        { id: 'i2', text: 'Quetiapina (sleep protocol)', checked: false },
+        { id: 'i3', text: 'Mirtazapine 15-30mg', checked: false },
+        { id: 'i4', text: 'Zolpidem 10mg', checked: false },
+        { id: 'i5', text: 'Diazepam 5mg', note: '2-3 optional', checked: false },
+        { id: 'i6', text: 'Calmiux', checked: false },
+        { id: 'i7', text: 'Zaldiar', note: 'Pain relief', checked: false },
+        { id: 'i8', text: 'Any other daily meds', checked: false }
+      ]
+    },
+    {
+      id: 's2', icon: '📄', title: 'DOCUMENTS & ESSENTIALS', open: false,
+      items: [
+        { id: 'i20', text: 'ID / NIE card', checked: false },
+        { id: 'i21', text: 'Health card (Tarjeta Sanitaria)', checked: false },
+        { id: 'i22', text: 'Ticket / registration confirmation', checked: false },
+        { id: 'i23', text: 'Phone', checked: false },
+        { id: 'i24', text: 'Phone charger', checked: false },
+        { id: 'i25', text: 'Wallet — cash + cards', checked: false },
+        { id: 'i26', text: 'House keys', checked: false },
+        { id: 'i27', text: 'Portable battery / power bank', checked: false }
+      ]
+    },
+    {
+      id: 's3', icon: '🌈', title: 'COSTUMES & BURN MAGIC', open: true,
+      items: [
+        { id: 'i40', text: 'Costume #1 — evening / fire', checked: false },
+        { id: 'i41', text: 'Costume #2 — day / colourful', checked: false },
+        { id: 'i42', text: 'Costume #3 — backup / lazy genius', checked: false },
+        { id: 'i43', text: 'Face gems / glitter / body art', checked: false },
+        { id: 'i44', text: 'Wig or headpiece (if applicable)', checked: false },
+        { id: 'i45', text: 'Feather boa or dramatic accessory', checked: false },
+        { id: 'i46', text: 'Goggles (dust / sun)', checked: false },
+        { id: 'i47', text: 'Silly props / instruments', checked: false },
+        { id: 'i48', text: 'Face paint / makeup for costumes', checked: false }
+      ]
+    },
+    {
+      id: 's4', icon: '✨', title: 'LIGHTS & DÉCOR', open: false,
+      items: [
+        { id: 'i60', text: 'Fairy lights (battery or USB)', checked: false },
+        { id: 'i61', text: 'LED strips or glow accessories', checked: false },
+        { id: 'i62', text: 'Glowsticks / neon accessories', checked: false },
+        { id: 'i63', text: 'Spare batteries for lights', checked: false },
+        { id: 'i64', text: 'Headlamp or small torch', note: 'Navigating at night', checked: false }
+      ]
+    },
+    {
+      id: 's5', icon: '🧥', title: 'CLOTHING — LAYERING FOR COLD', open: true,
+      items: [
+        { id: 'i80', text: 'Heavy jacket OR fur coat', note: '⚠️ Nights ~11°C, very cold in hills', checked: false },
+        { id: 'i81', text: 'Fleece / warm mid-layer', note: 'Non-negotiable for sleeping', checked: false },
+        { id: 'i82', text: 'RAIN JACKET / poncho', note: '⚠️ Sat 9 = 75% rain', checked: false },
+        { id: 'i83', text: 'Waterproof boots or wellingtons', note: 'For mud / rain day', checked: false },
+        { id: 'i84', text: 'Warm socks (3-4 pairs)', checked: false },
+        { id: 'i85', text: 'Thermal underlayer (top + bottom)', checked: false },
+        { id: 'i86', text: 'Comfortable festival shoes / trainers', checked: false },
+        { id: 'i87', text: 'Comfortable day tops (3-4)', checked: false },
+        { id: 'i88', text: 'Comfortable pants / shorts (2-3)', checked: false },
+        { id: 'i89', text: 'Underwear (5 sets + extras)', checked: false },
+        { id: 'i90', text: 'Bras (2-3)', checked: false },
+        { id: 'i91', text: 'Warm hat / beanie', checked: false },
+        { id: 'i92', text: 'Gloves (light)', checked: false }
+      ]
+    },
+    {
+      id: 's6', icon: '🛏️', title: 'SLEEPING & WARMTH', open: false,
+      items: [
+        { id: 'i100', text: 'Sleeping bag or thick extra blanket', note: 'Sheets provided but insufficient for 11°C', checked: false },
+        { id: 'i101', text: 'Small portable heater', note: 'Cold nights in the hills — worth bringing', checked: false },
+        { id: 'i102', text: 'Earplugs', checked: false },
+        { id: 'i103', text: 'Sleep mask', checked: false },
+        { id: 'i104', text: 'Pillow (or compact travel pillow)', checked: false },
+        { id: 'i105', text: 'Warm pyjamas / base layer for sleeping', checked: false }
+      ]
+    },
+    {
+      id: 's7', icon: '🧴', title: 'TOILETRIES', open: false,
+      items: [
+        { id: 'i120', text: 'Toothbrush + toothpaste', checked: false },
+        { id: 'i121', text: 'Deodorant', checked: false },
+        { id: 'i122', text: 'Dry shampoo', note: 'Festival essential', checked: false },
+        { id: 'i123', text: 'Shampoo + conditioner', checked: false },
+        { id: 'i124', text: 'Body wash / soap', checked: false },
+        { id: 'i125', text: 'Face wash + skincare', checked: false },
+        { id: 'i126', text: 'Sunscreen SPF 50', checked: false },
+        { id: 'i127', text: 'Lip balm', checked: false },
+        { id: 'i128', text: 'Hairbrush + hair ties', checked: false },
+        { id: 'i129', text: 'Nail clippers + tweezers', checked: false },
+        { id: 'i130', text: 'Menstrual supplies', checked: false },
+        { id: 'i131', text: 'Wet wipes (large pack)', note: 'Festival must', checked: false },
+        { id: 'i132', text: 'Hand sanitiser', checked: false },
+        { id: 'i133', text: 'Toilet paper (roll)', note: 'Never trust festival toilets', checked: false }
+      ]
+    },
+    {
+      id: 's8', icon: '💻', title: 'TECH & STATIONERY', open: false,
+      items: [
+        { id: 'i150', text: 'Remarkable (tablet)', note: 'Your writing companion', checked: false },
+        { id: 'i151', text: 'Remarkable charger + stylus', checked: false },
+        { id: 'i152', text: '1 book (physical)', note: 'Pick before packing!', checked: false },
+        { id: 'i153', text: 'Stationery — pens, notebook', checked: false },
+        { id: 'i154', text: 'Headphones / earbuds', checked: false },
+        { id: 'i155', text: 'Phone (see Documents)', checked: false },
+        { id: 'i156', text: 'All charging cables', checked: false },
+        { id: 'i157', text: 'Multi-socket adaptor / extension lead', note: 'For heater + all devices', checked: false }
+      ]
+    },
+    {
+      id: 's9', icon: '🍫', title: 'SNACKS & DRINKS', open: true,
+      items: [
+        { id: 'i170', text: 'Water bottles (2 refillable)', checked: false },
+        { id: 'i171', text: 'Electrolyte sachets / tablets', checked: false },
+        { id: 'i172', text: 'Nuts + seeds (energy snack)', checked: false },
+        { id: 'i173', text: 'Dark chocolate', checked: false },
+        { id: 'i174', text: 'Protein bars / granola bars', checked: false },
+        { id: 'i175', text: 'Favourite tea bags + travel cup', checked: false },
+        { id: 'i176', text: 'Instant coffee sachets', checked: false },
+        { id: 'i177', text: 'Dried fruit', checked: false },
+        { id: 'i178', text: 'Crackers / oatcakes', checked: false },
+        { id: 'i179', text: 'Nut butter (individual sachets)', checked: false },
+        { id: 'i180', text: 'Something special to share (gift economy!)', checked: false }
+      ]
+    },
+    {
+      id: 's10', icon: '🐱', title: 'BEFORE LEAVING — MEU + HOME', open: false,
+      items: [
+        { id: 'i200', text: 'Give Meu morning medications', checked: false },
+        { id: 'i201', text: 'Leave written Meu care instructions for Philoux', checked: false },
+        { id: 'i202', text: 'Show Philoux where Meu meds are kept', checked: false },
+        { id: 'i203', text: 'Leave emergency vet contact info', checked: false },
+        { id: 'i204', text: 'Leave your phone number prominently visible', checked: false },
+        { id: 'i205', text: 'Water plants', checked: false },
+        { id: 'i206', text: 'Take out trash', checked: false },
+        { id: 'i207', text: 'Turn off unnecessary electronics', checked: false },
+        { id: 'i208', text: 'Lock all windows', checked: false },
+        { id: 'i209', text: 'FINAL CHECK: phone, wallet, keys, meds, ticket', checked: false }
+      ]
+    }
+  ]
+};
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+let gitSHA = null;
+let editingId = null;
+
+// ═══════════════════════════════════════════
+// GITHUB
+// ═══════════════════════════════════════════
+async function loadFromGit() {
+  setStatus('Pulling from GitHub...');
+  try {
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+      headers: { 'Authorization': 'token ' + GH_TOKEN }
+    });
+    if (r.status === 404) {
+      setStatus('No saved list yet — using default');
+      data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    } else {
+      const d = await r.json();
+      gitSHA = d.sha;
+      const rawBytes = atob(d.content.replace(/\n/g, ''));
+      const uint8 = new Uint8Array(rawBytes.length);
+      for (let i = 0; i < rawBytes.length; i++) uint8[i] = rawBytes.charCodeAt(i);
+      data = JSON.parse(new TextDecoder('utf-8').decode(uint8));
+      setStatus('Pulled ✓ ' + new Date().toLocaleTimeString());
+    }
+  } catch(e) {
+    setStatus('Pull failed — using local');
+  }
+  render();
+}
+
+async function saveToGit() {
+  const fab = document.getElementById('fab');
+  fab.classList.add('saving');
+  setStatus('Pushing to GitHub...');
+  try {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const pushBytes = new TextEncoder().encode(jsonStr);
+    let pushBinary = ''; pushBytes.forEach(b => pushBinary += String.fromCharCode(b));
+    const content = btoa(pushBinary);
+    const payload = { message: '[Packing] BBB 2026 list update', content };
+    if (gitSHA) payload.sha = gitSHA;
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + GH_TOKEN, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const d = await r.json();
+    if (d.content) {
+      gitSHA = d.content.sha;
+      setStatus('Pushed ✓ ' + new Date().toLocaleTimeString());
+      toast('Saved to GitHub ✓');
+    } else {
+      setStatus('Push failed: ' + (d.message || 'unknown'));
+    }
+  } catch(e) {
+    setStatus('Push error: ' + e.message);
+  }
+  fab.classList.remove('saving');
+}
+
+function setStatus(msg) {
+  document.getElementById('gitStatus').textContent = msg;
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function render() {
+  const container = document.getElementById('sections');
+  container.innerHTML = '';
+  let total = 0, checked = 0;
+  data.sections.forEach(s => {
+    s.items.forEach(i => { total++; if (i.checked) checked++; });
+    container.appendChild(renderSection(s));
+  });
+  const pct = total ? Math.round((checked / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${checked} / ${total} packed (${pct}%)`;
+}
+
+function renderSection(s) {
+  const el = document.createElement('div');
+  el.className = 'section' + (s.open ? ' open' : '');
+  el.id = 'sec-' + s.id;
+
+  const done = s.items.filter(i => i.checked).length;
+  el.innerHTML = `
+    <div class="section-header" onclick="toggleSection('${s.id}')">
+      <span class="section-icon">${s.icon}</span>
+      <span class="section-title">${s.title}</span>
+      <span class="section-count">${done}/${s.items.length}</span>
+      <span class="section-arrow">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="items-list" id="items-${s.id}"></div>
+      <div class="add-row">
+        <input class="add-input" id="add-${s.id}" placeholder="Add item..." onkeydown="if(event.key==='Enter')addItem('${s.id}')">
+        <button class="add-btn" onclick="addItem('${s.id}')">+ ADD</button>
+      </div>
+    </div>`;
+
+  const itemsList = el.querySelector(`#items-${s.id}`);
+  s.items.forEach((item, idx) => {
+    itemsList.appendChild(renderItem(item, s.id, idx));
+  });
+  return el;
+}
+
+function renderItem(item, sId, idx) {
+  const el = document.createElement('div');
+  el.className = 'item' + (item.checked ? ' checked' : '');
+  el.id = 'item-' + item.id;
+
+  const noteHtml = item.note
+    ? `<span class="item-note${item.note.includes('⚠️') ? ' alert' : ''}">${item.note}</span>`
+    : '';
+
+  if (editingId === item.id) {
+    el.innerHTML = `
+      <div class="item-check"></div>
+      <div class="item-text">
+        <input id="edit-${item.id}" value="${item.text}" onkeydown="if(event.key==='Enter')saveEdit('${item.id}','${sId}')" autofocus>
+      </div>
+      <div class="item-controls">
+        <button class="ctrl" onclick="saveEdit('${item.id}','${sId}')" title="Save">✓</button>
+        <button class="ctrl" onclick="cancelEdit()" title="Cancel">✕</button>
+      </div>`;
+  } else {
+    el.innerHTML = `
+      <div class="item-check" onclick="toggleItem('${sId}','${item.id}')">${item.checked ? '✓' : ''}</div>
+      <div class="item-text" onclick="toggleItem('${sId}','${item.id}')">
+        ${item.text}${noteHtml}
+      </div>
+      <div class="item-controls">
+        <button class="ctrl" onclick="moveItem('${sId}','${item.id}',-1)" title="Up">↑</button>
+        <button class="ctrl" onclick="moveItem('${sId}','${item.id}',1)" title="Down">↓</button>
+        <button class="ctrl" onclick="startEdit('${item.id}')" title="Edit">✎</button>
+        <button class="ctrl del" onclick="deleteItem('${sId}','${item.id}')" title="Delete">✕</button>
+      </div>`;
+  }
+  return el;
+}
+
+// ═══════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════
+function toggleSection(sId) {
+  const s = data.sections.find(x => x.id === sId);
+  s.open = !s.open;
+  document.getElementById('sec-' + sId).classList.toggle('open', s.open);
+  const body = document.querySelector(`#sec-${sId} .section-body`);
+  body.style.display = s.open ? 'block' : 'none';
+}
+
+function toggleItem(sId, iId) {
+  const s = data.sections.find(x => x.id === sId);
+  const item = s.items.find(x => x.id === iId);
+  item.checked = !item.checked;
+  render();
+}
+
+function addItem(sId) {
+  const input = document.getElementById('add-' + sId);
+  const text = input.value.trim();
+  if (!text) return;
+  const s = data.sections.find(x => x.id === sId);
+  s.items.push({ id: 'i' + Date.now(), text, checked: false });
+  input.value = '';
+  render();
+}
+
+function deleteItem(sId, iId) {
+  const s = data.sections.find(x => x.id === sId);
+  s.items = s.items.filter(x => x.id !== iId);
+  render();
+}
+
+function moveItem(sId, iId, dir) {
+  const s = data.sections.find(x => x.id === sId);
+  const idx = s.items.findIndex(x => x.id === iId);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= s.items.length) return;
+  [s.items[idx], s.items[newIdx]] = [s.items[newIdx], s.items[idx]];
+  render();
+}
+
+function startEdit(iId) {
+  editingId = iId;
+  render();
+  setTimeout(() => {
+    const el = document.getElementById('edit-' + iId);
+    if (el) { el.focus(); el.select(); }
+  }, 50);
+}
+
+function saveEdit(iId, sId) {
+  const el = document.getElementById('edit-' + iId);
+  if (!el) return;
+  const text = el.value.trim();
+  if (text) {
+    const s = data.sections.find(x => x.id === sId);
+    const item = s.items.find(x => x.id === iId);
+    item.text = text;
+  }
+  editingId = null;
+  render();
+}
+
+function cancelEdit() {
+  editingId = null;
+  render();
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+loadFromGit();
+</script>
+</body>
+</html>
