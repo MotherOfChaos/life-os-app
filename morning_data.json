@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-05-21T10:00:00+02:00",
+  "calendar": {
+    "today": [
+      {
+        "start": "2026-05-21T00:00:00",
+        "title": "\ud83e\uddf4 Salvia mealybug #3 FINAL \u2014 scrub + neem spray",
+        "location": "Can Booty Terrace"
+      },
+      {
+        "start": "2026-05-21T16:45:00",
+        "title": "PHYSIO WITH JAMES"
+      },
+      {
+        "start": "2026-05-21T21:00:00",
+        "title": "BURNING BAR"
+      }
+    ],
+    "tomorrow": [
+      {
+        "start": "2026-05-22T00:00:00",
+        "title": "\ud83c\udf45 Transplant tomatoes \u2014 Wall B",
+        "location": "Can Booty Terrace"
+      },
+      {
+        "start": "2026-05-22T00:00:00",
+        "title": "\u2702\ufe0f Check bolting + \ud83d\udca7 Ash water + \ud83c\udf3f Tea tree + Neem",
+        "location": "Can Booty Terrace"
+      }
+    ],
+    "week": [
+      {
+        "label": "SAT 23",
+        "summary": "\ud83c\udf3f Herb tower planting \u00b7 Lavender tea tree start",
+        "count": 2,
+        "is_today": false
+      },
+      {
+        "label": "SUN 24",
+        "summary": "\u2615 Coffee grounds (09:00) \u00b7 \ud83c\udf45 Cherry tomato transplant (09:00)",
+        "count": 2,
+        "is_today": false
+      },
+      {
+        "label": "MON 25",
+        "summary": "\ud83c\udf45 Trasplantar tomates cherry (09:00)",
+        "count": 1,
+        "is_today": false
+      },
+      {
+        "label": "TUE 26",
+        "summary": "\ud83d\udc8a Vitamin D (16:30) \u00b7 Physio James (16:45)",
+        "count": 2,
+        "is_today": false
+      },
+      {
+        "label": "WED 27",
+        "summary": "\u26a0\ufe0f TRAUMATOLOGO @Cap Montigal\u00e0 (10:30) \u00b7 OLGA (18:00)",
+        "count": 2,
+        "is_today": false
+      },
+      {
+        "label": "THU 28",
+        "summary": "\ud83c\udf3f Transplant basil Wall B",
+        "count": 1,
+        "is_today": false
+      },
+      {
+        "label": "FRI 29",
+        "summary": "\u2702\ufe0f Bolting check \u00b7 \ud83c\udf3f Tea tree + Neem sprays",
+        "count": 3,
+        "is_today": false
+      },
+      {
+        "label": "SAT 30",
+        "summary": "\ud83d\udcb0 Check Seg Soc transfer \u00b7 \ud83e\udd57 First arugula harvest!",
+        "count": 2,
+        "is_today": false
+      }
+    ]
+  },
+  "email_personal": null,
+  "email_teatro": null,
+  "email_note": "Email harvest not available \u2014 Apps Script harvest trigger needed"
+}
