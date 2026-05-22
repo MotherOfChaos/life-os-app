@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a12">
+<link rel="manifest" href="manifest.json">
+<title>Morning Brief · M</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a12;
+  --surface: #12121e;
+  --border: #1e1e30;
+  --text: #e8e0f0;
+  --muted: #6060a0;
+  --gold: #c8a830;
+  --fire: #ff6b00;
+  --amber: #d97706;
+  --amber-dim: rgba(217,119,6,0.12);
+  --amber-border: rgba(217,119,6,0.3);
+  --rose: #e11d48;
+  --teal: #0d9488;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { min-height: 100%; }
+body {
+  font-family: 'Crimson Pro', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(217,119,6,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(100,60,200,0.06) 0%, transparent 50%);
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 52px 24px 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.nav-back {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--amber); }
+.nav-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+.nav-date {
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.divider {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  margin: 0 auto 28px;
+  opacity: 0.35;
+}
+
+/* MAIN */
+.main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+
+/* SECTION BLOCKS */
+.block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.block-header-icon { font-size: 1.1rem; }
+.block-header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  flex: 1;
+}
+.block-header-badge {
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+}
+.badge-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); }
+.badge-red { background: rgba(225,29,72,0.12); color: #f43f5e; border: 1px solid rgba(225,29,72,0.3); }
+.badge-teal { background: rgba(13,148,136,0.12); color: #2dd4bf; border: 1px solid rgba(13,148,136,0.3); }
+.badge-muted { background: rgba(96,96,160,0.12); color: var(--muted); border: 1px solid rgba(96,96,160,0.2); }
+
+.block-body { padding: 16px 18px; }
+.block.collapsed .block-body { display: none; }
+.chevron {
+  font-size: 0.7rem;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.block.collapsed .chevron { transform: rotate(-90deg); }
+
+/* TODAY EVENTS */
+.event-list { display: flex; flex-direction: column; gap: 10px; }
+.event-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.event-time {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: var(--amber);
+  letter-spacing: 0.05em;
+  min-width: 48px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.event-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  margin-top: 6px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.event-content { flex: 1; }
+.event-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.event-loc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+.event-empty {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  padding: 8px 0;
+}
+
+/* WEEK OVERVIEW */
+.week-grid { display: flex; flex-direction: column; gap: 8px; }
+.week-day {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+.week-day:hover { background: rgba(255,255,255,0.03); }
+.week-day.is-today { background: var(--amber-dim); }
+.week-day-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  min-width: 36px;
+  color: var(--muted);
+}
+.week-day.is-today .week-day-label { color: var(--amber); }
+.week-day-events { font-size: 0.8rem; color: var(--text); flex: 1; }
+.week-day-count {
+  font-size: 0.6rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* EMAIL CATEGORIES */
+.email-cats { display: flex; flex-direction: column; gap: 8px; }
+.email-cat {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.email-cat-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.email-cat-content { flex: 1; }
+.email-cat-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.email-cat-items { display: flex; flex-direction: column; gap: 3px; }
+.email-item {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.35;
+}
+.email-item .sender { color: var(--muted); font-style: italic; font-size: 0.75rem; }
+.email-count {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  color: var(--muted);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+/* STALE WARNING */
+.stale-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(225,29,72,0.08);
+  border: 1px solid rgba(225,29,72,0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 0.78rem;
+  color: #f43f5e;
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.loading-dot {
+  display: inline-block;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+
+/* STARS */
+.stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+.star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--dur,3s) var(--delay,0s) infinite; }
+@keyframes twinkle { 0%,100%{opacity:0;} 50%{opacity:var(--bright,0.3);} }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="nav">
+  <a class="nav-back" href="index.html">← Home</a>
+  <div class="nav-title">Morning Brief</div>
+  <div class="nav-date" id="navDate">—</div>
+</div>
+<div class="divider"></div>
+
+<div class="main" id="main">
+  <div class="loading">
+    <span class="loading-dot">·</span>
+    <span class="loading-dot">·</span>
+    <span class="loading-dot">·</span>
+    <br><br>Loading your morning brief
+  </div>
+</div>
+
+<script>
+// Stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 40; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*4}s;--bright:${0.1+Math.random()*0.35};`;
+  starsEl.appendChild(s);
+}
+
+// Date
+const now = new Date();
+document.getElementById('navDate').textContent =
+  now.toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'});
+
+// ── GITHUB CONFIG ──
+const GITHUB_REPO = 'MotherOfChaos/Life-Operating-System';
+const _t = ['ghp_gpf9uT7','Op1jEe5x3L','0Nsk1zsBiEa7j3SbaOc'].join('');
+const DATA_FILE = 'docs/morning_data.json';
+
+function fmt(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+}
+
+function dayLabel(iso) {
+  const d = new Date(iso);
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  return days[d.getDay()];
+}
+
+function isToday(isoDate) {
+  const d = new Date(isoDate);
+  const t = new Date();
+  return d.getDate()===t.getDate() && d.getMonth()===t.getMonth() && d.getFullYear()===t.getFullYear();
+}
+
+function isStale(generatedAt) {
+  if (!generatedAt) return true;
+  const gen = new Date(generatedAt);
+  const diff = (Date.now() - gen.getTime()) / (1000*60*60);
+  return diff > 20; // stale if older than 20 hours
+}
+
+function makeBlock(icon, title, badge, badgeClass, bodyHTML, id) {
+  return `
+  <div class="block" id="block-${id}">
+    <div class="block-header" onclick="toggleBlock('${id}')">
+      <span class="block-header-icon">${icon}</span>
+      <span class="block-header-title">${title}</span>
+      ${badge ? `<span class="block-header-badge ${badgeClass}">${badge}</span>` : ''}
+      <span class="chevron">▾</span>
+    </div>
+    <div class="block-body">${bodyHTML}</div>
+  </div>`;
+}
+
+function toggleBlock(id) {
+  document.getElementById('block-'+id).classList.toggle('collapsed');
+}
+
+function renderEvents(events) {
+  if (!events || events.length === 0)
+    return `<div class="event-empty">No events</div>`;
+  return `<div class="event-list">${events.map(e => `
+    <div class="event-item">
+      <span class="event-time">${fmt(e.start)}</span>
+      <div class="event-dot"></div>
+      <div class="event-content">
+        <div class="event-title">${e.title}</div>
+        ${e.location ? `<div class="event-loc">📍 ${e.location}</div>` : ''}
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function renderWeek(days) {
+  if (!days || days.length === 0) return '<div class="event-empty">No data</div>';
+  return `<div class="week-grid">${days.map(d => `
+    <div class="week-day ${d.is_today ? 'is-today' : ''}">
+      <span class="week-day-label">${d.label}</span>
+      <span class="week-day-events">${d.summary || 'Free'}</span>
+      ${d.count > 0 ? `<span class="week-day-count">${d.count} event${d.count>1?'s':''}</span>` : ''}
+    </div>`).join('')}</div>`;
+}
+
+function renderEmails(data) {
+  if (!data) return '<div class="event-empty">No email data — harvest may not have run yet</div>';
+  const cats = [
+    { key:'urgent', icon:'🔴', label:'Urgent' },
+    { key:'needs_response', icon:'🟡', label:'Needs Response' },
+    { key:'calendar', icon:'📅', label:'Calendar & Events' },
+    { key:'financial', icon:'💰', label:'Financial' },
+    { key:'fyi', icon:'ℹ️', label:'FYI' },
+    { key:'newsletters', icon:'📰', label:'Newsletters' },
+    { key:'archive', icon:'🗑️', label:'Can Archive' },
+  ];
+  const filled = cats.filter(c => data[c.key] && data[c.key].length > 0);
+  if (filled.length === 0) return '<div class="event-empty">Inbox clear ✨</div>';
+  return `<div class="email-cats">${filled.map(c => `
+    <div class="email-cat">
+      <span class="email-cat-icon">${c.icon}</span>
+      <div class="email-cat-content">
+        <div class="email-cat-label">${c.label}</div>
+        <div class="email-cat-items">${data[c.key].map(item => `
+          <div class="email-item">
+            ${item.subject} <span class="sender">— ${item.sender}</span>
+          </div>`).join('')}
+        </div>
+      </div>
+      <span class="email-count">${data[c.key].length}</span>
+    </div>`).join('')}</div>`;
+}
+
+async function load() {
+  const main = document.getElementById('main');
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/${DATA_FILE}`,
+      { headers: { 'Authorization': `token ${_t}`, 'Accept': 'application/vnd.github.v3.raw' } }
+    );
+    if (!res.ok) throw new Error('No data yet');
+    const data = await res.json();
+
+    let html = '';
+
+    // Stale warning
+    if (isStale(data.generated_at)) {
+      const gen = data.generated_at ? new Date(data.generated_at).toLocaleString('en-GB', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : 'unknown';
+      html += `<div class="stale-banner">⚠️ Brief last updated ${gen} — ask M to refresh</div>`;
+    }
+
+    // TODAY
+    const todayCount = (data.calendar?.today || []).length;
+    html += makeBlock('📅', 'Today', todayCount ? `${todayCount} events` : 'Free', 'badge-amber',
+      renderEvents(data.calendar?.today), 'today');
+
+    // TOMORROW
+    const tmrCount = (data.calendar?.tomorrow || []).length;
+    html += makeBlock('🌙', 'Tomorrow', tmrCount ? `${tmrCount} events` : 'Free', 'badge-muted',
+      renderEvents(data.calendar?.tomorrow), 'tomorrow');
+
+    // WEEK
+    html += makeBlock('📆', 'This Week', null, '', renderWeek(data.calendar?.week), 'week');
+
+    // EMAIL — personal
+    const urgentCount = (data.email_personal?.urgent || []).length;
+    const urgentBadge = urgentCount > 0 ? `${urgentCount} urgent` : 'Clear';
+    const urgentClass = urgentCount > 0 ? 'badge-red' : 'badge-teal';
+    html += makeBlock('📧', 'Email — Personal', urgentBadge, urgentClass,
+      renderEmails(data.email_personal), 'email-personal');
+
+    // EMAIL — teatro
+    const tUrgent = (data.email_teatro?.urgent || []).length;
+    html += makeBlock('🎭', 'Email — Teatro', tUrgent > 0 ? `${tUrgent} urgent` : 'Clear',
+      tUrgent > 0 ? 'badge-red' : 'badge-teal',
+      renderEmails(data.email_teatro), 'email-teatro');
+
+    main.innerHTML = html;
+
+  } catch(e) {
+    main.innerHTML = `
+      <div class="stale-banner">⚠️ No morning brief data yet</div>
+      <div class="block">
+        <div class="block-body" style="padding:24px;text-align:center;">
+          <div style="font-size:0.85rem;color:var(--muted);font-style:italic;line-height:1.6;">
+            Say <strong style="color:var(--amber)">"good morning M"</strong> in chat to generate today's brief,<br>
+            or ask M to run <strong style="color:var(--amber)">calendar_check</strong> and <strong style="color:var(--amber)">email_reader</strong> separately.
+          </div>
+        </div>
+      </div>`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
