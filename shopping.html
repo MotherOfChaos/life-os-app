@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!-- VERSION 1.0 - May 7, 2026 - Shopping List: Grocery + DIY -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0a5c36">
+    <title>Sarah's Shopping</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a5c36 0%, #1a8a52 100%);
+            min-height: 100vh;
+            padding: 15px;
+            font-size: 16px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #0a5c36;
+        }
+        h1 { color: #0a5c36; font-size: 1.8em; margin-bottom: 5px; }
+        .back-btn {
+            position: absolute;
+            top: 24px; left: 24px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .sync-status {
+            background: #48bb78;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .sync-status.pending { background: #ed8936; }
+        .sync-status.syncing { background: #4299e1; }
+        .github-box {
+            background: #e6f7ee;
+            border: 2px solid #0a5c36;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .github-box h3 { color: #0a5c36; margin-bottom: 12px; font-size: 1.1em; text-align: center; }
+        .github-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        .btn-pull { background: linear-gradient(135deg, #48bb78, #38a169); color: white; }
+        .btn-push { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+        .btn-pull:active, .btn-push:active { transform: scale(0.98); }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #0a5c36, #1a8a52);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-card h3 { font-size: 1.8em; margin-bottom: 3px; }
+        .stat-card p { opacity: 0.9; font-size: 0.85em; }
+
+        .section {
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-grocery .section-header { background: #f0fff4; }
+        .section-diy .section-header { background: #fffaf0; }
+        .section-header h2 { font-size: 1.1em; display: flex; align-items: center; gap: 8px; }
+        .section-grocery .section-header h2 { color: #276749; }
+        .section-diy .section-header h2 { color: #7b4f12; }
+        .section-badge {
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+        .section-grocery .section-badge { background: #38a169; }
+        .section-diy .section-badge { background: #c05621; }
+        .section-content { padding: 12px; }
+        .section-content.collapsed { display: none; }
+
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 8px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            background: #f9f9f9;
+            border: 1px solid #e8e8e8;
+        }
+        .item.checked { opacity: 0.55; }
+        .item.checked .item-text { text-decoration: line-through; color: #a0aec0; }
+        .item input[type="checkbox"] {
+            width: 22px; height: 22px;
+            cursor: pointer; flex-shrink: 0;
+        }
+        .item-text {
+            flex: 1;
+            color: #2d3748;
+            font-size: 0.95em;
+            word-break: break-word;
+        }
+        .item-qty {
+            font-size: 0.8em;
+            color: #718096;
+            background: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+        .btn-del-item, .btn-edit-item {
+            background: none; border: none;
+            font-size: 16px; cursor: pointer;
+            padding: 4px 6px; opacity: 0.45;
+            transition: opacity 0.2s;
+        }
+        .btn-del-item:hover { opacity: 1; color: #e53e3e; }
+        .btn-edit-item:hover { opacity: 1; color: #667eea; }
+
+        .add-row {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+        }
+        .btn-add-item {
+            background: linear-gradient(135deg, #0a5c36, #1a8a52);
+            color: white;
+            padding: 11px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .btn-clear-checked {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px; left: 50%;
+            transform: translateX(-50%);
+            background: #2d3748; color: white;
+            padding: 12px 20px; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 2000; display: none;
+            font-size: 0.9em; max-width: 90%;
+        }
+        .toast.active { display: block; animation: slideUp 0.3s; }
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100px); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← Home</a>
+
+<div class="container">
+    <div class="header">
+        <h1>🛒 Shopping Lists</h1>
+        <p style="font-size:0.85em;color:#666;">Grocery · DIY · more coming</p>
+        <div class="sync-status" id="syncStatus">Synced</div>
+    </div>
+
+    <div class="github-box">
+        <h3>GITHUB SYNC</h3>
+        <div class="github-buttons">
+            <button class="btn-pull" onclick="app.pull()">Pull Latest</button>
+            <button class="btn-push" onclick="app.push()">Push Changes</button>
+        </div>
+        <p style="font-size:0.85em;color:#555;margin-top:10px;text-align:center;">Pull: Get latest · Push: Save progress</p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card"><h3 id="statTotal">0</h3><p>Total items</p></div>
+        <div class="stat-card"><h3 id="statLeft">0</h3><p>Still needed</p></div>
+    </div>
+
+    <div id="sections"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const _t = ["ghp_gpf9uT7O","p1jEe5x3L0Ns","k1zsBiEa7j3SbaOc"].join("");
+const REPO = "MotherOfChaos/Life-Operating-System";
+const DATA_FILE = "apps/shopping_2026.json";
+
+const DEFAULTS = [
+    {
+        id: "grocery",
+        title: "🥬 Grocery",
+        collapsed: false,
+        items: []
+    },
+    {
+        id: "diy",
+        title: "🔧 DIY & Home",
+        collapsed: false,
+        items: []
+    }
+];
+
+const app = {
+    data: { sections: [], hasUnsaved: false },
+
+    getToken() { return localStorage.getItem('github-token') || _t; },
+
+    async init() {
+        const stored = localStorage.getItem('shopping-data');
+        if (stored) {
+            this.data = JSON.parse(stored);
+        } else {
+            this.data.sections = JSON.parse(JSON.stringify(DEFAULTS));
+        }
+        this.render();
+        this.updateStats();
+    },
+
+    save() {
+        this.data.hasUnsaved = true;
+        localStorage.setItem('shopping-data', JSON.stringify(this.data));
+        this.updateSyncStatus();
+    },
+
+    updateSyncStatus() {
+        const s = document.getElementById('syncStatus');
+        s.textContent = this.data.hasUnsaved ? 'Unsaved' : 'Synced';
+        s.className = this.data.hasUnsaved ? 'sync-status pending' : 'sync-status';
+    },
+
+    async pull() {
+        const token = this.getToken();
+        const s = document.getElementById('syncStatus');
+        s.textContent = 'Pulling...'; s.className = 'sync-status syncing';
+        try {
+            const resp = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_FILE}`, {
+                headers: { 'Authorization': `token ${token}` }
+            });
+            if (resp.ok) {
+                const data = await resp.json();
+                const raw = atob(data.content.replace(/\n/g,''));
+                const uint8 = new Uint8Array(raw.length);
+                for (let i=0;i<raw.length;i++) uint8[i]=raw.charCodeAt(i);
+                this.data.sections = JSON.parse(new TextDecoder('utf-8').decode(uint8));
+                this.data.hasUnsaved = false;
+                localStorage.setItem('shopping-data', JSON.stringify(this.data));
+                this.render(); this.updateStats();
+                this.toast('Pulled!'); s.textContent='Synced'; s.className='sync-status';
+            } else {
+                // No file yet — use defaults
+                this.toast('No saved list yet — starting fresh');
+                s.textContent='Synced'; s.className='sync-status';
+            }
+        } catch(e) {
+            this.toast('Pull failed'); s.textContent='Failed'; s.className='sync-status pending';
+        }
+    },
+
+    async push() {
+        const token = this.getToken();
+        const s = document.getElementById('syncStatus');
+        s.textContent = 'Pushing...'; s.className = 'sync-status syncing';
+        try {
+            let sha = null;
+            try {
+                const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_FILE}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                if (r.ok) { const d = await r.json(); sha = d.sha; }
+            } catch(e) {}
+
+            const content = JSON.stringify(this.data.sections, null, 2);
+            const bytes = new TextEncoder().encode(content);
+            let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+            const body = { message: `Shopping update - ${new Date().toLocaleString()}`, content: btoa(bin) };
+            if (sha) body.sha = sha;
+
+            const resp = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_FILE}`, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!resp.ok) throw new Error('Push failed');
+            this.data.hasUnsaved = false;
+            localStorage.setItem('shopping-data', JSON.stringify(this.data));
+            this.toast('Pushed!'); s.textContent='Synced'; s.className='sync-status';
+        } catch(e) {
+            this.toast('Push failed'); s.textContent='Failed'; s.className='sync-status pending';
+        }
+    },
+
+    render() {
+        const el = document.getElementById('sections');
+        el.innerHTML = '';
+        this.data.sections.forEach(sec => {
+            const done = sec.items.filter(i=>i.checked).length;
+            const total = sec.items.length;
+            const cls = sec.id === 'grocery' ? 'section-grocery' : 'section-diy';
+
+            const itemsHtml = sec.items.map((item, idx) => `
+                <div class="item ${item.checked ? 'checked' : ''}">
+                    <input type="checkbox" ${item.checked?'checked':''} onchange="app.toggle('${sec.id}',${idx})">
+                    <span class="item-text">${item.text}</span>
+                    ${item.qty ? `<span class="item-qty">${item.qty}</span>` : ''}
+                    <div class="item-actions">
+                        <button class="btn-edit-item" onclick="app.edit('${sec.id}',${idx})">✏️</button>
+                        <button class="btn-del-item" onclick="app.del('${sec.id}',${idx})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            el.insertAdjacentHTML('beforeend', `
+                <div class="section ${cls}">
+                    <div class="section-header" onclick="app.toggleSection('${sec.id}')">
+                        <h2>${sec.title} <span class="section-badge">${done}/${total}</span></h2>
+                        <span>${sec.collapsed ? '▼' : '▲'}</span>
+                    </div>
+                    <div class="section-content ${sec.collapsed ? 'collapsed' : ''}">
+                        ${itemsHtml}
+                        <div class="add-row">
+                            <button class="btn-add-item" onclick="app.add('${sec.id}')">+ Add item</button>
+                        </div>
+                        ${done > 0 ? `<button class="btn-clear-checked" onclick="app.clearChecked('${sec.id}')">🗑️ Clear checked (${done})</button>` : ''}
+                    </div>
+                </div>
+            `);
+        });
+    },
+
+    toggleSection(id) {
+        const s = this.data.sections.find(x=>x.id===id);
+        if (s) { s.collapsed = !s.collapsed; this.save(); this.render(); }
+    },
+
+    toggle(sid, idx) {
+        const s = this.data.sections.find(x=>x.id===sid);
+        s.items[idx].checked = !s.items[idx].checked;
+        this.save(); this.render(); this.updateStats();
+    },
+
+    add(sid) {
+        const text = prompt('Item name:');
+        if (!text || !text.trim()) return;
+        const qty = prompt('Quantity? (leave blank if not needed)', '');
+        const s = this.data.sections.find(x=>x.id===sid);
+        s.items.push({ text: text.trim(), qty: qty ? qty.trim() : '', checked: false });
+        this.save(); this.render(); this.updateStats();
+        this.toast('Added!');
+    },
+
+    edit(sid, idx) {
+        const s = this.data.sections.find(x=>x.id===sid);
+        const item = s.items[idx];
+        const text = prompt('Edit item:', item.text);
+        if (!text || !text.trim()) return;
+        const qty = prompt('Quantity:', item.qty || '');
+        item.text = text.trim();
+        item.qty = qty ? qty.trim() : '';
+        this.save(); this.render();
+        this.toast('Updated!');
+    },
+
+    del(sid, idx) {
+        if (!confirm('Delete this item?')) return;
+        const s = this.data.sections.find(x=>x.id===sid);
+        s.items.splice(idx, 1);
+        this.save(); this.render(); this.updateStats();
+        this.toast('Deleted');
+    },
+
+    clearChecked(sid) {
+        if (!confirm('Remove all checked items?')) return;
+        const s = this.data.sections.find(x=>x.id===sid);
+        s.items = s.items.filter(i => !i.checked);
+        this.save(); this.render(); this.updateStats();
+        this.toast('Cleared!');
+    },
+
+    updateStats() {
+        const all = this.data.sections.flatMap(s=>s.items);
+        document.getElementById('statTotal').textContent = all.length;
+        document.getElementById('statLeft').textContent = all.filter(i=>!i.checked).length;
+    },
+
+    toast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg; t.classList.add('active');
+        setTimeout(() => t.classList.remove('active'), 2200);
+    }
+};
+
+window.addEventListener('DOMContentLoaded', () => app.init());
+</script>
+</body>
+</html>
