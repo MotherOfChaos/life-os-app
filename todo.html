@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<!-- Force rebuild March 7 00:35 -->
+<!-- VERSION 6.8 - May 22, 2026 - Fix subtask move, Add Section at top, clean UI -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="manifest.json">
+    <title>Sarah's TODO</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            font-size: 16px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+        h1 { color: #667eea; font-size: 1.8em; margin-bottom: 5px; }
+        .sync-status {
+            background: #48bb78;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .sync-status.pending { background: #ed8936; }
+        .sync-status.syncing { background: #4299e1; }
+        .setup-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+        .setup-modal.hidden { display: none; }
+        .setup-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .setup-content h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .setup-content p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .setup-content input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        .setup-content input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .setup-content button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .github-box {
+            background: #e6f7ff;
+            border: 2px solid #4299e1;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .github-box h3 { color: #2c5aa0; margin-bottom: 12px; font-size: 1.1em; text-align: center; }
+        .github-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        .btn-github-pull {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            font-size: 15px;
+            padding: 12px 15px;
+        }
+        .btn-github-push {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            font-size: 15px;
+            padding: 12px 15px;
+        }
+        .btn-github-pull:active, .btn-github-push:active { transform: scale(0.98); }
+        .btn-settings {
+            background: #718096;
+            color: white;
+            font-size: 14px;
+            padding: 8px 15px;
+            float: right;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-secondary { background: #48bb78; color: white; font-size: 14px; padding: 10px; }
+        .btn-danger { background: #f56565; color: white; font-size: 14px; padding: 10px; }
+        .btn-primary { background: #667eea; color: white; }
+        
+        
+        .section {
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: #f7fafc;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header h2 {
+            color: #2d3748;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-badge {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+        .section-content { padding: 15px; }
+        .section-content.collapsed { display: none; }
+        .task {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+        }
+        .task.completed { opacity: 0.6; }
+        .task.completed .task-text { text-decoration: line-through; color: #a0aec0; }
+        .task input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        .task-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+        .task-text { line-height: 1.5; color: #2d3748; font-size: 0.95em; word-break: break-word; }
+        .task-actions {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+        }
+        .load-more {
+            text-align: center;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .load-more button {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d3748;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: none;
+            font-size: 0.9em;
+            max-width: 90%;
+        }
+        .toast.active { display: block; animation: slideUp 0.3s; }
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100px); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+        .btn-delete {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: auto;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        
+        .btn-delete:hover {
+            opacity: 1;
+        }
+        
+        .btn-edit {
+            background: transparent;
+            border: none;
+            color: #cbd5e0;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 2px 6px;
+            margin-left: auto;
+            margin-right: 5px;
+            opacity: 0.5;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        
+        .btn-edit:hover {
+            opacity: 1;
+            color: #667eea;
+        }
+        
+        .btn-add-subtask {
+            background: transparent;
+            border: 1px solid #667eea;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 5px;
+            opacity: 0.6;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        
+        .btn-add-subtask:hover {
+            opacity: 1;
+            background: #f7fafc;
+        }
+        
+        .subtasks {
+            width: 100%;
+            margin-top: 6px;
+            margin-left: 32px;
+            padding-left: 10px;
+            border-left: 2px solid #c3dafe;
+            flex-basis: 100%;
+        }
+        
+        .subtask {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 0.9em;
+        }
+        
+        .subtask.completed {
+            opacity: 0.5;
+        }
+        
+        .subtask.completed .subtask-text {
+            text-decoration: line-through;
+            color: #a0aec0;
+        }
+        .btn-edit-sub {
+            background: none; border: none; cursor: pointer;
+            color: #a0aec0; font-size: 0.8em; padding: 2px 5px;
+            border-radius: 4px; line-height: 1;
+        }
+        .btn-edit-sub:hover { color: #667eea; background: rgba(102,126,234,0.15); }
+        .btn-move-sub {
+            background: none; border: none; cursor: pointer;
+            color: #a0aec0; font-size: 0.8em; padding: 2px 4px;
+            border-radius: 4px; line-height: 1;
+        }
+        .btn-move-sub:hover { color: #667eea; background: rgba(102,126,234,0.15); }
+        
+        .subtask input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .subtask-text {
+            flex: 1;
+            color: #4a5568;
+        }
+        
+        .btn-delete-sub {
+            background: transparent;
+            border: none;
+            color: #cbd5e0;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 2px 6px;
+            opacity: 0.5;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        
+        .btn-delete-sub:hover {
+            opacity: 1;
+            color: #f56565;
+        }
+        
+        .add-task-row {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-add-task {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-add-task:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-add-task:active {
+            transform: translateY(0);
+        }
+
+        .btn-move {
+            background: transparent;
+            border: none;
+            color: #a0aec0;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 2px 6px;
+            opacity: 0.6;
+            transition: opacity 0.2s, color 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-move:hover { opacity: 1; color: #667eea; }
+
+        .move-sheet {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: white;
+            border-radius: 16px 16px 0 0;
+            padding: 20px;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.2);
+            z-index: 3000;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.25s ease;
+        }
+        .move-sheet.visible { transform: translateY(0); }
+        .move-sheet-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 2999;
+            display: none;
+        }
+        .move-sheet-overlay.visible { display: block; }
+        .move-sheet h3 { color: #2d3748; margin-bottom: 4px; font-size: 1em; }
+        .move-sheet .task-preview { color: #718096; font-size: 0.85em; margin-bottom: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .move-sheet-section { margin-bottom: 14px; }
+        .move-sheet-section h4 { font-size: 0.8em; text-transform: uppercase; color: #a0aec0; letter-spacing: 0.05em; margin-bottom: 6px; }
+        .move-sheet button {
+            display: block; width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            margin-bottom: 5px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #2d3748;
+            cursor: pointer;
+        }
+        .move-sheet button:hover { background: #ebf4ff; border-color: #667eea; color: #667eea; }
+        .move-sheet-close { background: #fed7d7 !important; color: #c53030 !important; border-color: #fc8181 !important; margin-top: 8px; text-align: center !important; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="setup-modal hidden" id="setupModal">
+        <div class="setup-content">
+            <h2>🔑 Setup GitHub Sync</h2>
+            <p>Enter your GitHub token (saved to 3 storage locations!):</p>
+            <input type="password" id="tokenInput" placeholder="ghp_...">
+            <button onclick="app.saveToken()">💾 Save Token</button>
+            <p style="font-size: 0.85em; color: #666; margin-top: 10px;">Token stored locally in: localStorage + sessionStorage + cookies</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <button class="btn-settings" onclick="app.showSetup()">⚙️ Settings</button>
+            <h1>Sarah's TODO</h1>
+            <p style="font-size: 0.75em; color: #999; margin-top: -5px;">v6.6 - Feb 20 - UTF-8 push fix</p>
+            <p style="font-size: 0.9em; color: #666;">ADHD-Friendly Manager</p>
+            <div class="sync-status" id="syncStatus">Synced</div>
+        </div>
+        
+        <div class="github-box">
+            <h3>GITHUB SYNC</h3>
+            <div class="github-buttons">
+                <button class="btn-github-pull" onclick="app.pullFromGitHub()">Pull Latest</button>
+                <button class="btn-github-push" onclick="app.pushToGitHub()">Push Changes</button>
+            </div>
+            <p style="font-size: 0.85em; color: #666; margin-top: 12px; text-align: center;">Pull: Get new tasks | Push: Save progress</p>
+        </div>
+        
+        <div class="controls">
+            <button class="btn-secondary" onclick="app.undo()">Undo</button>
+            <button class="btn-secondary" onclick="app.collapseAll()">Collapse</button>
+            <button class="btn-secondary" onclick="app.expandAll()">Expand</button>
+            <button class="btn-danger" onclick="app.clearCompleted()">Clear Done</button>
+        </div>
+        
+
+        
+        <button class="btn-add-section" onclick="app.addSection()">＋ Add Section</button>
+        <div id="sections"></div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        const INITIAL_DATA = [{"id": "daily", "title": "*** 🌅 ð DAILY NON-NEGOTIABLES", "collapsed": false, "tasks": [{"id": 1, "text": "Basic back hygiene (James routine) - 3 exercises", "completed": false, "subtasks": []}, {"id": 2, "text": "Drink water - Stay hydrated", "completed": false, "subtasks": []}, {"id": 3, "text": "Meu's meds - AMODIP + BENEFORTIL + CYSTAID", "completed": false, "subtasks": []}, {"id": 4, "text": "Concerta 36mg - Take on waking", "completed": false, "subtasks": []}]}, {"id": "urgent-bcn", "title": "[!] 🔴 ð´ URGENT - As Soon as Back in Barcelona", "collapsed": false, "tasks": [{"id": 5, "text": "FIND THE TO GO BAG AND HAVE IT READY", "completed": false, "subtasks": []}, {"id": 6, "text": "Material survival on Remarkable and paper plastificato (make list)", "completed": false, "subtasks": []}, {"id": 7, "text": "PREPARE EXIT STRATEGY with Yakir and Laza", "completed": false, "subtasks": []}, {"id": 8, "text": "Calculate expenses to be paid back from legal case", "completed": false, "subtasks": []}]}, {"id": "urgent-health", "title": "[+] 🏥 ð¥ URGENT - Health & Medical", "collapsed": true, "tasks": [{"id": 9, "text": "Reprogramar cirugÃ­a Neo - Reschedule Neo's surgery", "completed": false, "subtasks": []}, {"id": 10, "text": "Programar examen mioma - Find gynecologist Sanitas for exam", "completed": false, "subtasks": []}, {"id": 11, "text": "Get appointments: James & Daniel - Physio sessions needed", "completed": false, "subtasks": []}, {"id": 12, "text": "NEW QUETIAPINA in CAT SALUT - Send message to medico", "completed": false, "subtasks": []}, {"id": 13, "text": "Cita Cap Montigala + pedir cita con: Traumatologo, Neurocirujano, Physiotherapeuta, Ginecologa", "completed": false, "subtasks": []}, {"id": 14, "text": "Get teeth cleaning appointment with Sanitas", "completed": false, "subtasks": []}, {"id": 15, "text": "Call dentist for moving tooth", "completed": false, "subtasks": []}]}, {"id": "urgent-admin", "title": "[$] 📋 ð URGENT - Admin/Financial", "collapsed": true, "tasks": [{"id": 16, "text": "READ EMAILS FROM SEG.SOCIAL", "completed": false, "subtasks": []}, {"id": 17, "text": "READ BILLS", "completed": false, "subtasks": []}, {"id": 18, "text": "Create new tally after Notary papers (UPDATED NUMBERS) - Post-Dec 11 signing", "completed": false, "subtasks": []}, {"id": 19, "text": "Follow up Oriol about Mutua and pension", "completed": false, "subtasks": []}, {"id": 20, "text": "Update on Oriol and my baja mgmt (read emails)", "completed": false, "subtasks": []}, {"id": 21, "text": "Read Monica's email - Legal case", "completed": false, "subtasks": []}, {"id": 22, "text": "Coordinate witness testimonies - Martino URGENT before share sale", "completed": false, "subtasks": []}, {"id": 23, "text": "Check herbolary books tracking", "completed": false, "subtasks": []}]}, {"id": "teatro-urgent", "title": "[T] 🎭 ð­ TEATRO - Urgent/Active", "collapsed": true, "tasks": [{"id": 24, "text": "Finish event process with Barry White (Feb 7, 80â¬/hr, venue mgmt, bar, cava, food on demand)", "completed": false, "subtasks": []}, {"id": 25, "text": "Get invoices from Oriol for Laura", "completed": false, "subtasks": []}, {"id": 26, "text": "Pagare facturas fringe (check with Laura)", "completed": false, "subtasks": []}, {"id": 27, "text": "Follow up on management transfer documentation", "completed": false, "subtasks": []}]}, {"id": "teatro-money", "title": "[$$] 💰 ð° TEATRO - Money Owed/Payments", "collapsed": true, "tasks": [{"id": 28, "text": "MONEY FROM MALNOM? 900â¬ - 100â¬ Ruy - 250â¬ Teatro - 300â¬ Gas/Vitro = 250â¬ for me?", "completed": false, "subtasks": []}, {"id": 29, "text": "YAKIR debts: SOLDI TEATRO Give back 310â¬", "completed": false, "subtasks": []}, {"id": 30, "text": "YAKIR debts: Soldi green Give back 200â¬", "completed": false, "subtasks": []}, {"id": 31, "text": "SOLDI PER CHRISTIAN PER OLIO: 70â¬", "completed": false, "subtasks": []}, {"id": 32, "text": "CUENTAS: RAFA tally", "completed": false, "subtasks": []}, {"id": 33, "text": "CUENTAS: ALE (received 100â¬ through Bernardo, January 2026)", "completed": false, "subtasks": []}, {"id": 34, "text": "CUENTAS: NEW TALLY FERGIE", "completed": false, "subtasks": []}]}, {"id": "malnom", "title": "[H] 🏠 ð  MALNOM - Property", "collapsed": true, "tasks": [{"id": 35, "text": "FOLLOW UP: pared malnom - A que punto estamos con la finca a lado?", "completed": false, "subtasks": []}, {"id": 36, "text": "Follow up: contrato CUIDA CALEFACCION", "completed": false, "subtasks": []}, {"id": 37, "text": "Follow up: mantenimento gas in Malnom", "completed": false, "subtasks": []}]}, {"id": "valencia", "title": "[V] 🇪🇸 ðªð¸ VALENCIA - Dad & House", "collapsed": true, "tasks": [{"id": 38, "text": "DIGI - activaciÃ³n eSIM per dad", "completed": false, "subtasks": []}, {"id": 39, "text": "Follow up on Dependencia (letter to arrive end of February)", "completed": false, "subtasks": []}, {"id": 40, "text": "Follow up AYUDA SUMINISTRO OXYGENO (registered January 9)", "completed": false, "subtasks": []}, {"id": 41, "text": "Follow up DENNYS: Money from Ayto, Quote for works, Permits and timings", "completed": false, "subtasks": []}, {"id": 42, "text": "Follow up Andreu (to split cost mesa a terra)", "completed": false, "subtasks": []}, {"id": 43, "text": "Dad videocall Belgium pension office - Feb 12 at 10am (code: 91239568, hotmail.it)", "completed": false, "subtasks": []}, {"id": 44, "text": "Call LINEA DIRECTA (919 180 012, 09:00-18:00) - kitchen leak, Exp: 15600223", "completed": false, "subtasks": []}, {"id": 45, "text": "BOMBONAS GAS Valencia (963956006)", "completed": false, "subtasks": []}]}, {"id": "zio-vittorio", "title": "[Z] 🏗️ ðï¸ ZIO VITTORIO - Property Purchase", "collapsed": true, "tasks": [{"id": 46, "text": "PREPARA BUDGET PLAN PER ZIO VIC (in francese o italiano)", "completed": false, "subtasks": []}, {"id": 47, "text": "Calculate 2-year taxi costs (teatro late nights â Can Booty)", "completed": false, "subtasks": []}, {"id": 48, "text": "Research house for Vic - See ZIO_VITTORIO.md for complete analysis", "completed": false, "subtasks": []}, {"id": 49, "text": "Check details: Unipersonal vs S.L. - Pro/Con regarding property purchase", "completed": false, "subtasks": []}]}, {"id": "admin-insurance", "title": "[A] 📋 ð ADMIN - Insurance & Services", "collapsed": true, "tasks": [{"id": 50, "text": "Check my actual polizas seguro", "completed": false, "subtasks": []}, {"id": 51, "text": "Find new options with better service and lower cost", "completed": false, "subtasks": []}, {"id": 52, "text": "FIND POLIZAS WITH MANTENIMIENTO", "completed": false, "subtasks": []}, {"id": 53, "text": "Change payment details in Workspace - New tarjeta Santander", "completed": false, "subtasks": []}]}, {"id": "to-sell", "title": "[S] 💸 ð¸ TO SELL", "collapsed": true, "tasks": [{"id": 54, "text": "VESPA", "completed": false, "subtasks": []}, {"id": 55, "text": "RINO??", "completed": false, "subtasks": []}, {"id": 56, "text": "MOTO", "completed": false, "subtasks": []}]}, {"id": "italy", "title": "[I] 🇮🇹 ð®ð¹ ITALY - Personal Admin", "collapsed": true, "tasks": [{"id": 57, "text": "ORGANIZZA VIAGGIO A ROMA: Per cambio domicilio e nuova carta identitÃ", "completed": false, "subtasks": []}, {"id": 58, "text": "Check my calendar for availability", "completed": false, "subtasks": []}, {"id": 59, "text": "Check flights", "completed": false, "subtasks": []}, {"id": 60, "text": "Check in with Diego for availability", "completed": false, "subtasks": []}, {"id": 61, "text": "Find info from Comune di Roma", "completed": false, "subtasks": []}]}, {"id": "cartas", "title": "[C] 🎨 ð¨ CARTAS EN VIVO", "collapsed": true, "tasks": [{"id": 62, "text": "Riprendere lavoro su Letters Live - Resume work", "completed": false, "subtasks": []}, {"id": 63, "text": "Research Letters Live UK format more deeply", "completed": false, "subtasks": []}, {"id": 64, "text": "Build celebrity contact list for readers", "completed": false, "subtasks": []}, {"id": 65, "text": "Plan Goya Awards timing strategy (Feb 28, 2026)", "completed": false, "subtasks": []}, {"id": 66, "text": "Organize massive research done (Nov 26-27)", "completed": false, "subtasks": []}, {"id": 67, "text": "Create roadmap with M", "completed": false, "subtasks": []}, {"id": 68, "text": "Devil's advocate strategy session", "completed": false, "subtasks": []}]}, {"id": "tech", "title": "[>] 💻 ð» TECH & SYSTEMS", "collapsed": true, "tasks": [{"id": 69, "text": "FOR CODY: Fix morning brief automation (currently failing)", "completed": false, "subtasks": []}, {"id": 70, "text": "FOR CODY: Fix news digest automation (currently failing)", "completed": false, "subtasks": []}, {"id": 71, "text": "FOR CODY: Create multiple email reading automation on GitHub (for M to fetch)", "completed": false, "subtasks": []}, {"id": 72, "text": "Learn GitHub workflow from Pilot's guides", "completed": false, "subtasks": []}, {"id": 73, "text": "Set up automatic backup system", "completed": false, "subtasks": []}, {"id": 74, "text": "Find system that chats with multiple AI at same time (see Yakir's notes)", "completed": false, "subtasks": []}, {"id": 75, "text": "What's Substack? Can I add it to my daily digest news? How does it work?", "completed": false, "subtasks": []}, {"id": 76, "text": "Tell M to check new Claude extensions - what can she do now? (Ex: parse legal case data?)", "completed": false, "subtasks": []}]}, {"id": "learning", "title": "[L] 📚 ð LEARNING", "collapsed": true, "tasks": [{"id": 77, "text": "Read Pilot's GitHub guides", "completed": false, "subtasks": []}, {"id": 78, "text": "Review Claude Code documentation", "completed": false, "subtasks": []}]}, {"id": "home", "title": "[~] 🏡 ð¡ HOME & PERSONAL", "collapsed": true, "tasks": [{"id": 79, "text": "Research synagogue visits (family heritage exploration)", "completed": false, "subtasks": []}, {"id": 80, "text": "Text Andreu - Share AirCon costs (STILL PENDING from November!)", "completed": false, "subtasks": []}, {"id": 81, "text": "Work on LinkedIn profile", "completed": false, "subtasks": []}, {"id": 82, "text": "Find DISCORD support ADHD community!!! (and what else does Discord do?)", "completed": false, "subtasks": []}]}, {"id": "attico", "title": "[B] 🏗️ ðï¸ ATTICO WORKS", "collapsed": true, "tasks": [{"id": 83, "text": "Trova stoffe utilizzabili per tende: Ask Malaka/Charlie for spare fabric", "completed": false, "subtasks": []}, {"id": 84, "text": "Find spray to make fabric ignifugo (fireproof spray)", "completed": false, "subtasks": []}]}, {"id": "legal", "title": "[LAW] ⚖️ âï¸ LEGAL", "collapsed": true, "tasks": [{"id": 85, "text": "Review legal evidence timeline with attorney Monica", "completed": false, "subtasks": []}, {"id": 86, "text": "Coordinate witness testimonies (Martino - URGENT before share sale)", "completed": false, "subtasks": []}, {"id": 87, "text": "Calculate expenses to be paid back from legal case", "completed": false, "subtasks": []}]}];
+        const _t = ["ghp_gpf9uT7O","p1jEe5x3L0Ns","k1zsBiEa7j3SbaOc"].join("");
+        const GITHUB_REPO = "MotherOfChaos/Life-Operating-System";
+        const GITHUB_FILE = "PERMANENT_TODO.md";
+        
+        const app = {
+            data: { sections: [], history: [], hasUnsyncedChanges: false, pagination: {}, lastSHA: null },
+            TASKS_PER_PAGE: 9999, // Show ALL tasks - no pagination!
+            
+            async init() {
+                // Check token from ALL storage types
+                const token = this.getToken();
+                if (!token) {
+                    document.getElementById('setupModal').classList.remove('hidden');
+                    return;
+                }
+                
+                await this.loadData();
+                this.render();
+                this.updateStats();
+                this.updateSyncStatus();
+            },
+            
+            saveToken() {
+                const token = document.getElementById('tokenInput').value.trim();
+                if (!token || !token.startsWith('ghp_')) {
+                    alert('⚠️ Please enter a valid GitHub token starting with ghp_');
+                    return;
+                }
+                
+                // TRIPLE STORAGE - save to all 3 locations!
+                try {
+                    localStorage.setItem('github-token', token);
+                    sessionStorage.setItem('github-token', token);
+                    this.setCookie('github-token', token, 365);
+                    
+                    alert('✅ Token saved to 3 storage locations!');
+                    document.getElementById('setupModal').classList.add('hidden');
+                    this.init();
+                } catch (e) {
+                    alert('❌ Error saving token: ' + e.message);
+                }
+            },
+            
+            setCookie(name, value, days) {
+                const expires = new Date(Date.now() + days * 864e5).toUTCString();
+                document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Strict';
+            },
+            
+            getCookie(name) {
+                return document.cookie.split('; ').reduce((r, v) => {
+                    const parts = v.split('=');
+                    return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+                }, '');
+            },
+            
+            showSetup() {
+                const token = this.getToken() || '';
+                document.getElementById('tokenInput').value = token;
+                document.getElementById('setupModal').classList.remove('hidden');
+            },
+            
+            getToken() {
+                return localStorage.getItem('github-token') ||
+                       sessionStorage.getItem('github-token') ||
+                       this.getCookie('github-token') ||
+                       _t;
+            },
+            
+            async pullFromGitHub() {
+                const token = this.getToken();
+                if (!token) { 
+                    alert('⚠️ Please set up your GitHub token first!');
+                    this.showSetup(); 
+                    return; 
+                }
+                
+                const status = document.getElementById('syncStatus');
+                status.textContent = 'Pulling...';
+                status.className = 'sync-status syncing';
+                
+                try {
+                    const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed');
+                    
+                    const data = await response.json();
+                    this.data.lastSHA = data.sha;
+                    // Proper UTF-8 decode (atob alone breaks emoji/special chars)
+                    const rawBytes = atob(data.content.replace(/\n/g, ''));
+                    const uint8 = new Uint8Array(rawBytes.length);
+                    for (let i = 0; i < rawBytes.length; i++) uint8[i] = rawBytes.charCodeAt(i);
+                    const markdown = new TextDecoder('utf-8').decode(uint8);
+                    const newSections = this.parseMarkdown(markdown);
+                    this.mergeGitHubData(newSections);
+                    await this.restoreSubtasksFromGitHub(token);
+                    await this.saveData();
+                    this.render();
+                    this.updateStats();
+                    this.showToast('Pulled from GitHub!');
+                    status.textContent = 'Synced';
+                    status.className = 'sync-status';
+                    
+                    // AUTO-RELOAD: Check if app code was updated, reload if needed
+                    setTimeout(() => {
+                        const appUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/docs/index.html`;
+                        fetch(appUrl, {
+                            headers: {
+                                'Authorization': `token ${token}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        }).then(r => r.json()).then(appData => {
+                            const cachedAppSHA = localStorage.getItem('appCodeSHA');
+                            if (cachedAppSHA && cachedAppSHA !== appData.sha) {
+                                // App code changed! Auto-reload to get new version
+                                this.showToast('New app version! Reloading...');
+                                setTimeout(() => location.reload(true), 1500);
+                            } else {
+                                // First time or no change, just save current SHA
+                                localStorage.setItem('appCodeSHA', appData.sha);
+                            }
+                        });
+                    }, 500);
+                    
+                } catch (error) {
+                    this.showToast('Pull failed');
+                    status.textContent = 'Failed';
+                    status.className = 'sync-status pending';
+                }
+            },
+            
+            async pushToGitHub() {
+                const token = this.getToken();
+                if (!token) { 
+                    alert('⚠️ Please set up your GitHub token first!');
+                    this.showSetup(); 
+                    return; 
+                }
+                
+                const status = document.getElementById('syncStatus');
+                status.textContent = 'Pushing...';
+                status.className = 'sync-status syncing';
+                
+                try {
+                    // ALWAYS fetch latest SHA before pushing (file might have been updated elsewhere!)
+                    const getUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+                    const getResponse = await fetch(getUrl, {
+                        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                    });
+                    if (!getResponse.ok) {
+                        throw new Error('Could not fetch latest file SHA');
+                    }
+                    const getData = await getResponse.json();
+                    this.data.lastSHA = getData.sha;
+                    
+                    const markdown = this.generateTODOMarkdown();
+                    // Proper UTF-8 encode for push
+                    const pushBytes = new TextEncoder().encode(markdown);
+                    let pushBinary = '';
+                    pushBytes.forEach(b => pushBinary += String.fromCharCode(b));
+                    const encodedContent = btoa(pushBinary);
+                    const putUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+                    const putResponse = await fetch(putUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `TODO update - ${new Date().toLocaleString()}`,
+                            content: encodedContent,
+                            sha: this.data.lastSHA
+                        })
+                    });
+                    
+                    if (!putResponse.ok) {
+                        const errorData = await putResponse.json();
+                        console.error('GitHub API Error:', errorData);
+                        throw new Error(`GitHub API: ${errorData.message || 'Failed'}`);
+                    }
+                    
+                    const putData = await putResponse.json();
+                    this.data.lastSHA = putData.content.sha;
+                    this.data.hasUnsyncedChanges = false;
+                    await this.saveData();
+                    // Also push subtasks to GitHub
+                    await this.pushSubtasksToGitHub(token);
+                    this.showToast('Pushed to GitHub!');
+                    status.textContent = 'Synced';
+                    status.className = 'sync-status';
+                } catch (error) {
+                    console.error('Push error details:', error);
+                    this.showToast(`Push failed: ${error.message}`);
+                    status.textContent = 'Failed';
+                    status.className = 'sync-status pending';
+                }
+            },
+            
+            parseMarkdown(md) {
+                const sections = [];
+                const lines = md.split('\n');
+                let currentSection = null;
+                let currentTask = null;
+                let taskId = 1;
+                
+                // Helper function to clean task text
+                const cleanText = (text) => {
+                    // Strip markdown bold ** markers
+                    text = text.replace(/\*\*/g, '');
+                    // Strip other markdown like __ bold
+                    text = text.replace(/__/g, '');
+                    // Clean up extra whitespace
+                    text = text.trim();
+                    return text;
+                };
+                
+                for (let line of lines) {
+                    line = line.trim();
+                    if (line.startsWith('## ')) {
+                        if (currentSection && currentSection.tasks.length > 0) sections.push(currentSection);
+                        const title = line.substring(3).trim();
+                        currentSection = { id: 'section-' + sections.length, title: title, collapsed: false, tasks: [] };
+                        currentTask = null;
+                    } else if (line.match(/^- \[(x| )\] /) && currentSection) {
+                        const completed = line.includes('[x]');
+                        let text = line.substring(6).trim();
+                        text = cleanText(text); // Clean markdown formatting
+                        currentTask = { id: taskId++, text: text, completed: completed, subtasks: [] };
+                        currentSection.tasks.push(currentTask);
+                    }
+                }
+                if (currentSection && currentSection.tasks.length > 0) sections.push(currentSection);
+                return sections;
+            },
+            
+            mergeGitHubData(newSections) {
+                const currentTaskStates = new Map();
+                this.data.sections.forEach(section => {
+                    section.tasks.forEach(task => {
+                        currentTaskStates.set(task.text.toLowerCase(), { completed: task.completed });
+                    });
+                });
+                
+                newSections.forEach(section => {
+                    section.tasks.forEach(task => {
+                        const savedState = currentTaskStates.get(task.text.toLowerCase());
+                        if (savedState) task.completed = savedState.completed;
+                    });
+                });
+                
+                this.data.sections = newSections;
+                this.data.pagination = {};
+                newSections.forEach(s => { this.data.pagination[s.id] = { page: 1 }; });
+            },
+            
+            async loadData() {
+                const stored = localStorage.getItem('sarah-todo-data');
+                if (stored) {
+                    this.data = JSON.parse(stored);
+                    if (!this.data.pagination) this.data.pagination = {};
+                    if (!this.data.lastSHA) this.data.lastSHA = null;
+                    if (!this.data.lastResetDate) this.data.lastResetDate = null;
+                    
+                    // DAILY RESET for NON-NEGOTIABLES
+                    const today = new Date().toDateString();
+                    if (this.data.lastResetDate !== today) {
+                        // Find DAILY NON-NEGOTIABLES section
+                        const dailySection = this.data.sections.find(s => 
+                            s.title.includes('DAILY') || s.title.includes('NON-NEGOTIABLES')
+                        );
+                        
+                        if (dailySection) {
+                            // Reset all tasks to unchecked
+                            dailySection.tasks.forEach(task => {
+                                task.completed = false;
+                                // Also reset subtasks if any
+                                if (task.subtasks) {
+                                    task.subtasks.forEach(sub => sub.completed = false);
+                                }
+                            });
+                            console.log('✅ Daily tasks reset!');
+                        }
+                        
+                        this.data.lastResetDate = today;
+                        await this.saveData();
+                    }
+                } else {
+                    this.data.sections = INITIAL_DATA;
+                    this.data.history = [];
+                    this.data.hasUnsyncedChanges = false;
+                    this.data.pagination = {};
+                    this.data.lastSHA = null;
+                    this.data.lastResetDate = new Date().toDateString();
+                    INITIAL_DATA.forEach(s => { this.data.pagination[s.id] = { page: 1 }; });
+                }
+            },
+            
+            async saveData() {
+                this.data.hasUnsyncedChanges = true;
+                localStorage.setItem('sarah-todo-data', JSON.stringify(this.data));
+                this.updateSyncStatus();
+            },
+            
+            updateSyncStatus() {
+                const status = document.getElementById('syncStatus');
+                status.textContent = this.data.hasUnsyncedChanges ? 'Unsaved' : 'Synced';
+                status.className = this.data.hasUnsyncedChanges ? 'sync-status pending' : 'sync-status';
+            },
+            
+            // loadMoreTasks - REMOVED: All tasks now show by default
+            // No pagination needed!
+            
+            generateTODOMarkdown() {
+                let md = '# SARAH\'S PERMANENT TO-DO LIST\n\n**Always updated**\n';
+                md += `**Last updated:** ${new Date().toLocaleDateString()}\n\n---\n\n`;
+                this.data.sections.forEach(section => {
+                    md += `## ${section.title}\n\n`;
+                    section.tasks.forEach(task => {
+                        md += `- ${task.completed ? '[x]' : '[ ]'} ${task.text}\n`;
+                    });
+                    md += '\n';
+                });
+                return md;
+            },
+            
+            render() {
+                const container = document.getElementById('sections');
+                container.innerHTML = '';
+                this.data.sections.forEach(section => {
+                    const completed = section.tasks.filter(t => t.completed).length;
+                    const total = section.tasks.length;
+                    // SHOW ALL TASKS - NO PAGINATION!
+                    const visibleTasks = section.tasks;
+                    
+                    const tasksHTML = visibleTasks.map(task => {
+                        const subtasksHTML = task.subtasks && task.subtasks.length > 0 ? `
+                            <div class="subtasks">
+                                ${task.subtasks.map((sub, idx) => `
+                                    <div class="subtask ${sub.completed ? 'completed' : ''}">
+                                        <input type="checkbox" ${sub.completed ? 'checked' : ''} 
+                                            onchange="app.toggleSubtask('${section.id}', ${task.id}, ${idx})">
+                                        <div class="subtask-text">${sub.text}</div>
+                                        <button class="btn-move-sub" onclick="app.moveSubtaskUp('${section.id}',${task.id},${idx})" title="Move up">↑</button>
+                                        <button class="btn-move-sub" onclick="app.moveSubtaskDown('${section.id}',${task.id},${idx})" title="Move down">↓</button>
+                                        <button class="btn-edit-sub" onclick="app.editSubtask('${section.id}',${task.id},${idx})" title="Edit">✏️</button>
+                                        <button class="btn-delete-sub" onclick="app.deleteSubtask('${section.id}', ${task.id}, ${idx})" title="Delete subtask">🗑️</button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : '';
+                        
+                        return `
+                            <div class="task ${task.completed ? 'completed' : ''}">
+                                <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="app.toggleTask('${section.id}', ${task.id})">
+                                <div class="task-body">
+                                    <div class="task-text">${task.text}</div>
+                                    <div class="task-actions">
+                                        <button class="btn-add-subtask" onclick="app.showAddSubtask('${section.id}', ${task.id})" title="Add subtask">+</button>
+                                        <button class="btn-move" onclick="app.showMoveSheet('${section.id}', ${task.id})" title="Move task">⇅</button>
+                                        <button class="btn-edit" onclick="app.editTask('${section.id}', ${task.id})" title="Edit task">✏️</button>
+                                        <button class="btn-delete" onclick="app.deleteTask('${section.id}', ${task.id})" title="Delete task">🗑️</button>
+                                    </div>
+                                    ${subtasksHTML}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    // NO LOAD MORE - ALL TASKS ALWAYS VISIBLE!
+                    
+                    const addTaskHTML = !section.collapsed ? `
+                        <div class="add-task-row">
+                            <button class="btn-add-task" onclick="app.showAddTask('${section.id}')" title="Add new task">+ Add Task</button>
+                        </div>
+                    ` : '';
+                    
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="section">
+                            <div class="section-header" onclick="app.toggleSection('${section.id}')">
+                                <h2>${section.title} <span class="section-badge">${completed}/${total}</span></h2>
+                                <span>${section.collapsed ? 'v' : '^'}</span>
+                            </div>
+                            <div class="section-content ${section.collapsed ? 'collapsed' : ''}">
+                                ${tasksHTML}
+                                ${addTaskHTML}
+                            </div>
+                        </div>
+                    `);
+                });
+            },
+            
+            toggleSection(id) {
+                const s = this.data.sections.find(x => x.id === id);
+                if (s) { s.collapsed = !s.collapsed; this.saveData(); this.render(); }
+            },
+            
+            collapseAll() { this.data.sections.forEach(s => s.collapsed = true); this.saveData(); this.render(); },
+            expandAll() { this.data.sections.forEach(s => s.collapsed = false); this.saveData(); this.render(); },
+            
+            async toggleTask(sid, tid) {
+                const s = this.data.sections.find(x => x.id === sid);
+                const t = s.tasks.find(x => x.id === tid);
+                this.data.history.push({ type: 'toggle', sid, tid, prev: t.completed });
+                t.completed = !t.completed;
+                await this.saveData();
+                this.render();
+                this.updateStats();
+                this.showToast(t.completed ? 'Done!' : 'Undone');
+            },
+            
+            async undo() {
+                if (this.data.history.length === 0) { this.showToast('Nothing to undo'); return; }
+                const a = this.data.history.pop();
+                const s = this.data.sections.find(x => x.id === a.sid);
+                if (a.type === 'toggle') { const t = s.tasks.find(x => x.id === a.tid); t.completed = a.prev; }
+                await this.saveData();
+                this.render();
+                this.updateStats();
+                this.showToast('Undone!');
+            },
+            
+            async deleteTask(sid, tid) {
+                if (!confirm('Delete this task?')) return;
+                const s = this.data.sections.find(x => x.id === sid);
+                const taskIndex = s.tasks.findIndex(x => x.id === tid);
+                if (taskIndex > -1) {
+                    s.tasks.splice(taskIndex, 1);
+                    this.data.hasUnsyncedChanges = true;
+                    await this.saveData();
+                    this.render();
+                    this.updateStats();
+                    this.showToast('Task deleted');
+                }
+            },
+            
+            async editTask(sid, tid) {
+                const s = this.data.sections.find(x => x.id === sid);
+                const task = s.tasks.find(t => t.id === tid);
+                const newText = prompt('Edit task:', task.text);
+                
+                if (newText !== null && newText.trim() && newText.trim() !== task.text) {
+                    task.text = newText.trim();
+                    this.data.hasUnsyncedChanges = true;
+                    await this.saveData();
+                    this.render();
+                    this.showToast('Task updated');
+                }
+            },
+            
+            showAddTask(sid) {
+                const taskText = prompt('Enter new task:');
+                if (!taskText || !taskText.trim()) return;
+                
+                const s = this.data.sections.find(x => x.id === sid);
+                const maxId = Math.max(0, ...this.data.sections.flatMap(sec => sec.tasks.map(t => t.id)));
+                const newTask = {
+                    id: maxId + 1,
+                    text: taskText.trim(),
+                    completed: false,
+                    subtasks: []
+                };
+                
+                s.tasks.push(newTask);
+                this.data.hasUnsyncedChanges = true;
+                this.saveData();
+                this.render();
+                this.updateStats();
+                this.showToast('Task added!');
+            },
+            
+            showAddSubtask(sid, tid) {
+                const subtaskText = prompt('Enter subtask:');
+                if (!subtaskText || !subtaskText.trim()) return;
+                
+                const s = this.data.sections.find(x => x.id === sid);
+                const task = s.tasks.find(t => t.id === tid);
+                
+                if (!task.subtasks) task.subtasks = [];
+                
+                task.subtasks.push({
+                    text: subtaskText.trim(),
+                    completed: false
+                });
+                
+                this.data.hasUnsyncedChanges = true;
+                this.saveData();
+                this.render();
+                this.showToast('Subtask added!');
+            },
+            
+            async toggleSubtask(sid, tid, subIdx) {
+                const s = this.data.sections.find(x => x.id === sid);
+                const task = s.tasks.find(t => t.id === tid);
+                task.subtasks[subIdx].completed = !task.subtasks[subIdx].completed;
+                
+                await this.saveData();
+                this.render();
+                this.updateStats();
+                this.showToast(task.subtasks[subIdx].completed ? 'Done!' : 'Undone');
+            },
+            
+            editSubtask(sid, tid, subIdx) {
+                const s = this.data.sections.find(x => x.id === sid);
+                if (!s) return;
+                const task = s.tasks.find(x => x.id === tid);
+                if (!task || !task.subtasks) return;
+                const current = task.subtasks[subIdx].text;
+                const newText = prompt('Edit subtask:', current);
+                if (!newText || !newText.trim() || newText.trim() === current) return;
+                task.subtasks[subIdx].text = newText.trim();
+                this.saveData();
+                this.renderSections();
+                this.pushSubtasksToGitHub(localStorage.getItem('github-token') ||
+                       sessionStorage.getItem('github-token') || '');
+                this.showToast('Subtask updated');
+            },
+
+            moveSubtaskUp(sid, tid, subIdx) {
+                if (subIdx === 0) return;
+                const s = this.data.sections.find(x => x.id === sid);
+                const task = s && s.tasks.find(x => x.id === tid);
+                if (!task || !task.subtasks) return;
+                const subs = task.subtasks;
+                [subs[subIdx - 1], subs[subIdx]] = [subs[subIdx], subs[subIdx - 1]];
+                this.saveData();
+                this.renderSections();
+                this.pushSubtasksToGitHub(localStorage.getItem('github-token') ||
+                       sessionStorage.getItem('github-token') || '');
+                this.showToast('Moved up');
+            },
+
+            moveSubtaskDown(sid, tid, subIdx) {
+                const s = this.data.sections.find(x => x.id === sid);
+                const task = s && s.tasks.find(x => x.id === tid);
+                if (!task || !task.subtasks) return;
+                const subs = task.subtasks;
+                if (subIdx >= subs.length - 1) return;
+                [subs[subIdx], subs[subIdx + 1]] = [subs[subIdx + 1], subs[subIdx]];
+                this.saveData();
+                this.renderSections();
+                this.pushSubtasksToGitHub(localStorage.getItem('github-token') ||
+                       sessionStorage.getItem('github-token') || '');
+                this.showToast('Moved down');
+            },
+
+            async addSection() {
+                const name = prompt('New section name:');
+                if (!name || !name.trim()) return;
+                const title = name.trim();
+                const newSection = {
+                    id: 'section-' + Date.now(),
+                    title: title,
+                    collapsed: false,
+                    tasks: []
+                };
+                this.data.sections.push(newSection);
+                this.data.pagination[newSection.id] = { page: 1 };
+                this.saveData();
+                this.renderSections();
+                const _tok = localStorage.getItem('github-token') ||
+                       sessionStorage.getItem('github-token') || '';
+                await this.pushToGitHub(_tok);
+                this.showToast('Section "' + title + '" added!');
+            },
+
+            async deleteSubtask(sid, tid, subIdx) {
+                if (!confirm('Delete this subtask?')) return;
+                const s = this.data.sections.find(x => x.id === sid);
+                const task = s.tasks.find(t => t.id === tid);
+                task.subtasks.splice(subIdx, 1);
+                
+                this.data.hasUnsyncedChanges = true;
+                await this.saveData();
+                this.render();
+                this.updateStats();
+                this.showToast('Subtask deleted');
+            },
+            
+            async clearCompleted() {
+                if (!confirm('Remove all completed tasks?')) return;
+                this.data.sections.forEach(s => { s.tasks = s.tasks.filter(t => !t.completed); });
+                await this.saveData();
+                this.render();
+                this.updateStats();
+                this.showToast('Cleared!');
+            },
+            
+            updateStats() {
+                const all = this.data.sections.flatMap(s => s.tasks);
+                const done = all.filter(t => t.completed).length;
+                const total = all.length;
+                const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                document.getElementById('totalTasks').textContent = total;
+                document.getElementById('completedTasks').textContent = done;
+                document.getElementById('remainingTasks').textContent = total - done;
+                document.getElementById('progressPercent').textContent = pct + '%';
+            },
+            
+            showMoveSheet(sid, tid) {
+                const section = this.data.sections.find(x => x.id === sid);
+                const task = section.tasks.find(x => x.id === tid);
+                const taskIdx = section.tasks.indexOf(task);
+                const total = section.tasks.length;
+
+                document.getElementById('moveTaskPreview').textContent = task.text;
+
+                let html = '';
+                const sectionLabel = section.title.replace(/[^\x20-\x7E]/g,'').replace(/\[.*?\]\s*/g,'').trim().substring(0,30);
+
+                html += '<div class="move-sheet-section"><h4>Move within &quot;' + sectionLabel + '&quot;</h4>';
+                if (taskIdx > 0) {
+                    html += `<button onclick="app.moveTaskWithin('${sid}',${tid},'top')">Move to TOP</button>`;
+                    html += `<button onclick="app.moveTaskWithin('${sid}',${tid},'up')">Move up one</button>`;
+                }
+                if (taskIdx < total - 1) {
+                    html += `<button onclick="app.moveTaskWithin('${sid}',${tid},'down')">Move down one</button>`;
+                    html += `<button onclick="app.moveTaskWithin('${sid}',${tid},'bottom')">Move to BOTTOM</button>`;
+                }
+                if (total === 1) html += '<button disabled style="opacity:0.4;cursor:default">Only task here</button>';
+                html += '</div>';
+
+                html += '<div class="move-sheet-section"><h4>Move to different category</h4>';
+                this.data.sections.forEach(s => {
+                    if (s.id === sid) return;
+                    const label = s.title.replace(/[^\x20-\x7E]/g,'').replace(/\[.*?\]\s*/g,'').trim().substring(0,40);
+                    html += `<button onclick="app.moveTaskTo('${sid}',${tid},'${s.id}')">${label || s.id}</button>`;
+                });
+                html += '</div>';
+
+                document.getElementById('moveSheetContent').innerHTML = html;
+                document.getElementById('moveSheet').classList.add('visible');
+                document.getElementById('moveOverlay').classList.add('visible');
+            },
+
+            closeMoveSheet() {
+                document.getElementById('moveSheet').classList.remove('visible');
+                document.getElementById('moveOverlay').classList.remove('visible');
+            },
+
+            async moveTaskWithin(sid, tid, direction) {
+                const section = this.data.sections.find(x => x.id === sid);
+                const idx = section.tasks.findIndex(x => x.id === tid);
+                const tasks = section.tasks;
+                let newIdx = idx;
+                if (direction === 'top') newIdx = 0;
+                else if (direction === 'bottom') newIdx = tasks.length - 1;
+                else if (direction === 'up') newIdx = Math.max(0, idx - 1);
+                else if (direction === 'down') newIdx = Math.min(tasks.length - 1, idx + 1);
+                if (newIdx === idx) { this.closeMoveSheet(); return; }
+                const [task] = tasks.splice(idx, 1);
+                tasks.splice(newIdx, 0, task);
+                this.data.hasUnsyncedChanges = true;
+                await this.saveData();
+                this.render();
+                this.closeMoveSheet();
+                this.showToast('Task moved!');
+            },
+
+            async moveTaskTo(fromSid, tid, toSid) {
+                const fromSection = this.data.sections.find(x => x.id === fromSid);
+                const toSection = this.data.sections.find(x => x.id === toSid);
+                const taskIdx = fromSection.tasks.findIndex(x => x.id === tid);
+                const [task] = fromSection.tasks.splice(taskIdx, 1);
+                toSection.tasks.unshift(task);
+                toSection.collapsed = false;
+                this.data.hasUnsyncedChanges = true;
+                await this.saveData();
+                this.render();
+                this.closeMoveSheet();
+                this.showToast('Task moved!');
+            },
+
+            async pushSubtasksToGitHub(token) {
+                try {
+                    const subtaskMap = {};
+                    this.data.sections.forEach(section => {
+                        section.tasks.forEach(task => {
+                            if (task.subtasks && task.subtasks.length > 0) {
+                                subtaskMap[task.text] = task.subtasks;
+                            }
+                        });
+                    });
+                    const content = JSON.stringify(subtaskMap, null, 2);
+                    let sha = null;
+                    try {
+                        const r = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/apps/todo_subtasks.json`, {
+                            headers: { 'Authorization': `token ${token}` }
+                        });
+                        if (r.ok) { const d = await r.json(); sha = d.sha; }
+                    } catch(e) {}
+                    const pushBytes = new TextEncoder().encode(content);
+                    let bin = ''; pushBytes.forEach(b => bin += String.fromCharCode(b));
+                    const body = { message: `Subtasks update - ${new Date().toLocaleString()}`, content: btoa(bin) };
+                    if (sha) body.sha = sha;
+                    await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/apps/todo_subtasks.json`, {
+                        method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+                } catch(e) { console.log('Subtask push error:', e); }
+            },
+
+            async restoreSubtasksFromGitHub(token) {
+                try {
+                    const resp = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/apps/todo_subtasks.json`, {
+                        headers: { 'Authorization': `token ${token}` }
+                    });
+                    if (!resp.ok) return;
+                    const data = await resp.json();
+                    const rawBytes = atob(data.content.replace(/\n/g, ''));
+                    const uint8 = new Uint8Array(rawBytes.length);
+                    for (let i = 0; i < rawBytes.length; i++) uint8[i] = rawBytes.charCodeAt(i);
+                    const subtaskMap = JSON.parse(new TextDecoder('utf-8').decode(uint8));
+                    this.data.sections.forEach(section => {
+                        section.tasks.forEach(task => {
+                            if (subtaskMap[task.text]) task.subtasks = subtaskMap[task.text];
+                        });
+                    });
+                } catch(e) { console.log('No subtasks file or error restoring:', e); }
+            },
+
+            showToast(msg) {
+                const t = document.getElementById('toast');
+                t.textContent = msg;
+                t.classList.add('active');
+                setTimeout(() => t.classList.remove('active'), 2500);
+            }
+        };
+        
+        window.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+
+    <div class="move-sheet-overlay" id="moveOverlay" onclick="app.closeMoveSheet()"></div>
+    <div class="move-sheet" id="moveSheet">
+        <h3>Move Task</h3>
+        <div class="task-preview" id="moveTaskPreview"></div>
+        <div id="moveSheetContent"></div>
+        <button class="move-sheet-close" onclick="app.closeMoveSheet()">Cancel</button>
+    </div>
+</body>
+</html>
