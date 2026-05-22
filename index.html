@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a12">
+<link rel="manifest" href="manifest.json">
+<title>M · Life OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a12;
+  --surface: #12121e;
+  --border: #1e1e30;
+  --text: #e8e0f0;
+  --muted: #6060a0;
+  --gold: #c8a830;
+  --fire: #ff6b00;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+
+body {
+  font-family: 'Crimson Pro', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(100,60,200,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 100%, rgba(255,107,0,0.06) 0%, transparent 50%);
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  padding: 52px 24px 28px;
+}
+.header .logo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #c8a830, #e8d080, #c8a830);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.header .sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+.divider {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 36px;
+  opacity: 0.4;
+}
+
+/* DISPATCH BUTTON — full width, prominent */
+.dispatch-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: calc(100% - 40px);
+  max-width: 440px;
+  background: linear-gradient(135deg, #0d1a2e, #121828);
+  border: 1px solid #2563a850;
+  border-radius: 20px;
+  padding: 18px 22px;
+  text-decoration: none;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.dispatch-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1e3a8a, #60a5fa, #1e3a8a);
+}
+.dispatch-btn:active { transform: scale(0.98); }
+.dispatch-icon { font-size: 2rem; flex-shrink: 0; }
+.dispatch-text { flex: 1; }
+.dispatch-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #93c5fd;
+  margin-bottom: 2px;
+}
+.dispatch-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.dispatch-date {
+  font-size: 0.65rem;
+  color: #60a5fa;
+  background: rgba(37,99,232,0.15);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(37,99,232,0.3);
+  flex-shrink: 0;
+}
+
+/* APP GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px 16px 20px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.app-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.app-card:active { transform: scale(0.97); }
+
+.card-todo::before { background: linear-gradient(90deg, #667eea, #764ba2); }
+.card-todo:hover { border-color: #667eea50; }
+.card-todo:hover::before { opacity: 1; }
+
+.card-expenses::before { background: linear-gradient(90deg, #10b981, #059669); }
+.card-expenses:hover { border-color: #10b98150; }
+.card-expenses:hover::before { opacity: 1; }
+
+.card-packing::before { background: linear-gradient(90deg, #ff6b00, #c8392b); }
+.card-packing:hover { border-color: #ff6b0050; }
+.card-packing:hover::before { opacity: 1; }
+
+.card-shopping::before { background: linear-gradient(90deg, #0a5c36, #1a8a52); }
+.card-shopping:hover { border-color: #0a5c3650; }
+.card-shopping:hover::before { opacity: 1; }
+
+.app-icon { font-size: 2.4rem; line-height: 1; }
+.app-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: var(--text);
+}
+.app-desc {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.3;
+  font-style: italic;
+}
+.app-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 8px;
+  background: rgba(255,107,0,0.2);
+  color: #ff6b00;
+  border: 1px solid rgba(255,107,0,0.3);
+}
+
+.footer {
+  margin-top: auto;
+  padding: 32px 24px 48px;
+  text-align: center;
+}
+.footer .greeting { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+.footer .time-display {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-top: 6px;
+}
+
+.stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+.star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite; }
+@keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: var(--bright, 0.3); } }
+
+/* MORNING BRIEF BUTTON */
+.morning-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: calc(100% - 40px);
+  max-width: 440px;
+  background: linear-gradient(135deg, #1a0f00, #201408);
+  border: 1px solid rgba(217,119,6,0.35);
+  border-radius: 20px;
+  padding: 16px 22px;
+  text-decoration: none;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.morning-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #92400e, #fbbf24, #92400e);
+}
+.morning-btn:active { transform: scale(0.98); }
+.morning-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fbbf24;
+  margin-bottom: 2px;
+}
+.morning-desc {
+  font-size: 0.75rem;
+  color: rgba(251,191,36,0.5);
+  font-style: italic;
+}
+
+.card-notes::before { background: linear-gradient(90deg, #c8a830, #f0d060); }
+.card-notes:hover { border-color: #c8a83050; }
+.card-notes:hover::before { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="header">
+  <div class="logo">Mother of Chaos · Life OS</div>
+  <h1>M</h1>
+  <div class="sub">Your Life Operating System</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- THE TIMES OF CHAOS — full width prominent -->
+<a class="dispatch-btn" href="dispatch.html">
+  <span class="dispatch-icon">🗞️</span>
+  <div class="dispatch-text">
+    <div class="dispatch-name">THE TIMES OF CHAOS</div>
+    <div class="dispatch-desc">Daily intelligence · Mother of Chaos edition</div>
+  </div>
+  <span class="dispatch-date" id="dispatchDate">Today</span>
+</a>
+
+
+<!-- MORNING BRIEF — calendar + email -->
+<a class="morning-btn" href="morning.html">
+  <span class="dispatch-icon">🌅</span>
+  <div class="dispatch-text">
+    <div class="morning-name">MORNING BRIEF</div>
+    <div class="morning-desc">Calendar · Email · Today's overview</div>
+  </div>
+</a>
+
+<!-- APP GRID — 3 real apps -->
+<div class="grid">
+
+  <a class="app-card card-todo" href="todo.html">
+    <div class="app-icon">✅</div>
+    <div class="app-name">TODO</div>
+    <div class="app-desc">Tasks & priorities</div>
+  </a>
+
+  <a class="app-card card-expenses" href="expenses.html">
+    <div class="app-icon">💸</div>
+    <div class="app-name">EXPENSES</div>
+    <div class="app-desc">Daily spending</div>
+  </a>
+
+  <a class="app-card card-packing" href="packing_bbb.html">
+    <div class="app-badge">BBB 2026</div>
+    <div class="app-icon">🔥</div>
+    <div class="app-name">PACKING</div>
+    <div class="app-desc">Festival checklist</div>
+  </a>
+
+  <a class="app-card card-shopping" href="shopping.html">
+    <div class="app-icon">🛒</div>
+    <div class="app-name">SHOPPING</div>
+    <div class="app-desc">Grocery &amp; DIY lists</div>
+  </a>
+
+  <a class="app-card card-notes" href="notes.html">
+    <div class="app-icon">📝</div>
+    <div class="app-name">NOTES</div>
+    <div class="app-desc">Quick capture</div>
+  </a>
+
+</div>
+
+<div class="footer">
+  <div class="greeting" id="greeting">Good morning, Sarah 💚</div>
+  <div class="time-display" id="timeDisplay"></div>
+</div>
+
+<script>
+// Stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*4}s;--bright:${0.1+Math.random()*0.4};width:${Math.random()<0.3?3:2}px;height:${Math.random()<0.3?3:2}px;`;
+  starsEl.appendChild(s);
+}
+
+// Time + greeting
+function update() {
+  const now = new Date();
+  const h = now.getHours();
+  const g = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = g + ', Sarah 💚';
+  document.getElementById('timeDisplay').textContent =
+    now.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'}) + ' · ' +
+    now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('dispatchDate').textContent =
+    now.toLocaleDateString('en-GB', {day:'numeric', month:'short'});
+}
+update();
+setInterval(update, 30000);
+</script>
+</body>
+</html>
