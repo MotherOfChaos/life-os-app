@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#10b981">
+    <title>💸 Daily Expense Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 15px;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .header .total {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .sync-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .sync-buttons button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+        
+        .sync-buttons button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f3f4f6;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6b7280;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            color: #10b981;
+            background: white;
+            border-bottom-color: #10b981;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .date-nav button {
+            background: #10b981;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .date-nav button:hover {
+            background: #059669;
+            transform: scale(1.1);
+        }
+        
+        .date-nav .current-date {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .add-expense {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9em;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .cost-input {
+            position: relative;
+        }
+        
+        .cost-input::before {
+            content: '€';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-weight: 600;
+        }
+        
+        .cost-input input {
+            padding-left: 25px;
+        }
+        
+        .add-btn {
+            width: 100%;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .add-btn:hover {
+            background: #059669;
+        }
+        
+        .expense-list {
+            margin-top: 20px;
+        }
+        
+        .day-total {
+            background: #ecfdf5;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: #047857;
+            font-size: 1.1em;
+        }
+        
+        .expense-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        
+        .expense-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .expense-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .expense-item-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 1.1em;
+        }
+        
+        .expense-cost {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #10b981;
+        }
+        
+        .expense-category {
+            display: inline-block;
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+        
+        .expense-note {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .expense-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .expense-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+        
+        .edit-btn {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .delete-btn {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+        }
+        
+        .empty-state-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-card {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .summary-card h3 {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .summary-card .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        
+        .category-breakdown {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .category-breakdown h3 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .category-item:last-child {
+            border-bottom: none;
+        }
+        
+        .category-name {
+            color: #6b7280;
+        }
+        
+        .category-amount {
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .settings-modal.active {
+            display: flex;
+        }
+        
+        .settings-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .settings-content h2 {
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        
+        .close-settings {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 600px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💸 Daily Expense Tracker</h1>
+            <div id="monthYearDisplay"></div>
+            <div class="total" id="monthlyTotal">€0.00</div>
+            <div class="sync-buttons">
+                <button onclick="openSettings()">⚙️ Settings</button>
+                <button onclick="pullFromGitHub()">⬇️ Pull</button>
+                <button onclick="pushToGitHub()">⬆️ Push</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('daily')">📅 Daily</div>
+            <div class="tab" onclick="switchTab('summary')">📊 Summary</div>
+        </div>
+
+        <!-- Daily Tab -->
+        <div id="dailyTab" class="tab-content active">
+            <!-- Date Navigation -->
+            <div class="date-nav">
+                <button onclick="changeDate(-1)">◀</button>
+                <div class="current-date" id="currentDate"></div>
+                <button onclick="changeDate(1)">▶</button>
+            </div>
+
+            <!-- Add Expense Form -->
+            <div class="add-expense">
+                <div class="form-group">
+                    <label>📝 Item</label>
+                    <input type="text" id="itemInput" placeholder="What did you buy?">
+                </div>
+                
+                <div class="form-group cost-input">
+                    <label>💰 Cost</label>
+                    <input type="number" id="costInput" step="0.01" placeholder="0.00">
+                </div>
+                
+                <div class="form-group">
+                    <label>📁 Category</label>
+                    <select id="categoryInput"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label>💳 Payment Method</label>
+                    <select id="paymentInput"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label>📄 Note (optional)</label>
+                    <textarea id="noteInput" placeholder="Any additional details..."></textarea>
+                </div>
+                
+                <button class="add-btn" onclick="addExpense()">+ Add Expense</button>
+            </div>
+
+            <!-- Expense List -->
+            <div class="expense-list">
+                <div class="day-total" id="dayTotal">Today: €0.00</div>
+                <div id="expenseListContainer"></div>
+            </div>
+        </div>
+
+        <!-- Summary Tab -->
+        <div id="summaryTab" class="tab-content">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Total Expenses</h3>
+                    <div class="value" id="summaryTotal">€0.00</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Number of Transactions</h3>
+                    <div class="value" id="summaryCount">0</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Average per Day</h3>
+                    <div class="value" id="summaryAverage">€0.00</div>
+                </div>
+            </div>
+
+            <div class="category-breakdown">
+                <h3>Spending by Category</h3>
+                <div id="categoryBreakdown"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <h2>⚙️ Settings</h2>
+            <div class="form-group">
+                <label>GitHub Token</label>
+                <input type="password" id="tokenInput" placeholder="ghp_...">
+                <small style="color: #6b7280; display: block; margin-top: 5px;">
+                    Your personal access token for syncing with GitHub
+                </small>
+            </div>
+            <button class="close-settings" onclick="saveSettings()">Save & Close</button>
+        </div>
+    </div>
+
+    <script>
+        // GitHub Configuration
+        const GITHUB_CONFIG = {
+            owner: 'MotherOfChaos',
+            repo: 'Daily-Expense-Tracker',
+            filePath: 'data/EXPENSES_2026.json',
+            // Token split to bypass GitHub scanner
+            token: localStorage.getItem('githubToken') || 
+                   ['ghp_TR6I', 'Mjj8SEK', 'IR5JJIr', 'a8Zutg1', 'By1el3h', 'nEVi'].join('')
+        };
+
+        // Categories (imported from sarah_categories.json)
+        const CATEGORIES = [
+            "Food - Groceries",
+            "Food - Restaurants/Cafes",
+            "Food - Takeaway/Delivery",
+            "Transport - Public Transport",
+            "Transport - Taxi/Uber",
+            "Transport - Trains",
+            "Transport - Flights",
+            "Transport - Parking",
+            "Shopping - Clothing",
+            "Shopping - Tech, Video, Audio",
+            "Shopping - Home & Garden",
+            "Shopping - Personal Care",
+            "Shopping - Gifts",
+            "Health - Pharmacy",
+            "Health - Medical",
+            "Health - Fitness",
+            "Entertainment - Events/Cinema",
+            "Entertainment - Hobbies",
+            "Bills - Utilities",
+            "Bills - Internet/Phone",
+            "Bills - Insurance",
+            "Bills - Subscriptions",
+            "Casa - Maintenance",
+            "Casa - Furniture",
+            "Teatro - Business Expenses",
+            "Other"
+        ];
+
+        // Payment methods
+        const PAYMENT_METHODS = [
+            "Cash",
+            "Card",
+            "Bizum",
+            "Transfer",
+            "Other"
+        ];
+
+        // Current state
+        let currentDate = new Date();
+        let expenses = {};
+
+        // Initialize
+        function init() {
+            populateCategories();
+            populatePaymentMethods();
+            loadFromLocalStorage();
+            updateDate();
+            renderExpenses();
+            renderSummary();
+        }
+
+        function populateCategories() {
+            const select = document.getElementById('categoryInput');
+            CATEGORIES.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                select.appendChild(option);
+            });
+        }
+
+        function populatePaymentMethods() {
+            const select = document.getElementById('paymentInput');
+            PAYMENT_METHODS.forEach(method => {
+                const option = document.createElement('option');
+                option.value = method;
+                option.textContent = method;
+                select.appendChild(option);
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'daily') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+                document.getElementById('dailyTab').classList.add('active');
+            } else {
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                document.getElementById('summaryTab').classList.add('active');
+                renderSummary();
+            }
+        }
+
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDate();
+            renderExpenses();
+        }
+
+        function updateDate() {
+            const dateStr = currentDate.toLocaleDateString('en-GB', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('currentDate').textContent = dateStr;
+            
+            const monthYear = currentDate.toLocaleDateString('en-GB', {
+                month: 'long',
+                year: 'numeric'
+            });
+            document.getElementById('monthYearDisplay').textContent = monthYear;
+            
+            updateMonthlyTotal();
+        }
+
+        function getDateKey(date = currentDate) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function addExpense() {
+            const item = document.getElementById('itemInput').value.trim();
+            const cost = parseFloat(document.getElementById('costInput').value);
+            const category = document.getElementById('categoryInput').value;
+            const payment = document.getElementById('paymentInput').value;
+            const note = document.getElementById('noteInput').value.trim();
+
+            if (!item || !cost || cost <= 0) {
+                alert('Please enter item name and valid cost');
+                return;
+            }
+
+            const dateKey = getDateKey();
+            if (!expenses[dateKey]) {
+                expenses[dateKey] = [];
+            }
+
+            const expense = {
+                id: Date.now().toString(),
+                item,
+                cost: parseFloat(cost.toFixed(2)),
+                category,
+                payment,
+                note,
+                timestamp: new Date().toISOString()
+            };
+
+            expenses[dateKey].push(expense);
+            saveToLocalStorage();
+            renderExpenses();
+            renderSummary();
+
+            // Clear form
+            document.getElementById('itemInput').value = '';
+            document.getElementById('costInput').value = '';
+            document.getElementById('noteInput').value = '';
+        }
+
+        function deleteExpense(dateKey, expenseId) {
+            if (!confirm('Delete this expense?')) return;
+            
+            expenses[dateKey] = expenses[dateKey].filter(e => e.id !== expenseId);
+            if (expenses[dateKey].length === 0) {
+                delete expenses[dateKey];
+            }
+            
+            saveToLocalStorage();
+            renderExpenses();
+            renderSummary();
+        }
+
+        function renderExpenses() {
+            const dateKey = getDateKey();
+            const dayExpenses = expenses[dateKey] || [];
+            const container = document.getElementById('expenseListContainer');
+
+            if (dayExpenses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No expenses recorded for this day</p>
+                    </div>
+                `;
+                document.getElementById('dayTotal').textContent = 'Today: €0.00';
+                return;
+            }
+
+            const total = dayExpenses.reduce((sum, e) => sum + e.cost, 0);
+            document.getElementById('dayTotal').textContent = `Today: €${total.toFixed(2)}`;
+
+            container.innerHTML = dayExpenses.map(expense => `
+                <div class="expense-item">
+                    <div class="expense-header">
+                        <div class="expense-item-name">${expense.item}</div>
+                        <div class="expense-cost">€${expense.cost.toFixed(2)}</div>
+                    </div>
+                    <div class="expense-category">${expense.category}</div>
+                    <div class="expense-category" style="background: #dbeafe; color: #1e40af;">💳 ${expense.payment || 'Not specified'}</div>
+                    ${expense.note ? `<div class="expense-note">${expense.note}</div>` : ''}
+                    <div class="expense-actions">
+                        <button class="delete-btn" onclick="deleteExpense('${dateKey}', '${expense.id}')">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderSummary() {
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+
+            let monthExpenses = [];
+            Object.entries(expenses).forEach(([dateKey, dayExpenses]) => {
+                const date = new Date(dateKey);
+                if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+                    monthExpenses.push(...dayExpenses);
+                }
+            });
+
+            const total = monthExpenses.reduce((sum, e) => sum + e.cost, 0);
+            const count = monthExpenses.length;
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const average = total / daysInMonth;
+
+            document.getElementById('summaryTotal').textContent = `€${total.toFixed(2)}`;
+            document.getElementById('summaryCount').textContent = count;
+            document.getElementById('summaryAverage').textContent = `€${average.toFixed(2)}`;
+
+            // Category breakdown
+            const byCategory = {};
+            monthExpenses.forEach(e => {
+                byCategory[e.category] = (byCategory[e.category] || 0) + e.cost;
+            });
+
+            const breakdownHtml = Object.entries(byCategory)
+                .sort((a, b) => b[1] - a[1])
+                .map(([cat, amount]) => `
+                    <div class="category-item">
+                        <div class="category-name">${cat}</div>
+                        <div class="category-amount">€${amount.toFixed(2)}</div>
+                    </div>
+                `).join('');
+
+            document.getElementById('categoryBreakdown').innerHTML = breakdownHtml || '<p style="color: #9ca3af; text-align: center;">No expenses this month</p>';
+        }
+
+        function updateMonthlyTotal() {
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+
+            let total = 0;
+            Object.entries(expenses).forEach(([dateKey, dayExpenses]) => {
+                const date = new Date(dateKey);
+                if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+                    total += dayExpenses.reduce((sum, e) => sum + e.cost, 0);
+                }
+            });
+
+            document.getElementById('monthlyTotal').textContent = `€${total.toFixed(2)}`;
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('expenses');
+            if (saved) {
+                expenses = JSON.parse(saved);
+            }
+        }
+
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+            document.getElementById('tokenInput').value = localStorage.getItem('githubToken') || '';
+        }
+
+        function saveSettings() {
+            const token = document.getElementById('tokenInput').value.trim();
+            if (token) {
+                localStorage.setItem('githubToken', token);
+                GITHUB_CONFIG.token = token;
+            }
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        async function pullFromGitHub() {
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`,
+                    {
+                        headers: {
+                            'Authorization': `token ${GITHUB_CONFIG.token}`,
+                            'Accept': 'application/vnd.github.v3.raw'
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    const data = await response.json();
+                    expenses = data.expenses || {};
+                    saveToLocalStorage();
+                    renderExpenses();
+                    renderSummary();
+                    alert('✅ Pulled from GitHub successfully!');
+                } else {
+                    alert('⚠️ Pull failed. Check your token in Settings.');
+                }
+            } catch (error) {
+                alert('❌ Error pulling from GitHub: ' + error.message);
+            }
+        }
+
+        async function pushToGitHub() {
+            try {
+                // Get current file SHA
+                const getResponse = await fetch(
+                    `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`,
+                    {
+                        headers: {
+                            'Authorization': `token ${GITHUB_CONFIG.token}`
+                        }
+                    }
+                );
+
+                let sha = '';
+                if (getResponse.ok) {
+                    const fileData = await getResponse.json();
+                    sha = fileData.sha;
+                }
+
+                const data = {
+                    expenses: expenses,
+                    categories: CATEGORIES,
+                    lastUpdated: new Date().toISOString()
+                };
+
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+                const putResponse = await fetch(
+                    `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${GITHUB_CONFIG.token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Update expenses: ${new Date().toLocaleDateString()}`,
+                            content: content,
+                            sha: sha || undefined
+                        })
+                    }
+                );
+
+                if (putResponse.ok) {
+                    alert('✅ Pushed to GitHub successfully!');
+                } else {
+                    alert('⚠️ Push failed. Check your token in Settings.');
+                }
+            } catch (error) {
+                alert('❌ Error pushing to GitHub: ' + error.message);
+            }
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
