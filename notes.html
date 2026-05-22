@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a12">
+<title>Notes · M</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a12;
+  --surface: #0f0f1a;
+  --border: #1a1a2e;
+  --text: #e0d8f0;
+  --muted: #5a5a8a;
+  --gold: #c8a830;
+  --gold-dim: rgba(200,168,48,0.12);
+  --gold-border: rgba(200,168,48,0.25);
+
+  /* Note colours */
+  --note-yellow:  #2a2400;
+  --note-yellow-b: #b8960060;
+  --note-yellow-t: #f0d060;
+
+  --note-rose:    #250a10;
+  --note-rose-b:  #c0304860;
+  --note-rose-t:  #f07090;
+
+  --note-teal:    #082018;
+  --note-teal-b:  #20a08060;
+  --note-teal-t:  #50d0b0;
+
+  --note-lavender: #130a25;
+  --note-lavender-b: #7060b060;
+  --note-lavender-t: #b090f0;
+
+  --note-slate:   #0a0a18;
+  --note-slate-b: #4060a060;
+  --note-slate-t: #90b0e0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Crimson Pro', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 30% 0%, rgba(200,168,48,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(112,96,176,0.05) 0%, transparent 50%);
+  padding-bottom: 100px;
+}
+
+/* NAV */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 52px 20px 16px;
+  max-width: 520px; margin: 0 auto;
+}
+.nav-back {
+  font-family: 'Cinzel', serif; font-size: 0.6rem;
+  letter-spacing: 0.2em; color: var(--muted);
+  text-decoration: none; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--gold); }
+.nav-title {
+  font-family: 'Cinzel', serif; font-size: 0.75rem;
+  font-weight: 700; letter-spacing: 0.25em;
+  color: var(--gold); text-transform: uppercase;
+}
+.nav-actions { display: flex; gap: 8px; }
+.nav-btn {
+  font-family: 'Cinzel', serif; font-size: 0.52rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 8px;
+  border: 1px solid var(--border); background: none;
+  color: var(--muted); cursor: pointer; transition: all 0.2s;
+}
+.nav-btn:hover { color: var(--gold); border-color: var(--gold-border); }
+.nav-btn.primary { border-color: var(--gold-border); color: var(--gold); background: var(--gold-dim); }
+
+.divider {
+  width: 100px; height: 1px; margin: 0 auto 20px;
+  background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+}
+
+/* GITHUB STRIP */
+.github-strip {
+  max-width: 520px; margin: 0 auto 16px;
+  display: flex; gap: 8px; padding: 0 20px;
+}
+.gh-btn {
+  flex: 1; padding: 8px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--muted); font-family: 'Cinzel', serif;
+  font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s;
+}
+.gh-btn:hover { color: var(--gold); border-color: var(--gold-border); }
+.gh-status {
+  font-size: 0.7rem; color: var(--muted); font-style: italic;
+  text-align: center; padding: 4px 20px; max-width: 520px; margin: 0 auto 12px;
+  min-height: 20px;
+}
+
+/* GRID */
+.notes-grid {
+  max-width: 520px; margin: 0 auto;
+  padding: 0 16px;
+  columns: 2; column-gap: 12px;
+}
+@media (max-width: 360px) { .notes-grid { columns: 1; } }
+
+/* NOTE CARD */
+.note-card {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 14px 14px 10px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex; flex-direction: column; gap: 8px;
+  animation: noteIn 0.25s ease;
+}
+@keyframes noteIn { from { opacity:0; transform: scale(0.92); } to { opacity:1; transform: scale(1); } }
+.note-card:active { transform: scale(0.97); }
+
+.note-card.yellow   { background: var(--note-yellow);   border-color: var(--note-yellow-b); }
+.note-card.rose     { background: var(--note-rose);     border-color: var(--note-rose-b); }
+.note-card.teal     { background: var(--note-teal);     border-color: var(--note-teal-b); }
+.note-card.lavender { background: var(--note-lavender); border-color: var(--note-lavender-b); }
+.note-card.slate    { background: var(--note-slate);    border-color: var(--note-slate-b); }
+
+.note-card.pinned::before {
+  content: '📌';
+  position: absolute; top: -6px; right: 10px;
+  font-size: 0.85rem;
+}
+
+.note-text {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem; line-height: 1.45;
+  color: var(--text); word-break: break-word;
+  white-space: pre-wrap;
+}
+.note-card.yellow   .note-text { color: var(--note-yellow-t); }
+.note-card.rose     .note-text { color: var(--note-rose-t); }
+.note-card.teal     .note-text { color: var(--note-teal-t); }
+.note-card.lavender .note-text { color: var(--note-lavender-t); }
+.note-card.slate    .note-text { color: var(--note-slate-t); }
+
+.note-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 4px;
+}
+.note-date { font-size: 0.62rem; color: var(--muted); font-style: italic; }
+.note-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
+.note-card:hover .note-actions { opacity: 1; }
+.note-actions button {
+  background: none; border: none; cursor: pointer;
+  font-size: 0.75rem; color: var(--muted); padding: 2px 4px;
+  border-radius: 4px; transition: color 0.15s;
+}
+.note-actions button:hover { color: var(--text); }
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center; padding: 60px 20px;
+  font-family: 'Caveat', cursive; font-size: 1.2rem;
+  color: var(--muted);
+}
+
+/* FAB */
+.fab {
+  position: fixed; bottom: 28px; right: 24px;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #c8a830, #a07820);
+  border: none; cursor: pointer;
+  font-size: 1.5rem; color: #0a0a00;
+  box-shadow: 0 4px 20px rgba(200,168,48,0.35);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 100;
+}
+.fab:active { transform: scale(0.92); }
+
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+  z-index: 200; align-items: flex-end; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px 24px 0 0; padding: 20px 20px 36px;
+  width: 100%; max-width: 520px;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp { from { transform: translateY(60px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+
+.modal-handle {
+  width: 36px; height: 4px; background: var(--border);
+  border-radius: 2px; margin: 0 auto 16px;
+}
+.modal-title {
+  font-family: 'Cinzel', serif; font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px; text-align: center;
+}
+
+/* COLOUR PICKER */
+.colour-picker {
+  display: flex; gap: 10px; margin-bottom: 14px; justify-content: center;
+}
+.colour-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid transparent; cursor: pointer;
+  transition: transform 0.15s;
+}
+.colour-dot.selected { border-color: white; transform: scale(1.2); }
+.dot-yellow   { background: #b89600; }
+.dot-rose     { background: #c03048; }
+.dot-teal     { background: #20a080; }
+.dot-lavender { background: #7060b0; }
+.dot-slate    { background: #4060a0; }
+
+/* TEXTAREA */
+.note-input {
+  width: 100%; min-height: 140px; padding: 12px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  border-radius: 12px; color: var(--text);
+  font-family: 'Caveat', cursive; font-size: 1.1rem; line-height: 1.5;
+  resize: none; outline: none; transition: border-color 0.2s;
+}
+.note-input:focus { border-color: var(--gold-border); }
+.note-input::placeholder { color: var(--muted); }
+
+.modal-row {
+  display: flex; gap: 10px; margin-top: 14px; align-items: center;
+}
+.modal-pin {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.78rem; color: var(--muted); cursor: pointer;
+  font-family: 'Cinzel', serif; letter-spacing: 0.05em;
+  text-transform: uppercase; font-size: 0.58rem;
+}
+.modal-pin input { cursor: pointer; accent-color: var(--gold); }
+.modal-save {
+  flex: 1; padding: 12px;
+  background: linear-gradient(135deg, #c8a830, #a07820);
+  border: none; border-radius: 12px;
+  color: #0a0a00; font-family: 'Cinzel', serif;
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.modal-save:hover { opacity: 0.88; }
+.modal-cancel {
+  padding: 12px 16px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 12px; color: var(--muted);
+  font-family: 'Cinzel', serif; font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: rgba(200,168,48,0.15); border: 1px solid var(--gold-border);
+  color: var(--gold); padding: 8px 18px; border-radius: 20px;
+  font-size: 0.78rem; font-family: 'Cinzel', serif; letter-spacing: 0.08em;
+  opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap;
+  z-index: 300;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* SETUP MODAL */
+.setup-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85); z-index: 500;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.setup-modal.open { display: flex; }
+.setup-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 24px; width: 100%; max-width: 380px;
+}
+.setup-box h2 { font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:0.2em; color:var(--gold); margin-bottom:12px; }
+.setup-box p  { font-size:0.82rem; color:var(--muted); margin-bottom:14px; line-height:1.5; }
+.setup-input {
+  width:100%; padding:10px 12px; border-radius:10px;
+  border:1px solid var(--border); background:rgba(255,255,255,0.04);
+  color:var(--text); font-size:0.85rem; font-family:inherit; outline:none;
+  margin-bottom:12px;
+}
+.setup-input:focus { border-color:var(--gold-border); }
+.setup-save {
+  width:100%; padding:11px;
+  background:linear-gradient(135deg,#c8a830,#a07820);
+  border:none; border-radius:10px; color:#0a0a00;
+  font-family:'Cinzel',serif; font-size:0.65rem; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a class="nav-back" href="index.html">← Home</a>
+  <div class="nav-title">Notes</div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="pullFromGitHub()">Pull</button>
+    <button class="nav-btn primary" onclick="pushToGitHub()">Push</button>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="github-strip" style="display:none"></div>
+<div class="gh-status" id="ghStatus">Loading notes…</div>
+
+<div class="notes-grid" id="notesGrid"></div>
+
+<!-- FAB -->
+<button class="fab" onclick="openModal()" title="New note">＋</button>
+
+<!-- NOTE MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modalTitle">New Note</div>
+    <div class="colour-picker" id="colourPicker">
+      <div class="colour-dot dot-yellow selected" data-colour="yellow" onclick="pickColour('yellow')"></div>
+      <div class="colour-dot dot-rose"     data-colour="rose"     onclick="pickColour('rose')"></div>
+      <div class="colour-dot dot-teal"     data-colour="teal"     onclick="pickColour('teal')"></div>
+      <div class="colour-dot dot-lavender" data-colour="lavender" onclick="pickColour('lavender')"></div>
+      <div class="colour-dot dot-slate"    data-colour="slate"    onclick="pickColour('slate')"></div>
+    </div>
+    <textarea class="note-input" id="noteInput" placeholder="What's on your mind?…" rows="5"></textarea>
+    <div class="modal-row">
+      <label class="modal-pin">
+        <input type="checkbox" id="pinCheck"> 📌 Pin
+      </label>
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveNote()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SETUP MODAL -->
+<div class="setup-modal" id="setupModal">
+  <div class="setup-box">
+    <h2>GitHub Token</h2>
+    <p>Enter your token to sync notes with GitHub. Same token as the TODO app.</p>
+    <input class="setup-input" type="password" id="tokenInput" placeholder="ghp_…">
+    <button class="setup-save" onclick="saveToken()">Connect</button>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──
+const GITHUB_REPO  = 'MotherOfChaos/Life-Operating-System';
+const DATA_FILE    = 'apps/notes_2026.json';
+const _t           = ['ghp_gpf9uT7O','p1jEe5x3L0Ns','k1zsBiEa7j3SbaOc'].join('');
+
+// ── STATE ──
+let notes      = [];
+let editingId  = null;
+let selColour  = 'yellow';
+let fileSHA    = null;
+let pushTimer  = null;
+
+// ── TOKEN ──
+function getToken() {
+  return localStorage.getItem('github-token') ||
+         sessionStorage.getItem('github-token') || _t;
+}
+function saveToken() {
+  const t = document.getElementById('tokenInput').value.trim();
+  if (!t.startsWith('ghp_')) { alert('Invalid token'); return; }
+  localStorage.setItem('github-token', t);
+  document.getElementById('setupModal').classList.remove('open');
+  pullFromGitHub();
+}
+
+// ── GITHUB ──
+async function pullFromGitHub() {
+  setStatus('Pulling…');
+  const token = getToken();
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/${DATA_FILE}`,
+      { headers: { Authorization: `token ${token}` } }
+    );
+    if (res.status === 404) {
+      notes = [];
+      fileSHA = null;
+      setStatus('No notes yet — tap ＋ to start');
+      render();
+      return;
+    }
+    if (res.status === 401) {
+      document.getElementById('setupModal').classList.add('open');
+      return;
+    }
+    const d = await res.json();
+    fileSHA = d.sha;
+    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
+    const data  = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    notes = data.notes || [];
+    setStatus('Last sync: ' + new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'}));
+    render();
+  } catch(e) {
+    setStatus('Pull failed — check connection');
+    console.error(e);
+  }
+}
+
+async function pushToGitHub() {
+  clearTimeout(pushTimer);
+  setStatus('Saving…');
+  const token = getToken();
+  const data  = JSON.stringify({ notes }, null, 2);
+  const b64   = btoa(unescape(encodeURIComponent(data)));
+  const body  = {
+    message: `Notes update — ${new Date().toLocaleString('en-GB')}`,
+    content: b64
+  };
+  if (fileSHA) body.sha = fileSHA;
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/${DATA_FILE}`,
+      { method: 'PUT', headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body) }
+    );
+    const d = await res.json();
+    if (d.content) {
+      fileSHA = d.content.sha;
+      setStatus('Saved · ' + new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'}));
+      showToast('Saved ✓');
+    } else {
+      setStatus('Save failed — try again');
+    }
+  } catch(e) {
+    setStatus('Save failed — check connection');
+  }
+}
+
+function schedulePush() {
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushToGitHub, 2500);
+}
+
+// ── RENDER ──
+function render() {
+  const grid = document.getElementById('notesGrid');
+  const sorted = [...notes].sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    return b.updated_at.localeCompare(a.updated_at);
+  });
+
+  if (sorted.length === 0) {
+    grid.innerHTML = '<div class="empty-state" style="column-span:all">No notes yet<br>Tap ＋ to capture a thought</div>';
+    return;
+  }
+
+  grid.innerHTML = sorted.map(n => `
+    <div class="note-card ${n.color} ${n.pinned ? 'pinned' : ''}" onclick="openEdit('${n.id}')">
+      <div class="note-text">${escHtml(n.text)}</div>
+      <div class="note-footer">
+        <span class="note-date">${relTime(n.updated_at)}</span>
+        <div class="note-actions" onclick="event.stopPropagation()">
+          <button onclick="togglePin('${n.id}')" title="${n.pinned ? 'Unpin' : 'Pin'}">${n.pinned ? '📌' : '🔖'}</button>
+          <button onclick="deleteNote('${n.id}')" title="Delete">✕</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── MODAL ──
+function openModal() {
+  editingId = null;
+  selColour = 'yellow';
+  document.getElementById('modalTitle').textContent = 'New Note';
+  document.getElementById('noteInput').value = '';
+  document.getElementById('pinCheck').checked = false;
+  setColourUI('yellow');
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('noteInput').focus(), 200);
+}
+
+function openEdit(id) {
+  const n = notes.find(x => x.id == id);
+  if (!n) return;
+  editingId = id;
+  selColour = n.color;
+  document.getElementById('modalTitle').textContent = 'Edit Note';
+  document.getElementById('noteInput').value = n.text;
+  document.getElementById('pinCheck').checked = n.pinned;
+  setColourUI(n.color);
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('noteInput').focus(), 200);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  editingId = null;
+}
+
+function saveNote() {
+  const text = document.getElementById('noteInput').value.trim();
+  if (!text) { showToast('Write something first'); return; }
+  const pinned = document.getElementById('pinCheck').checked;
+  const now    = new Date().toISOString();
+
+  if (editingId) {
+    const n = notes.find(x => x.id == editingId);
+    if (n) { n.text = text; n.color = selColour; n.pinned = pinned; n.updated_at = now; }
+  } else {
+    notes.push({ id: Date.now(), text, color: selColour, pinned, created_at: now, updated_at: now });
+  }
+  closeModal();
+  render();
+  schedulePush();
+}
+
+function pickColour(c) { selColour = c; setColourUI(c); }
+function setColourUI(c) {
+  document.querySelectorAll('.colour-dot').forEach(d => {
+    d.classList.toggle('selected', d.dataset.colour === c);
+  });
+}
+
+// ── ACTIONS ──
+function togglePin(id) {
+  const n = notes.find(x => x.id == id);
+  if (!n) return;
+  n.pinned = !n.pinned;
+  n.updated_at = new Date().toISOString();
+  render();
+  schedulePush();
+  showToast(n.pinned ? 'Pinned 📌' : 'Unpinned');
+}
+
+function deleteNote(id) {
+  if (!confirm('Delete this note?')) return;
+  notes = notes.filter(x => x.id != id);
+  render();
+  schedulePush();
+  showToast('Deleted');
+}
+
+// ── UTILS ──
+function setStatus(msg) { document.getElementById('ghStatus').textContent = msg; }
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+function relTime(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff/60000);
+  if (m < 1)   return 'just now';
+  if (m < 60)  return m + 'm ago';
+  const h = Math.floor(m/60);
+  if (h < 24)  return h + 'h ago';
+  const d = Math.floor(h/24);
+  if (d < 7)   return d + 'd ago';
+  return new Date(iso).toLocaleDateString('en-GB', {day:'numeric', month:'short'});
+}
+
+// Close modal on backdrop tap
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── INIT ──
+pullFromGitHub();
+</script>
+</body>
+</html>
