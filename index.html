@@ -101,7 +101,7 @@ body {
 }
 .dispatch-btn:active { transform: scale(0.98); }
 .dispatch-icon { font-size: 2rem; flex-shrink: 0; }
-.dispatch-text { flex: 1; }
+.dispatch-text { flex: 1; min-width: 0; overflow: hidden; }
 .dispatch-name {
   font-family: 'Cinzel', serif;
   font-size: 0.8rem;
@@ -110,7 +110,7 @@ body {
   color: #93c5fd;
   margin-bottom: 2px;
 }
-.dispatch-desc {
+.dispatch-desc { white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   font-size: 0.75rem;
   color: var(--muted);
   font-style: italic;
@@ -258,7 +258,7 @@ body {
   color: #fbbf24;
   margin-bottom: 2px;
 }
-.morning-desc {
+.morning-desc { white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   font-size: 0.75rem;
   color: rgba(251,191,36,0.5);
   font-style: italic;
@@ -268,45 +268,7 @@ body {
 .card-notes:hover { border-color: #c8a83050; }
 .card-notes:hover::before { opacity: 1; }
 
-/* NOTES STRIP */
-.notes-strip {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: calc(100% - 40px);
-  max-width: 440px;
-  background: var(--surface);
-  border: 1px solid rgba(200,168,48,0.2);
-  border-radius: 20px;
-  padding: 14px 22px;
-  text-decoration: none;
-  margin-top: 14px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.25s;
-}
-.notes-strip::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #c8a830, #f0d060, #c8a830);
-}
-.notes-strip:active { transform: scale(0.98); }
-.notes-strip-icon { font-size: 1.6rem; flex-shrink: 0; }
-.notes-strip-name {
-  font-family: 'Cinzel', serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #c8a830;
-  margin-bottom: 2px;
-}
-.notes-strip-desc {
-  font-size: 0.72rem;
-  color: rgba(200,168,48,0.5);
-  font-style: italic;
-}
+
 </style>
 </head>
 <body>
@@ -371,15 +333,6 @@ body {
 
 </div>
 
-
-<!-- NOTES STRIP -->
-<a class="notes-strip" href="notes.html">
-  <span class="notes-strip-icon">📝</span>
-  <div class="notes-strip-text">
-    <div class="notes-strip-name">NOTES</div>
-    <div class="notes-strip-desc">Quick capture · ideas · reminders</div>
-  </div>
-</a>
 
 <div class="footer">
   <div class="greeting" id="greeting">Good morning, Sarah 💚</div>
