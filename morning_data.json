@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T09:00:00+02:00",
+  "generated_at": "2026-05-25T18:10:00+02:00",
   "calendar": {
     "today": [
       {
@@ -45,13 +45,91 @@
       },
       {
         "label": "MON 1 Jun",
-        "summary": "\ud83e\udd5a Eggshell water \u00b7 \ud83c\udf4c Banana peel water \u00b7 \u2615 Coffee grounds \u00b7 \ud83e\udeb4 Root-bound check \u00b7 \ud83c\udf45 Check tomato flowers",
+        "summary": "\ud83e\udd5a Eggshell water \u00b7 \ud83c\udf4c Banana peel water \u00b7 \u2615 Coffee grounds \u00b7 \ud83e\udeb4 Root check \u00b7 \ud83c\udf45 Check tomato flowers",
         "count": 5,
         "is_today": false
       }
     ]
   },
-  "email_personal": null,
-  "email_teatro": null,
-  "email_note": "Email harvest pending \u2014 deploy Apps Script harvesters to enable"
+  "email_personal": {
+    "urgent": [
+      {
+        "subject": "\ud83d\udce6 Amazon package waiting \u2014 pick up at FLORISTER\u00cdA FRAN before May 28!",
+        "sender": "amazon.es"
+      }
+    ],
+    "needs_response": [
+      {
+        "subject": "Physio reminder: James tomorrow 17:00 (flagged by filter \u2014 fine)",
+        "sender": "acuityscheduling.com"
+      },
+      {
+        "subject": "Patreon content: Fairy Party Coloring Pages",
+        "sender": "selfloverainbow@creator.patreon.com"
+      },
+      {
+        "subject": "Patreon content: May Phone Wallpapers",
+        "sender": "mindfullyillustrated@creator.patreon.com"
+      },
+      {
+        "subject": "DailyOM: The Way of Hado",
+        "sender": "dailyom.com"
+      }
+    ],
+    "newsletters": [
+      {
+        "subject": "Loft: Extra 60% off (marketing \u2014 misclassified as urgent)",
+        "sender": "loft.com"
+      },
+      {
+        "subject": "Tendam: 10% extra en la app hoy",
+        "sender": "tendam.es"
+      },
+      {
+        "subject": "Ann Taylor: 50% off everything",
+        "sender": "anntaylor.com"
+      }
+    ],
+    "archive": [
+      {
+        "subject": "Bancosantander: Evita estafas telef\u00f3nicas",
+        "sender": "bancosantander-mail.es"
+      },
+      {
+        "subject": "Bancosantander: Tus contrase\u00f1as m\u00e1s seguras",
+        "sender": "bancosantander-mail.es"
+      }
+    ]
+  },
+  "email_teatro": {
+    "urgent": [],
+    "needs_response": [
+      {
+        "subject": "Consulta programaci\u00f3n \u2014 Chiara Signorile (enquiry, check this)",
+        "sender": "chiara.signorile91@gmail.com"
+      },
+      {
+        "subject": "Tu resumen diario de entradium \u2014 24/5/2026",
+        "sender": "entradium.com"
+      }
+    ],
+    "calendar": [
+      {
+        "subject": "\u00a1Hecho! Has creado tu evento en entradium",
+        "sender": "entradium.com"
+      }
+    ],
+    "financial": [
+      {
+        "subject": "DIGI: Aviso de factura emitida",
+        "sender": "digimobil.es"
+      }
+    ],
+    "archive": [
+      {
+        "subject": "Entradium: Has cerrado una sesi\u00f3n",
+        "sender": "entradium.com"
+      }
+    ]
+  }
 }
