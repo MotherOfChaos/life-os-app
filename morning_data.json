@@ -1,67 +1,24 @@
 {
-  "generated_at": "2026-05-22T10:00:00+02:00",
+  "generated_at": "2026-05-25T09:00:00+02:00",
   "calendar": {
     "today": [
       {
-        "start": "2026-05-22T00:00:00",
-        "title": "\ud83c\udf45 Transplant tomatoes \u2014 Wall B",
+        "start": "2026-05-25T09:00:00",
+        "title": "\ud83c\udf45 Trasplantar tomates cherry a contenedor final",
         "location": "Can Booty Terrace"
-      },
-      {
-        "start": "2026-05-22T00:00:00",
-        "title": "\u2702\ufe0f Check for bolting \u2014 cut flower stalks"
-      },
-      {
-        "start": "2026-05-22T00:00:00",
-        "title": "\ud83d\udca7 Ash water spray \u2014 fungal prevention"
-      },
-      {
-        "start": "2026-05-22T00:00:00",
-        "title": "\u2702\ufe0f Salvia \u2014 light base clean-up"
-      },
-      {
-        "start": "2026-05-22T00:00:00",
-        "title": "\ud83c\udf3f Tea tree spray \u2014 pest & fungal prevention"
-      },
-      {
-        "start": "2026-05-22T00:00:00",
-        "title": "\ud83c\udf3f Neem oil spray \u2014 SALVIA only"
-      },
-      {
-        "start": "2026-05-22T16:00:00",
-        "title": "\ud83c\udf3f Pot basil + purslane \u2014 Wall B"
       }
     ],
     "tomorrow": [
       {
-        "start": "2026-05-23T00:00:00",
-        "title": "\ud83c\udf3f Plant herb tower: chives, cilantro, perejil, purslane",
-        "location": "Can Booty Terrace"
+        "start": "2026-05-26T16:30:00",
+        "title": "\ud83d\udc8a Vitamina D \u2014 hydroferol"
       },
       {
-        "start": "2026-05-23T00:00:00",
-        "title": "\ud83c\udf3f Lavender \u2014 START tea tree (half-dose) IF shoots visible"
+        "start": "2026-05-26T16:45:00",
+        "title": "PHYSIO WITH JAMES"
       }
     ],
     "week": [
-      {
-        "label": "SUN 24",
-        "summary": "\u2615 Coffee grounds \u2014 leafy greens (09:00)",
-        "count": 1,
-        "is_today": false
-      },
-      {
-        "label": "MON 25",
-        "summary": "\ud83c\udf45 Trasplantar tomates cherry (09:00)",
-        "count": 1,
-        "is_today": false
-      },
-      {
-        "label": "TUE 26",
-        "summary": "\ud83d\udc8a Vitamin D (16:30) \u00b7 PHYSIO WITH JAMES (16:45)",
-        "count": 2,
-        "is_today": false
-      },
       {
         "label": "WED 27",
         "summary": "\u26a0\ufe0f TRAUMATOLOGO @Cap Montigal\u00e1 (10:30) \u00b7 OLGA (18:00)",
@@ -84,6 +41,12 @@
         "label": "SAT 30",
         "summary": "\ud83d\udcb0 Check Seg Soc transfer \u00b7 \ud83e\udd57 First arugula harvest!",
         "count": 2,
+        "is_today": false
+      },
+      {
+        "label": "MON 1 Jun",
+        "summary": "\ud83e\udd5a Eggshell water \u00b7 \ud83c\udf4c Banana peel water \u00b7 \u2615 Coffee grounds \u00b7 \ud83e\udeb4 Root-bound check \u00b7 \ud83c\udf45 Check tomato flowers",
+        "count": 5,
         "is_today": false
       }
     ]
