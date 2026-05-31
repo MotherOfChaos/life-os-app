@@ -328,18 +328,36 @@ body {
   pointer-events: none;
 }
 .toast.show { opacity: 1; }
+
+/* ADD SECTION */
+.btn-add-section {
+  display: block;
+  width: calc(100% - 32px);
+  max-width: 668px;
+  margin: 0 auto 80px;
+  padding: 10px;
+  background: rgba(255,107,0,0.06);
+  border: 1px dashed rgba(255,107,0,0.35);
+  border-radius: 12px;
+  color: var(--fire2);
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  text-align: center;
+}
+.btn-add-section:hover { background: rgba(255,107,0,0.14); border-color: rgba(255,107,0,0.6); }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>🔥 BBB 2026 · PACKING LIST</h1>
-  <div class="sub">Alcover, Reus · May 8–12 · The hills await</div>
+  <div class="sub">Italy · Ibiza · Sailing · June 2026</div>
   <div class="weather-strip">
-    <div class="weather-day"><div class="wd">Fri 8</div><div class="wt">17°C</div><div class="wr">🌧 20%</div></div>
-    <div class="weather-day rain-alert"><div class="wd">Sat 9</div><div class="wt">15°C</div><div class="wr">⚠️ 75% RAIN</div></div>
-    <div class="weather-day"><div class="wd">Sun 10</div><div class="wt">21°C</div><div class="wr">🌧 20%</div></div>
-    <div class="weather-day"><div class="wd">Nights</div><div class="wt">~11°C</div><div class="wr">❄️ Cold hills</div></div>
+    <div class="weather-day"><div class="wd">🇮🇹 Italy</div><div class="wt">Lake Garda</div><div class="wr">Jun 5–7 · ~28°C</div></div>
+    <div class="weather-day"><div class="wd">🏝️ Ibiza</div><div class="wt">Circoloco DC10</div><div class="wr">Jun 7–9 · ~27°C</div></div>
+    <div class="weather-day"><div class="wd">⛵ Sailing</div><div class="wt">Med</div><div class="wr">TBD</div></div>
   </div>
 </div>
 
@@ -353,6 +371,7 @@ body {
 </div>
 
 <div class="sections" id="sections"></div>
+<button class="btn-add-section" onclick="addSection()">＋ Add Section</button>
 
 <button class="fab" id="fab" onclick="saveToGit()" title="Save to GitHub">💾</button>
 <div class="toast" id="toast"></div>
@@ -743,6 +762,23 @@ function cancelEdit() {
 // INIT
 // ═══════════════════════════════════════════
 loadFromGit();
+
+function addSection() {
+  const name = prompt('Section name:');
+  if (!name || !name.trim()) return;
+  const icon = prompt('Icon (emoji):', '📦') || '📦';
+  const newSection = {
+    id: 'sec-' + Date.now(),
+    title: name.trim(),
+    icon: icon.trim(),
+    open: true,
+    items: []
+  };
+  data.sections.push(newSection);
+  renderAll();
+  saveToGit();
+  showToast('Section "' + name.trim() + '" added!');
+}
 </script>
 </body>
 </html>
