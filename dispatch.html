@@ -6,7 +6,7 @@
 <title>The Times of Chaos</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0f;--surface:#0f0f1a;--card:#12121f;--border:#1a1a2e;--text:#e0d8f0;--muted:#5a5a8a;--gold:#c8a830;--gold-dim:rgba(200,168,48,0.1);--gold-border:rgba(200,168,48,0.25);--fire:#e05a20;--rose:#c0304a;--teal:#20a090;--lavender:#7060b0;--amber:#d97706}
+:root{--bg:#0a0a0f;--surface:#0f0f1a;--card:#12121f;--border:#1a1a2e;--text:#e0d8f0;--muted:#5a5a8a;--gold:#c8a830;--gold-dim:rgba(200,168,48,0.1);--gold-border:rgba(200,168,48,0.25);--fire:#e05a20;--rose:#c0304a;--teal:#20a090;--lavender:#7060b0;--amber:#d97706;--green:#30a060}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
 body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 50% 0%,rgba(200,168,48,0.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(112,96,176,0.05) 0%,transparent 50%)}
 .masthead{text-align:center;padding:32px 20px 20px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
@@ -28,7 +28,9 @@ body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--te
 .section-title{font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);flex:1}
 .story{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;position:relative;overflow:hidden}
 .story::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent,var(--gold));opacity:0.5}
-.story-headline{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.04em;color:var(--text);margin-bottom:6px;line-height:1.4}
+.story-headline{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.04em;color:var(--text);margin-bottom:8px;line-height:1.4}
+.what-happened{margin-bottom:10px}
+.what-happened-label{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 .story-body{font-size:0.88rem;line-height:1.6;color:rgba(224,216,240,0.8)}
 .story-body p{margin-bottom:6px}
 .story-body p:last-child{margin-bottom:0}
@@ -37,16 +39,33 @@ body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--te
 .tag-developing{background:rgba(224,90,32,0.12);color:#e07040;border:1px solid rgba(224,90,32,0.25)}
 .tag-analysis{background:rgba(112,96,176,0.12);color:#9080d0;border:1px solid rgba(112,96,176,0.25)}
 .tag-culture{background:rgba(200,168,48,0.12);color:var(--gold);border:1px solid var(--gold-border)}
-.tag-week{background:rgba(32,160,80,0.12);color:#50d080;border:1px solid rgba(32,160,80,0.3)}
-.fact-box{background:rgba(200,168,48,0.05);border:1px solid var(--gold-border);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(200,168,48,0.85)}
+.tag-science{background:rgba(32,160,144,0.12);color:#40c0b0;border:1px solid rgba(32,160,144,0.25)}
+.tag-star{background:rgba(32,160,144,0.2);color:#40d0c0;border:1px solid rgba(32,160,144,0.4)}
+.tag-local{background:rgba(200,168,48,0.15);color:#f0c040;border:1px solid rgba(200,168,48,0.4)}
+.fact-box{background:rgba(200,168,48,0.05);border:1px solid var(--gold-border);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(200,168,48,0.9)}
 .fact-box strong{color:var(--gold)}
 .alert-box{background:rgba(192,48,74,0.06);border:1px solid rgba(192,48,74,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(240,112,144,0.9)}
-.alert-box strong{color:#f07090}
 .green-box{background:rgba(32,160,80,0.06);border:1px solid rgba(32,160,80,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(80,200,128,0.9)}
-.perspective{display:flex;gap:8px;margin-bottom:5px;font-size:0.82rem}
-.perspective-source{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.06em;color:var(--muted);min-width:80px;padding-top:2px;flex-shrink:0;text-transform:uppercase}
+
+/* PERSPECTIVES — THE HEART OF THE SYSTEM */
+.perspectives{margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+.perspectives-label{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.perspective{display:grid;grid-template-columns:80px 1fr;gap:8px;margin-bottom:7px;font-size:0.82rem;line-height:1.45}
+.perspective:last-child{margin-bottom:0}
+.perspective-source{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.05em;color:var(--muted);padding-top:2px;flex-shrink:0;text-transform:uppercase}
+.perspective-left .perspective-source{color:#6090e0}
+.perspective-center .perspective-source{color:var(--muted)}
+.perspective-right .perspective-source{color:#e09060}
+.perspective-text{color:rgba(224,216,240,0.85)}
+.lean-badge{display:inline-block;font-size:0.45rem;padding:1px 4px;border-radius:4px;margin-left:3px;vertical-align:middle}
+.lean-l{background:rgba(96,144,224,0.15);color:#6090e0}
+.lean-c{background:rgba(96,96,160,0.15);color:#9090c0}
+.lean-r{background:rgba(224,144,96,0.15);color:#e09060}
+
+.why-matters{margin-top:8px;font-size:0.8rem;line-height:1.5;color:rgba(160,200,240,0.8);font-style:italic;padding-left:10px;border-left:2px solid rgba(32,160,144,0.4)}
 .rule{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:24px 0}
-.sources{font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.6;padding:12px 16px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+.sources-section{font-size:0.68rem;color:var(--muted);line-height:1.8;padding:12px 16px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+.sources-section strong{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -54,96 +73,340 @@ body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--te
 <div class="masthead">
   <div class="masthead-top">Est. 2026 · Barcelona Edition · Curated by M</div>
   <div class="masthead-title">The Times of Chaos</div>
-  <div class="masthead-sub">Intelligence for a Life in Motion</div>
-  <div class="masthead-date">Sunday, 31 May 2026 · Morning Edition</div>
+  <div class="masthead-sub">Hear All the Bells · Facts from Opinions</div>
+  <div class="masthead-date">Monday, 1 June 2026 · Morning Edition</div>
   <div class="masthead-rule"></div>
 </div>
 <nav class="nav-bar">
-  <a class="nav-pill" href="#breaking">🚨 Breaking</a>
-  <a class="nav-pill" href="#iran">⚔️ Iran</a>
-  <a class="nav-pill" href="#world">🌍 World</a>
+  <a class="nav-pill" href="#conflicts">⚔️ Conflicts</a>
+  <a class="nav-pill" href="#spain">🇪🇸 Spain</a>
+  <a class="nav-pill" href="#italy">🇮🇹 Italy</a>
   <a class="nav-pill" href="#europe">🇪🇺 Europe</a>
+  <a class="nav-pill" href="#arts">🎭 Arts</a>
+  <a class="nav-pill" href="#science">🧠 Science</a>
+  <a class="nav-pill" href="#tech">💻 Tech</a>
 </nav>
 <div class="container">
 
-<!-- BREAKING -->
-<section class="section" id="breaking">
-  <div class="section-header"><span class="section-icon">🚨</span><span class="section-title">Breaking This Morning</span></div>
-
-  <div class="story" style="--accent:var(--rose)">
-    <span class="story-tag tag-breaking">Italy · Right Now</span>
-    <div class="story-headline">Suspected Ebola Case in Cagliari — Patient Isolated, Tests Underway in Rome</div>
-    <div class="story-body">
-      <p>Italian health authorities activated Ebola protocols in Cagliari, Sardinia this evening after a patient showing symptoms compatible with the virus was transported to the Santissima Trinità Hospital's infectious diseases unit. Police, fire brigade, and medical staff in full protective equipment attended the patient's home. The patient had recently returned from the DRC.</p>
-      <p>Italy's Ministry of Health confirmed the patient is symptomatic and in isolation. Tests are being carried out overnight by Rome's Spallanzani Institute — the country's reference centre for high-risk infectious diseases. Results expected by tomorrow morning. PM Meloni has proposed putting border management on the agenda of the European Council meeting of June 18–19.</p>
-      <p>Context: Global Ebola count as of May 30 — 263 confirmed cases, 43 confirmed deaths in DRC and Uganda. Over 1,100 suspected cases. Two earlier suspected cases in Milan (Lombardy, May 26) tested NEGATIVE. The Africa CDC director warned Friday that "the risk of regional spread is real."</p>
-    </div>
-    <div class="alert-box"><strong>For your Italy trip (June 5–7 Garda, June 7+ Ibiza):</strong> Risk remains very low. The case is in Sardinia, not the mainland. Protocols are working exactly as designed. Watch for test results tomorrow — negative is the most likely outcome based on the Milan precedent.</div>
-  </div>
-</section>
-
-<!-- IRAN -->
-<section class="section" id="iran">
-  <div class="section-header"><span class="section-icon">⚔️</span><span class="section-title">Iran Deal — Still No Signature</span></div>
+<!-- CONFLICTS -->
+<section class="section" id="conflicts">
+  <div class="section-header"><span class="section-icon">⚔️</span><span class="section-title">Active Conflicts</span></div>
 
   <div class="story" style="--accent:var(--amber)">
-    <span class="story-tag tag-developing">Live · Negotiations Extending</span>
-    <div class="story-headline">Trump Sends Back Changes — Talks Extend Into Another Week</div>
-    <div class="story-body">
-      <p>President Trump met with advisers in the White House Situation Room on Friday saying he would make a "final determination" on the Iran deal. The meeting ended after two hours with no decision. Trump then sent the proposed agreement back with changes demanding tougher language on Iran's nuclear commitments and the reopening of Hormuz as non-negotiable. As of Sunday afternoon, still no decision.</p>
-      <p>What the MOU would include: lifting constraints on Hormuz navigation, a US blockade lifted, and a 60-day negotiation period on Iran's nuclear programme. What's still unresolved: the fate of Iran's highly enriched uranium stockpile, unfreezing of Iranian funds, and Iran's insistence that Hormuz remains under Iranian management — not US control.</p>
-      <p>Israel continued airstrikes on southern Lebanon on May 30 in what it called an "expansion of operations" — potentially the most significant remaining obstacle to any deal, since Iran has tied Lebanon to negotiations.</p>
+    <span class="story-tag tag-developing">Iran · Day 93</span>
+    <div class="story-headline">Trump Exits Situation Room Without Signing — Then Sends Back Tougher Nuclear Demands</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>On Friday, Trump held a Situation Room meeting saying he would make a "final determination" on the Iran deal. He exited two hours later without signing. He then posted on Truth Social listing Iran's obligations: never possess a nuclear weapon; immediately open the Strait of Hormuz. Trump subsequently sent the draft MOU back to negotiators with changes requesting tougher language on Iran's nuclear commitments — specifically seeking specific concessions beyond Iran's current commitment not to pursue nuclear weapons.</p>
+        <p>Per Axios (citing two sources), the current MOU text commits Iran to never pursuing nuclear weapons but does not specify concessions beyond that — Trump wants concrete commitments on enrichment suspension and disposal of Iran's enriched uranium stockpile before he signs. The US would negotiate on sanctions relief during the 60-day extension.</p>
+        <p>Also from Friday: Kuwait intercepted missiles fired from Iran, and the US Treasury Department imposed new sanctions on Iran's military oil sales arm — even as the deal was being discussed.</p>
+      </div>
     </div>
-    <div class="fact-box"><strong>Bottom line:</strong> Deal is alive but extending into next week. Markets have largely priced in an eventual agreement — oil fell sharply this week on optimism. But "largely negotiated" has been said before, and each delay costs the global economy roughly $4 billion/day in elevated energy costs.</div>
-    <div class="perspective"><span class="perspective-source">CBS News</span> Trump in "no hurry" to sign — no decision Sunday afternoon</div>
-    <div class="perspective"><span class="perspective-source">Al Jazeera</span> Iran says "no final agreement" — judging by actions not words</div>
-    <div class="perspective"><span class="perspective-source">CNN</span> Trump sent back tougher language — negotiations now extend another week</div>
+    <div class="perspectives">
+      <div class="perspectives-label">Perspectives</div>
+      <div class="perspective perspective-left">
+        <span class="perspective-source">PBS/AP <span class="lean-badge lean-l">L</span></span>
+        <span class="perspective-text">US and Iranian negotiators reached a tentative deal on extending the ceasefire — it's Trump alone who has not approved it. VP Vance said the US is in a position to "substantially set back" Iran's nuclear program long term.</span>
+      </div>
+      <div class="perspective perspective-center">
+        <span class="perspective-source">Axios <span class="lean-badge lean-c">C</span></span>
+        <span class="perspective-text">Iran gave verbal commitments to mediators on the scope of enrichment concessions it's willing to make. The changes Trump sent back are being worked through — the deal is alive but not imminent.</span>
+      </div>
+      <div class="perspective perspective-center">
+        <span class="perspective-source">CNBC <span class="lean-badge lean-c">C</span></span>
+        <span class="perspective-text">Iran's Fars news agency pushed back saying Trump's posted demands "contradict the provisions of the agreement's text." Iranian advisor Rezaee said Trump is "betraying diplomacy" by continuing the naval blockade during negotiations.</span>
+      </div>
+      <div class="perspective perspective-right">
+        <span class="perspective-source">WSJ <span class="lean-badge lean-r">R</span></span>
+        <span class="perspective-text">Trump's insistence on tougher nuclear language is seen by hawks as responsible pressure — any deal that doesn't lock in verifiable enrichment limits would be another "Iran deal" that Iran ultimately violates.</span>
+      </div>
+    </div>
+    <div class="fact-box"><strong>The MOU as currently written would include:</strong> Iran commits to never pursue nuclear weapons · 60-day window for nuclear negotiations · Hormuz reopened, mines removed within 30 days · Iran cannot impose tolls on the strait · Lebanon war to end · US lifts blockade · Sanctions discussions during 60-day period</div>
+    <div class="alert-box"><strong>Context:</strong> The ceasefire has been extended multiple times since April 8. The war began February 28 when US and Israel struck Iran. Hormuz has been at ~10 ships/day vs 130 pre-war. Three international economic organizations warned Friday of "increasing fuel security risks" if shipping doesn't normalise.</div>
+  </div>
+
+  <div class="story" style="--accent:var(--rose)">
+    <span class="story-tag tag-developing">Ukraine · Ongoing</span>
+    <div class="story-headline">Oreshnik Strike Aftermath: Russia Expands Attacks as NATO Allies Block Ukraine Funding</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Following Russia's May 24 Oreshnik hypersonic strike on Kyiv (4 dead, 80+ wounded, Chernobyl Museum destroyed), NATO foreign ministers met in Helsingborg but failed to agree on a mandatory funding mechanism. UK, France, Spain, Italy and Canada blocked Rutte's proposal for 0.25% of GDP annual Ukraine military aid. Baltic and Nordic states were the only supporters.</p>
+        <p>Zelenskyy confirmed for the Ankara NATO summit in July. Rutte acknowledged publicly the US will likely reduce its NATO commitment going forward.</p>
+      </div>
+    </div>
+    <div class="perspectives">
+      <div class="perspectives-label">Perspectives</div>
+      <div class="perspective perspective-center">
+        <span class="perspective-source">Kyiv Ind. <span class="lean-badge lean-c">C</span></span>
+        <span class="perspective-text">The blocking of mandatory aid by Western European countries signals a dangerous fracture in NATO unity at precisely the moment Russia is normalising nuclear-capable weapons use in populated areas.</span>
+      </div>
+      <div class="perspective perspective-center">
+        <span class="perspective-source">Le Monde <span class="lean-badge lean-c">C</span></span>
+        <span class="perspective-text">France's position reflects domestic budget pressure and Macron's ongoing effort to maintain diplomatic space with Moscow — described by Paris as "strategic ambiguity."</span>
+      </div>
+      <div class="perspective perspective-right">
+        <span class="perspective-source">Telegraph <span class="lean-badge lean-r">R</span></span>
+        <span class="perspective-text">Spain blocking Ukraine aid while simultaneously blocking US base access during Iran war shows a coherent if controversial foreign policy: Sánchez is positioning Spain as a non-aligned middle power.</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- WORLD -->
-<section class="section" id="world">
-  <div class="section-header"><span class="section-icon">🌍</span><span class="section-title">World</span></div>
+<!-- SPAIN -->
+<section class="section" id="spain">
+  <div class="section-header"><span class="section-icon">🇪🇸</span><span class="section-title">Spain & Barcelona</span></div>
+
+  <div class="story" style="--accent:var(--rose)">
+    <span class="story-tag tag-breaking">Crisis política</span>
+    <div class="story-headline">Nine Corruption Cases Closing In on Sánchez — Police Search PSOE Headquarters</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Spain's governing PSOE is facing nine simultaneous corruption investigations according to Euronews. This week authorities searched the Socialist Party's Madrid headquarters. Former party officials — including ex-Organisation Secretary Santos Cerdán — have been charged with money laundering, influence peddling, criminal organisation and document forgery. Former PM adviser Leire Díez, arrested in December 2025, remains on bail. Sánchez himself has been summoned to testify, with his appearance postponed to June 17–18.</p>
+        <p>Sánchez told a press conference: "There won't be an election called until 2027 because this is not about me or the Socialist Party... It's about a political project that is doing good things for this country." He denied personal wrongdoing and emphasised respect for judicial independence.</p>
+      </div>
+    </div>
+    <div class="perspectives">
+      <div class="perspectives-label">Perspectives</div>
+      <div class="perspective perspective-left">
+        <span class="perspective-source">El País <span class="lean-badge lean-l">L</span></span>
+        <span class="perspective-text">The investigations involve individuals connected to Sánchez's circle, not Sánchez directly. Judicial proceedings are a normal function of democracy — the opposition is exploiting them politically ahead of 2027 elections.</span>
+      </div>
+      <div class="perspective perspective-center">
+        <span class="perspective-source">Euronews <span class="lean-badge lean-c">C</span></span>
+        <span class="perspective-text">The scale and pace of cases — nine simultaneously, party HQ searched — represents an unprecedented crisis for a sitting Spanish government, whatever the ultimate legal outcomes.</span>
+      </div>
+      <div class="perspective perspective-right">
+        <span class="perspective-source">El Mundo <span class="lean-badge lean-r">R</span></span>
+        <span class="perspective-text">PP leader Feijóo has called on Sánchez to resign. The searches of party headquarters are "incompatible with the dignity of the office of president."</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="story" style="--accent:var(--teal)">
+    <span class="story-tag tag-local">🎵 This Week in BCN</span>
+    <div class="story-headline">Primavera Sound Starts Thursday — The Biggest Week in Barcelona's Music Calendar</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Primavera a la Ciutat begins TODAY (Monday June 1) with city-wide shows at Sala Apolo, Razzmatazz, CCCB and other venues — free entry for some. The main festival runs June 4–6 at Parc del Fòrum (sold out since February).</p>
+        <p>Thursday June 4: Doja Cat, Massive Attack, Bad Gyal (Massive Attack's Primavera debut after cancelling their 2022 slot). Friday June 5: The Cure, Skrillex, Addison Rae. Saturday June 6: The xx, Gorillaz, My Bloody Valentine. Sunday June 7: Carl Cox, Joseph Capriati close the festival.</p>
+        <p>Expect significant metro and traffic disruption around Parc del Fòrum Thurs–Sat. L4 and buses to Fòrum will be heavily congested from 17:00 onwards each day.</p>
+      </div>
+    </div>
+    <div class="fact-box"><strong>Also this month in Barcelona:</strong> Grec Festival 50th anniversary opens June 29 (39 venues, June–August) · Joan Miró Foundation 50th anniversary June 10 · Tour de France Grand Départ July 4–6 · La Pedrera Nabis exhibition closes June 28 · CaixaForum: Matisse (until Aug 16) + Out of Focus (until Sep 27)</div>
+  </div>
+</section>
+
+<!-- ITALY -->
+<section class="section" id="italy">
+  <div class="section-header"><span class="section-icon">🇮🇹</span><span class="section-title">Italy</span></div>
+
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-analysis">Election results</span>
+    <div class="story-headline">Meloni Coalition Wins Venice and Reggio Calabria — Relief After Referendum Defeat</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>In Italy's May 24–25 local elections (626 municipalities, 6.6 million voters), Meloni's centre-right coalition claimed two of the most closely watched cities: Venice (held) and Reggio Calabria (seized from centre-left). In Venice, the centre-right has governed for 11 years. In Reggio Calabria, flipping a historic centre-left stronghold is a significant symbolic win. Meloni commented with characteristic irony: "And again today, the much-heralded collapse of the centre-right is postponed until tomorrow."</p>
+        <p>The results came as relief after Meloni's bruising defeat in a justice reform referendum earlier this year — described by analysts as having "shattered her aura of political invincibility." Opposition parties PD (Schlein) and M5S (Conte) were left disappointed. The centre-left did hold Mantova, Pistoia and Andria.</p>
+      </div>
+    </div>
+    <div class="perspectives">
+      <div class="perspectives-label">Perspectives</div>
+      <div class="perspective perspective-left">
+        <span class="perspective-source">La Rep. <span class="lean-badge lean-l">L</span></span>
+        <span class="perspective-text">Meloni's referendum defeat remains the turning point — "everything has already changed." The local election results buy her time but do not reverse her political vulnerability heading into 2027.</span>
+      </div>
+      <div class="perspective perspective-center">
+        <span class="perspective-source">ANSA <span class="lean-badge lean-c">C</span></span>
+        <span class="perspective-text">Coalition holds key cities despite opposition hopes of a wider decline. The 2027 general election remains genuinely competitive for the first time since Meloni took office.</span>
+      </div>
+      <div class="perspective perspective-right">
+        <span class="perspective-source">Il Giornale <span class="lean-badge lean-r">R</span></span>
+        <span class="perspective-text">Clear victory. The centre-right coalition has demonstrated its electoral resilience. Predictions of Meloni's decline were premature and politically motivated.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="story" style="--accent:var(--rose)">
+    <span class="story-tag tag-developing">Health</span>
+    <div class="story-headline">Cagliari Ebola Case: Results from Spallanzani Due Today</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>A patient who recently returned from DRC was isolated in Cagliari's Santissima Trinità Hospital yesterday with symptoms compatible with Ebola. Emergency services in full PPE responded to their home. Tests sent to Rome's Spallanzani Institute — results expected this morning. Italy's two previous suspected cases (Milan, May 26) both tested negative.</p>
+        <p>PM Meloni is proposing Ebola be placed on the European Council agenda for June 18–19, and has called for a videoconference of EU health ministers next week. The outbreak globally: 263 confirmed cases, 43 deaths, 1,100+ suspected (DRC and Uganda).</p>
+      </div>
+    </div>
+    <div class="green-box">Protocols working as designed. Milan precedent: two negatives in rapid succession. A negative Cagliari result is the most likely outcome. Risk to EU residents remains "very low" per ECDC.</div>
+  </div>
+</section>
+
+<!-- EUROPE -->
+<section class="section" id="europe">
+  <div class="section-header"><span class="section-icon">🇪🇺</span><span class="section-title">Europe</span></div>
 
   <div class="story" style="--accent:var(--lavender)">
-    <span class="story-tag tag-developing">Ukraine</span>
-    <div class="story-headline">Israel Expands Lebanon Campaign — Ceasefire Increasingly Nominal</div>
-    <div class="story-body">
-      <p>Israel warned its public to "expect repeated firing" on May 30 as it announced the expansion of IDF operations in southern Lebanon. The move violates the spirit of the November 2024 ceasefire and has been ongoing through May. Israeli airstrikes hit Kfar Tebnit in southern Lebanon as recently as yesterday. International condemnation has intensified but produced no change in Israeli military behaviour. Hezbollah has not yet responded with full-scale retaliation.</p>
+    <div class="story-headline">Spain Blocked US Military Base Access During Iran War — US Threatened Trade Sanctions</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>When the US and Israel struck Iran in February, Spain under Sánchez refused permission for US forces to use the Rota and Morón military bases for offensive operations — a decision that drew Trump's threats of trade sanctions and the relocation of US refuelling aircraft. Sánchez deployed a frigate to Cyprus for defensive support instead, and stated: "No to war. No to resolving conflicts with bombs." The position drew comparisons to Spain's opposition to the 2003 Iraq War.</p>
+        <p>Spain's position on the Iran war is now part of the PSOE legal controversy — opposition parties argue Sánchez is positioning Spain to undermine both NATO and US alliances for domestic political advantage.</p>
+      </div>
+    </div>
+    <div class="perspectives">
+      <div class="perspectives-label">Perspectives</div>
+      <div class="perspective perspective-left">
+        <span class="perspective-source">El País <span class="lean-badge lean-l">L</span></span>
+        <span class="perspective-text">Spain exercised its sovereign right. Allowing offensive strikes from Spanish territory would have violated international law and potentially drawn Spain into a conflict it opposed.</span>
+      </div>
+      <div class="perspective perspective-right">
+        <span class="perspective-source">ABC (ES) <span class="lean-badge lean-r">R</span></span>
+        <span class="perspective-text">Blocking allied base access during a major military operation damaged Spain's credibility within NATO and risked permanent deterioration of the US-Spain bilateral relationship.</span>
+      </div>
     </div>
   </div>
 
   <div class="story" style="--accent:var(--teal)">
-    <div class="story-headline">Barcelona Named Among Top Tourism Targets for New EU Entry Fees</div>
-    <div class="story-body">
-      <p>May 2026 marked what analysts are calling a "watershed moment" in European overtourism management. Barcelona is implementing Airbnb restrictions and tourist tax hikes simultaneously — addressing both the housing crisis and visitor overload. Venice charges €5 entry for day-trippers. Rome, Athens, Santorini all implementing new visitor levies. The EU is coordinating for the first time on a shared overtourism policy framework, to be discussed at the June 18–19 European Council.</p>
+    <div class="story-headline">EU Overtourism Policy Framework: Barcelona, Venice, Rome All Implementing New Levies</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>May 2026 marks what analysts are calling a watershed moment in European overtourism management. Barcelona has simultaneously implemented Airbnb restrictions and tourist tax hikes. Venice charges €5 for day-trippers. Athens, Rome, and Santorini have introduced new visitor levies. The EU is coordinating a shared overtourism policy framework for discussion at the June 18–19 European Council — the first time the issue will be addressed at that level.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- EUROPE / HEALTH -->
-<section class="section" id="europe">
-  <div class="section-header"><span class="section-icon">🇪🇺</span><span class="section-title">Europe & Health</span></div>
+<!-- ARTS & CULTURE -->
+<section class="section" id="arts">
+  <div class="section-header"><span class="section-icon">🎭</span><span class="section-title">Arts & Culture</span></div>
+
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-culture">Theatre · BCN</span>
+    <div class="story-headline">Grec Festival 2026 — 50th Anniversary, 39 Venues, Opens June 29: The Biggest Edition Yet</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>The 50th anniversary Grec Festival (June 29–July 31, into early August) coincides with the 50th anniversary of Teatre Lliure. The programme has been described as "the most literary Grec Festival ever" — novels, theatrical texts, and classical and contemporary literary worlds inspiring productions across 39 venues. The festival opens with a director known for strong visual work delivering a critique of the capitalist world.</p>
+        <p>Grec stretches across both Montjuïc (Grec Montjuïc) and the rest of the city (Grec Ciutat). The format allows attending a show and walking to the beach within 15 minutes. 3- and 5-show passes available with discounts for over-65s, unemployed, and library cardholders.</p>
+      </div>
+    </div>
+    <div class="why-matters">Relevant to Teatro Metamorfosis: the Grec's 50th is a moment when the Barcelona theatre scene reflects on its own history and future. The international/local balance it strikes each year sets the cultural temperature for what audiences are being exposed to — and what independent theatre needs to respond to.</div>
+  </div>
+
+  <div class="story" style="--accent:var(--gold)">
+    <span class="story-tag tag-culture">BCN · Tour de France</span>
+    <div class="story-headline">Tour de France Grand Départ from Barcelona — July 4–6, Three Stages in Catalonia</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Barcelona will host the Grand Départ of the 2026 Tour de France for the first time. Three stages entirely in Catalonia: July 4 — team time trial, Fòrum Park to Montjuïc (19.7km); July 5 — Tarragona to Barcelona (178km); July 6 — Barcelona to stage departure. Significant city disruption expected around Montjuïc, Diagonal, and the Fòrum on those dates.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story" style="--accent:var(--lavender)">
+    <span class="story-tag tag-culture">Milan · Art</span>
+    <div class="story-headline">New Pope Leo XIV's First Major Cultural Statement: AI and Art Not Opposed</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>In meetings with both Pedro Sánchez and other European leaders this week, Pope Leo XIV — the first American pope, elected in May — emphasized his alignment with leaders on wars, migration, and artificial intelligence. Sánchez thanked the Pope for being "a moral compass in the fight against injustice." Leo XIV's papacy has already attracted attention for his willingness to engage directly with AI ethics, stating that creative AI and human creativity are "not opposed but in dialogue."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="section" id="science">
+  <div class="section-header"><span class="section-icon">🧠</span><span class="section-title">Science & Neuroscience</span></div>
 
   <div class="story" style="--accent:var(--teal)">
-    <div class="story-headline">Ebola: Europe Escalating Response as Cagliari Case Follows Milan Alerts</div>
-    <div class="story-body">
-      <p>The Milan cases (May 26) tested negative. The Cagliari case is awaiting results tonight. Italy has sent Spallanzani Institute experts to DRC, and PM Meloni has called for a videoconference of EU health ministers next week ahead of the June 18–19 European Council. The ECDC still rates risk to EU/EEA residents as "very low" — the concern is not individual cases but the pace of spread in DRC, where 1,100+ suspected cases are overwhelming a fragile health system.</p>
+    <span class="story-tag tag-star">⭐ HMI · Settled Debate</span>
+    <div class="story-headline">A Century-Long Piano Debate Settled: A Pianist's Touch DOES Change Tone Colour</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>For over a century, pianists and music teachers have argued about whether a performer's physical touch — the way a key is depressed, not just how hard — can actually change the sonic character of a note. Physicists insisted it couldn't, since a piano hammer's force is determined only by key velocity. New research published May 28 says the answer is yes: touch does influence tone colour, measurably and reproducibly.</p>
+        <p>The mechanism involves the timing and micro-distribution of force across the key surface affecting hammer contact dynamics in ways previously unmodelled. This has implications for performance pedagogy, instrument design, and haptic interface research — if touch affects sound in a system previously thought to be velocity-only, what other "touch-blind" systems are actually touch-sensitive?</p>
+      </div>
     </div>
-    <div class="green-box">The protocols are working. Both Milan cases tested negative quickly. Italy's response today was textbook — immediate isolation, full PPE team, Spallanzani testing. The system built after COVID is functioning.</div>
+    <div class="why-matters">Direct HMI relevance: this challenges the assumption that digital piano interfaces, which are explicitly velocity-only, faithfully reproduce the acoustic piano's expressive range. The gap is physical, not just perceptual.</div>
   </div>
 
-  <div class="story" style="--accent:var(--muted)">
-    <div class="story-headline">Asian Tiger Mosquito Now Established in Berlin — Europe's Pest Season Expanding</div>
-    <div class="story-body">
-      <p>Euronews reports the Asian tiger mosquito (Aedes albopictus), carrier of dengue, chikungunya, and Zika, is now established in Berlin — once considered too cold. The species has been steadily moving north through France, Switzerland, Austria, and now Germany. Barcelona has had established populations since the mid-2010s. The heat dome of May 2026 will accelerate breeding conditions across the continent.</p>
+  <div class="story" style="--accent:var(--teal)">
+    <span class="story-tag tag-science">Neuroscience</span>
+    <div class="story-headline">Long COVID Brain Fog: First Specific Brain Region Identified — Opens Treatment Pathway</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>A multi-institutional study has identified a specific region-specific brain dysfunction underlying the cognitive impairment in long COVID "brain fog" — one of the most debilitating and poorly understood post-infection syndromes. The finding matters because it shifts long COVID brain fog from a vague syndrome to a targeted neurological problem with a specific anatomical address. That means treatment can now be aimed, rather than guessed at. The research involved collaboration between Chinese Academy of Sciences and UCL.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story" style="--accent:var(--teal)">
+    <span class="story-tag tag-science">Cognitive Science</span>
+    <div class="story-headline">Hippocampal Memory Networks Start Dense and Random — Then Prune Themselves</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Researchers found that early neural networks in the hippocampus — the brain's memory centre — begin life as dense, seemingly random webs of connections that then prune themselves into structured, meaningful patterns. This contradicts the "blank slate" model of memory formation and suggests the brain arrives with far more pre-wiring than thought. The finding has implications for understanding learning differences and potentially for how we think about information acquisition in both humans and AI systems.</p>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- TECH -->
+<section class="section" id="tech">
+  <div class="section-header"><span class="section-icon">💻</span><span class="section-title">Tech & AI</span></div>
+
+  <div class="story" style="--accent:var(--lavender)">
+    <span class="story-tag tag-analysis">Valuation race</span>
+    <div class="story-headline">Anthropic in Talks for $30–50B Round at $950B Valuation — Would Surpass OpenAI</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Anthropic is reportedly in talks to raise $30–50 billion in a new funding round that would value the company at $950 billion — surpassing OpenAI's most recent $852 billion valuation from March. The round's investors have not been identified. Anthropic's current major backers include Amazon, Google, Singapore's GIC sovereign wealth fund, and Coatue Management.</p>
+        <p>The valuation leap reflects Anthropic's performance in the enterprise market — particularly Claude Code (autonomous software development) and Mythos (security vulnerability finding) — which have attracted businesses willing to pay premium pricing. The SpaceX-Anthropic computing deal (announced May 6) gave Anthropic 300 megawatts of new GPU capacity from Colossus 1's 220,000 Nvidia processors within a month.</p>
+      </div>
+    </div>
+    <div class="perspectives">
+      <div class="perspectives-label">Perspectives</div>
+      <div class="perspective perspective-left">
+        <span class="perspective-source">Fortune <span class="lean-badge lean-l">L</span></span>
+        <span class="perspective-text">Anthropic focused on enterprise while OpenAI chased consumer — the enterprise-first strategy is winning on valuation. "The Manchester United to OpenAI's Liverpool" is now potentially more valuable.</span>
+      </div>
+      <div class="perspective perspective-right">
+        <span class="perspective-source">WSJ <span class="lean-badge lean-r">R</span></span>
+        <span class="perspective-text">At $950B, Anthropic would be valued higher than most US banks. The gap between AI company valuations and their current revenues raises questions that the IPO market — when it opens — will answer definitively.</span>
+      </div>
+    </div>
+    <div class="why-matters">Direct relevance: Claude is Anthropic's product. This valuation trajectory suggests Anthropic's enterprise positioning is succeeding — and Claude's capabilities are considered commercially differentiated, not just academically impressive.</div>
+  </div>
+
+  <div class="story" style="--accent:var(--lavender)">
+    <div class="story-headline">US Government Excludes Anthropic from AI Military Testing Coalition</div>
+    <div class="what-happened">
+      <div class="what-happened-label">What happened</div>
+      <div class="story-body">
+        <p>Microsoft, Google, and Musk's xAI agreed to allow the US federal government to test their AI tools on classified networks for security vulnerabilities. Anthropic was explicitly excluded from this arrangement — reportedly due to the administration's concerns about Anthropic's technology. The Department of Defense separately announced a deal with 10 AI companies for classified network use. Anthropic's exclusion reflects the political dimension of AI regulation: the current administration has been less favourably disposed toward Anthropic than its competitors.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="rule"></div>
-<div class="sources">Sources: CBS News · CNN · CNBC · Al Jazeera · Times of Israel · Euronews · NomadLawyer · Travel & Tour World · Africa CDC · Italian Ministry of Health</div>
+<div class="sources-section">
+  <strong>Sources Consulted</strong>
+  Axios (C, US) · CBS News (C, US) · CNBC (C, US) · PBS NewsHour/AP (L, US) · NPR (L, US) · Fortune (C, US) · Al Jazeera (C, Qatar) · Euronews (C, EU) · El País (L, Spain) · ANSA (C, Italy) · Wanted in Rome (C, Italy) · The Week (C, UK) · Commons Library UK (C, UK) · Brooklyn Vegan (C, US) · TNT Magazine (C, UK) · ScienceDaily · irBarcelona · Barcelona Expat Life · La Moncloa (ES government) · Wikipedia 2026 Iran war ceasefire
+</div>
+
 </div>
 </body>
 </html>
