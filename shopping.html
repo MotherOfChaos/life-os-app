@@ -361,6 +361,9 @@ const app = {
                     <span class="item-text">${item.text}</span>
                     ${item.qty ? `<span class="item-qty">${item.qty}</span>` : ''}
                     <div class="item-actions">
+                        <button class="btn-move-item" onclick="app.moveUp('${sec.id}',${idx})" title="Move up">↑</button>
+                        <button class="btn-move-item" onclick="app.moveDown('${sec.id}',${idx})" title="Move down">↓</button>
+                        <button class="btn-move-section" onclick="app.moveToSection('${sec.id}',${idx})" title="Move to section">⇄</button>
                         <button class="btn-edit-item" onclick="app.edit('${sec.id}',${idx})">✏️</button>
                         <button class="btn-del-item" onclick="app.del('${sec.id}',${idx})">🗑️</button>
                     </div>
