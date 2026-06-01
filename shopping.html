@@ -421,7 +421,33 @@ const app = {
         this.toast('Updated!');
     },
 
-    del(sid, idx) {
+    moveUp(secId, idx) {
+            const sec = this.data.sections.find(s => s.id === secId);
+            if (!sec || idx === 0) return;
+            [sec.items[idx-1], sec.items[idx]] = [sec.items[idx], sec.items[idx-1]];
+            this.render(); this.save(); this.toast('Moved up');
+        },
+        moveDown(secId, idx) {
+            const sec = this.data.sections.find(s => s.id === secId);
+            if (!sec || idx >= sec.items.length - 1) return;
+            [sec.items[idx], sec.items[idx+1]] = [sec.items[idx+1], sec.items[idx]];
+            this.render(); this.save(); this.toast('Moved down');
+        },
+        moveToSection(secId, idx) {
+            const fromSec = this.data.sections.find(s => s.id === secId);
+            if (!fromSec) return;
+            const others = this.data.sections.filter(s => s.id !== secId);
+            if (others.length === 0) { this.toast('No other sections'); return; }
+            const choices = others.map((s, i) => `${i+1}. ${s.icon || ''} ${s.title}`).join('\n');
+            const pick = prompt('Move to section:\n' + choices + '\n\nEnter number:');
+            if (!pick) return;
+            const n = parseInt(pick) - 1;
+            if (isNaN(n) || n < 0 || n >= others.length) { this.toast('Invalid choice'); return; }
+            const [item] = fromSec.items.splice(idx, 1);
+            others[n].items.push(item);
+            this.render(); this.save(); this.toast('Moved to ' + others[n].title);
+        },
+        del(sid, idx) {
         if (!confirm('Delete this item?')) return;
         const s = this.data.sections.find(x=>x.id===sid);
         s.items.splice(idx, 1);
