@@ -136,6 +136,7 @@
             border: 1px solid #e8e8e8;
         }
         .item.checked { opacity: 0.55; }
+        .item.checked .item-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.95rem; }
         .item.checked .item-text { text-decoration: line-through; color: #a0aec0; }
         .item input[type="checkbox"] {
             width: 22px; height: 22px;
@@ -156,7 +157,7 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+        .item-actions { display: flex; gap: 2px; flex-shrink: 0; align-items: center; }
         .btn-del-item, .btn-edit-item {
             background: none; border: none;
             font-size: 16px; cursor: pointer;
