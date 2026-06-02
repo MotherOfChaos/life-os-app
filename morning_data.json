@@ -1,95 +1,79 @@
 {
-  "generated_at": "2026-05-31T19:30:00+02:00",
+  "generated_at": "2026-06-02T09:00:00+02:00",
   "calendar": {
-    "today": [],
+    "today": [
+      {
+        "start": "2026-06-02T00:00:00",
+        "title": "Manda mail a MEDICO CABECERA"
+      },
+      {
+        "start": "2026-06-02T13:30:00",
+        "title": "FREEMA Mutua Laboral CHECK"
+      }
+    ],
     "tomorrow": [
       {
-        "start": "2026-06-01T09:00:00",
-        "title": "\ud83c\udf45 Check primeras flores tomate \u2192 start banana water if flowers visible",
-        "location": "Can Booty Terrace"
-      },
-      {
-        "start": "2026-06-01T00:00:00",
-        "title": "\ud83e\udd5a Eggshell water (fruiting only) \u00b7 \ud83c\udf4c Banana peel water \u00b7 \u2615 Coffee grounds \u00b7 \ud83e\udeb4 Root-bound check"
-      },
-      {
-        "start": "2026-06-01T19:30:00",
-        "title": "\ud83c\udfb5 Jazz @meta con Vitto?"
+        "start": "2026-06-03T00:00:00",
+        "title": "No events \u2014 rest day"
       }
     ],
     "week": [
       {
-        "label": "TUE 2",
-        "summary": "Manda mail a MEDICO CABECERA \u00b7 FREEMA Mutua Laboral CHECK (13:30)",
-        "count": 2,
-        "is_today": false
-      },
-      {
         "label": "FRI 5",
-        "summary": "\u2708\ufe0f VUELA BCN\u2192BERGAMO (FR3320, 12:45) \u00b7 Terrace tasks before leaving \u00b7 \ud83c\udf38 Lobularia (16:00)",
+        "summary": "\u26a0\ufe0f At airport 10:00 \u00b7 \u2708\ufe0f FR3320 12:45 BCN\u2192Bergamo \u00b7 \ud83c\udf3f Terrace tasks before leaving",
         "count": 6,
         "is_today": false
       },
       {
         "label": "SAT 6",
-        "summary": "\ud83c\udf89 BABA BDAY GARDA \u2014 Happy Hippie Sixties @ Lake Garda",
+        "summary": "\ud83c\udf89 BABA BDAY GARDA \u2014 Happy Hippie Sixties (Woodstock dress code)",
         "count": 1,
         "is_today": false
       },
       {
         "label": "SUN 7",
-        "summary": "Bus from Col\u00e0 (13:00) \u2192 \u2708\ufe0f Group flight to IBIZA (16:30) \u2192 Circoloco DC10",
+        "summary": "\ud83d\ude8c Bus from Col\u00e0 13:00 \u00b7 \u2708\ufe0f Group flight to Ibiza 16:30",
         "count": 2,
+        "is_today": false
+      },
+      {
+        "label": "MON 8",
+        "summary": "\u26f4\ufe0f Traghetto per PALMA (19:30)",
+        "count": 1,
+        "is_today": false
+      },
+      {
+        "label": "TUE 9",
+        "summary": "\u26f4\ufe0f TRAGHETTO PER IBIZA (07:30)",
+        "count": 1,
         "is_today": false
       }
     ]
   },
-  "email_personal": {
-    "urgent": [],
-    "needs_response": [
-      {
-        "subject": "\ud83c\udfe5 Sanitas: Confirmaci\u00f3n de cita m\u00e9dica con QR \u2014 LEGIT, not suspicious",
-        "sender": "sanitas.es"
-      },
-      {
-        "subject": "\ud83c\udfe5 Sanitas: Solicitud de reembolso \u2014 Confirmaci\u00f3n de recepci\u00f3n \u2014 CHECK THIS",
-        "sender": "sanitas.es"
-      },
-      {
-        "subject": "\ud83c\udfac Mooby Aribau: Confirmaci\u00f3 de la compra on-line \u2014 cinema booking confirmed",
-        "sender": "moobycinemas.com"
-      }
-    ],
-    "newsletters": [
-      {
-        "subject": "Patreon: May 2026 Wrap Up! (SelfLoveRainbow)",
-        "sender": "creator.patreon.com"
-      },
-      {
-        "subject": "Logos: This week's trending books",
-        "sender": "mail.logos.com"
-      },
-      {
-        "subject": "Ryanair: \u00daltima oportunidad \u2014 15% off with Budget",
-        "sender": "marketing.ryanairemail.com"
-      }
-    ],
-    "archive": [
-      {
-        "subject": "PayPal: Env\u00eda y recibe dinero (marketing)",
-        "sender": "news.paypal.com"
-      }
-    ],
-    "filter_note": "\u26a0\ufe0f Filter bug: 6 emails flagged SUSPICIOUS due to accented characters (\u00e9, \u00f3, \u00f1) in subjects \u2014 these are all legitimate Spanish/Italian emails. Fix needed in harvester script."
-  },
+  "email_personal": null,
   "email_teatro": {
-    "urgent": [],
-    "needs_response": [
+    "urgent": [
       {
-        "subject": "Entradium: Tu resumen diario \u2014 30/5/2026",
-        "sender": "entradium.com"
+        "subject": "\u26a0\ufe0f MARILYN CABARET at Teatro this SATURDAY June 6 at 20:30 \u2014 you'll be in Garda. Who is covering?",
+        "sender": "invoice/control files"
+      }
+    ],
+    "financial": [
+      {
+        "subject": "Instaprint: Posters 100x150cm ordered for June 26 \u2014 \u20ac35.09 (pick up at Vilamar\u00ed 25)",
+        "sender": "instaprint.es"
+      }
+    ],
+    "upcoming_shows": [
+      {
+        "subject": "\ud83c\udfad Cabaret Carmesi \u2014 June 20 at 20:30 (cast confirmed)",
+        "sender": "control files"
+      },
+      {
+        "subject": "\ud83c\udfa4 Pettinato Stand Up \u2014 September 26 at 21:00 (booked)",
+        "sender": "control files"
       }
     ]
   },
-  "email_note": "\u26a0\ufe0f Filter bug detected: homoglyph detector is flagging standard Spanish/Italian accented characters as suspicious. Needs fix in harvester script."
+  "email_note": "Harvest files not found in Drive \u2014 triggers may need re-authorization. Teatro intel from invoice/control files."
 }
