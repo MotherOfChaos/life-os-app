@@ -524,13 +524,41 @@
 
     <script>
         // GitHub Configuration
+/* ── GITHUB TOKEN — single source of truth ──────────────────────────
+   Stored ONLY in this browser under localStorage key 'github-token'.
+   No token is hardcoded in this file. Migrates the legacy 'githubToken'
+   key automatically. Prompts once if missing. ------------------------ */
+function ghGetToken() {
+  var t = localStorage.getItem('github-token') || sessionStorage.getItem('github-token');
+  if (!t) {
+    var legacy = localStorage.getItem('githubToken');
+    if (legacy) { ghSetToken(legacy); localStorage.removeItem('githubToken'); return legacy; }
+  }
+  return t || '';
+}
+function ghSetToken(t) {
+  localStorage.setItem('github-token', t);
+  try { sessionStorage.setItem('github-token', t); } catch (e) {}
+}
+function ghClearToken() {
+  localStorage.removeItem('github-token');
+  localStorage.removeItem('githubToken');
+  try { sessionStorage.removeItem('github-token'); } catch (e) {}
+}
+function ghRequireToken() {
+  var t = ghGetToken();
+  if (!t) {
+    t = (window.prompt('GitHub token required (starts with ghp_). Stored only in this browser.') || '').trim();
+    if (t.indexOf('ghp_') === 0) { ghSetToken(t); } else { t = ''; }
+  }
+  return t;
+}
+
         const GITHUB_CONFIG = {
             owner: 'MotherOfChaos',
             repo: 'Daily-Expense-Tracker',
             filePath: 'data/EXPENSES_2026.json',
-            // Token split to bypass GitHub scanner
-            token: localStorage.getItem('githubToken') || 
-                   ['ghp_TR6I', 'Mjj8SEK', 'IR5JJIr', 'a8Zutg1', 'By1el3h', 'nEVi'].join('')
+            get token() { return ghRequireToken(); }
         };
 
         // Categories (imported from sarah_categories.json)
@@ -801,15 +829,12 @@
 
         function openSettings() {
             document.getElementById('settingsModal').classList.add('active');
-            document.getElementById('tokenInput').value = localStorage.getItem('githubToken') || '';
+            document.getElementById('tokenInput').value = ghGetToken();
         }
 
         function saveSettings() {
             const token = document.getElementById('tokenInput').value.trim();
-            if (token) {
-                localStorage.setItem('githubToken', token);
-                GITHUB_CONFIG.token = token;
-            }
+            if (token) { ghSetToken(token); }
             document.getElementById('settingsModal').classList.remove('active');
         }
 
