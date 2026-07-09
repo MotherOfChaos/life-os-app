@@ -45,6 +45,7 @@ body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--te
 .alert-box{background:rgba(192,48,74,0.06);border:1px solid rgba(192,48,74,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(240,112,144,0.9)}
 .alert-box strong{color:#f07090}
 .green-box{background:rgba(32,160,80,0.06);border:1px solid rgba(32,160,80,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:0.8rem;color:rgba(80,200,128,0.9)}
+.green-box strong{color:#50c880}
 .why-matters{margin-top:8px;font-size:0.8rem;line-height:1.5;color:rgba(160,200,240,0.8);font-style:italic;padding-left:10px;border-left:2px solid rgba(32,160,144,0.4)}
 .perspectives{margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
 .perspectives-label{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
@@ -61,248 +62,179 @@ body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--te
 .rule{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:24px 0}
 .sources-section{font-size:0.68rem;color:var(--muted);line-height:1.8;padding:12px 16px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
 .sources-section strong{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px}
+.status{text-align:center;padding:48px 20px;color:var(--muted);font-size:0.9rem;font-style:italic}
+.status button{margin-top:14px;display:block;margin-left:auto;margin-right:auto;font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;padding:8px 18px;border-radius:12px;border:1px solid var(--gold-border);background:transparent;color:var(--gold);cursor:pointer}
+.status button:hover{background:var(--gold-dim)}
+.status code{font-family:ui-monospace,monospace;font-size:0.75rem;color:rgba(240,112,144,0.9);font-style:normal}
 </style>
 </head>
 <body>
 <a class="home-link" href="index.html">← Home</a>
 <div class="masthead">
-  <div class="masthead-top">Est. 2026 · Barcelona Edition · Curated by M</div>
+  <div class="masthead-top" id="masthead-top">Est. 2026 · Barcelona Edition · Curated by M</div>
   <div class="masthead-title">The Times of Chaos</div>
   <div class="masthead-sub">Hear All the Bells · Facts from Opinions</div>
-  <div class="masthead-date">Tuesday, 2 June 2026 · Morning Edition</div>
+  <div class="masthead-date" id="masthead-date">Loading…</div>
   <div class="masthead-rule"></div>
 </div>
-<nav class="nav-bar">
-  <a class="nav-pill" href="#conflicts">⚔️ Conflicts</a>
-  <a class="nav-pill" href="#spain">🇪🇸 Spain</a>
-  <a class="nav-pill" href="#europe">🇪🇺 Europe</a>
-  <a class="nav-pill" href="#world">🌍 World</a>
-  <a class="nav-pill" href="#science">🧠 Science</a>
-  <a class="nav-pill" href="#tech">💻 Tech</a>
-  <a class="nav-pill" href="#arts">🎭 Arts</a>
-</nav>
-<div class="container">
-
-<!-- CONFLICTS -->
-<section class="section" id="conflicts">
-  <div class="section-header"><span class="section-icon">⚔️</span><span class="section-title">Active Conflicts</span></div>
-
-  <div class="story" style="--accent:var(--rose)">
-    <span class="story-tag tag-breaking">Breaking This Morning</span>
-    <div class="story-headline">US Bombs Iran, Iran Fires at Kuwait — Ceasefire Disintegrating as Deal Hangs in the Balance</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Overnight the Iran-US war escalated sharply. Iran shot down a US MQ-1 Predator drone over the weekend. In response, the US bombed Iranian radar and drone control sites — the US military called them "self-defense strikes." Iran then launched ballistic missiles at a US air base used in the strike, and also fired at US troops in Kuwait. Kuwait's air defenses activated and intercepted the incoming fire.</p>
-      <p>This exchange happened while both sides are still nominally negotiating a 60-day ceasefire extension (the MOU). Trump posted on Truth Social Monday morning: "Iran really wants to make a deal, and it will be a good one for the USA." Iran's foreign ministry said Monday the US is "constantly changing its positions" and that they are "negotiating in an atmosphere of mistrust." The MOU has not been signed.</p>
-      <p>The ceasefire, in place since April 8, has now been tested repeatedly. The Gulf produces 30% of globally traded chemical fertilizers — concerns about food supply chains are growing alongside the energy crisis.</p>
-    </div>
-    <div class="fact-box"><strong>Status board:</strong> MOU not signed · Hormuz still closed (~10 ships/day vs 130 normal) · US bombed Iranian sites June 1 · Iran fired at Kuwait June 1–2 · Trump expressing optimism · Iran expressing mistrust · Israel still bombing Lebanon · Hamas & Hezbollah rejected disarmament proposals</div>
-    <div class="perspectives">
-      <div class="perspectives-label">Perspectives</div>
-      <div class="perspective perspective-center">
-        <span class="perspective-source">AP/NPR <span class="lean-badge lean-c">C</span></span>
-        <span>The dueling attacks reflect the fragility of the ceasefire — both sides are continuing to fight even as they negotiate. The question is whether an attack will derail the talks entirely.</span>
-      </div>
-      <div class="perspective perspective-left">
-        <span class="perspective-source">Al Jazeera <span class="lean-badge lean-l">L</span></span>
-        <span>Iran fired on Kuwait in response to the US striking its territory. Iran's foreign ministry: "The responsibility for the results of this situation is on the US." Iran wants Lebanon included in any deal.</span>
-      </div>
-      <div class="perspective perspective-right">
-        <span class="perspective-source">Fox News <span class="lean-badge lean-r">R</span></span>
-        <span>Trump's strikes on Iran radar sites were defensive and proportional after Iran destroyed a US military asset. The administration is simultaneously pursuing peace while maintaining military pressure.</span>
-      </div>
-    </div>
-    <div class="alert-box"><strong>Lebanon wildcard:</strong> Trump says Israel and Hezbollah will only stop fighting after Iran stops talks with the US over Israeli operations in southern Lebanon. Israel now controls territory in Gaza, Lebanon and Syria and is resisting any deal requiring it to stop. Iran has linked Lebanon to the MOU. This is the knot that no one can untie.</div>
-  </div>
-
-  <div class="story" style="--accent:var(--lavender)">
-    <span class="story-tag tag-developing">Ukraine · Ongoing</span>
-    <div class="story-headline">Colombia Election Surprise, PSG Victory Violence — Two Stories From a Complicated World</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p><strong>Colombia:</strong> Tough-on-crime outsider Aberaldo de la Espriella took the lead in Colombia's presidential race on Sunday, setting up a runoff with Iván Cepeda, an ally of outgoing President Gustavo Petro. A significant political shift in Latin America's third-largest economy.</p>
-      <p><strong>Paris:</strong> A huge crowd gathered peacefully near the Eiffel Tower to celebrate PSG's victory, but violent clashes overnight led police to detain hundreds of people. French police are investigating whether the violence was organised.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SPAIN -->
-<section class="section" id="spain">
-  <div class="section-header"><span class="section-icon">🇪🇸</span><span class="section-title">Spain</span></div>
-
-  <div class="story" style="--accent:var(--rose)">
-    <span class="story-tag tag-developing">Political crisis</span>
-    <div class="story-headline">Sánchez Under Nine Simultaneous Corruption Cases — PSOE at Historic Low in Polls</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Spain's political crisis deepens. Corruption allegations against the Prime Minister's wife and investigations in the circle of former PM Zapatero are burdening the political landscape. The next General Election is expected in 2027. Current poll standing: PP 34.8%, PSOE 27.5%, Vox 17.8%. Sánchez's government controls 42% of seats in parliament.</p>
-      <p>Sánchez's testimony in connection with the cases has been postponed to June 17–18. He has consistently denied personal wrongdoing and vowed to serve until 2027. The PSOE HQ search and charges against former officials (money laundering, influence peddling, criminal organisation, document forgery) remain the dominant story in Spanish political media.</p>
-    </div>
-    <div class="perspectives">
-      <div class="perspectives-label">Perspectives</div>
-      <div class="perspective perspective-left">
-        <span class="perspective-source">El País <span class="lean-badge lean-l">L</span></span>
-        <span>Judicial proceedings are normal in a functioning democracy. Sánchez is not personally charged. Spain's economy is outperforming most of Europe — the political opposition is exploiting legal processes for electoral gain ahead of 2027.</span>
-      </div>
-      <div class="perspective perspective-right">
-        <span class="perspective-source">El Mundo <span class="lean-badge lean-r">R</span></span>
-        <span>Nine simultaneous corruption cases, police searching party headquarters — this is unprecedented in modern Spanish democracy. The situation is incompatible with governing with authority.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EUROPE -->
-<section class="section" id="europe">
-  <div class="section-header"><span class="section-icon">🇪🇺</span><span class="section-title">Europe</span></div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-analysis">Ebola · Good news</span>
-    <div class="story-headline">Cagliari Ebola Test: Almost Certainly Negative — Milan Precedent Holds</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>The Cagliari patient tested last night at Rome's Spallanzani Institute. Italian health authorities have not yet made a public announcement as of this edition, but the clinical protocol pattern (rapid isolation, overnight testing, Spallanzani referral) is identical to the Milan cases which both returned negative. Italy's response protocols are functioning as designed. ECDC maintains its "very low" risk assessment for EU residents.</p>
-      <p>Globally: the Bundibugyo strain outbreak continues in DRC and Uganda. No vaccine, no specific treatment. WHO PHEIC remains in force. Community resistance to health workers in DRC remains a significant containment challenge.</p>
-    </div>
-    <div class="green-box">For your Italy trip (Friday): Ebola risk in the EU remains very low. The case is in Sardinia, not the mainland/north. Lake Garda is unaffected. Watch for the Cagliari result today.</div>
-  </div>
-
-  <div class="story" style="--accent:var(--lavender)">
-    <div class="story-headline">EU-US Trade Deal Passes — Zero Tariffs on Industrial Goods</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>The EU Council and Parliament ratified the EU-US trade agreement this week: zero tariffs on US industrial goods, preferential access for certain US agricultural and seafood products. The first substantive transatlantic trade reset in years — driven partly by the economic pressure of the Hormuz crisis on both sides. Expected to add 0.2% to EU GDP growth once energy prices normalise.</p>
-    </div>
-  </div>
-</section>
-
-<!-- WORLD -->
-<section class="section" id="world">
-  <div class="section-header"><span class="section-icon">🌍</span><span class="section-title">World</span></div>
-
-  <div class="story" style="--accent:var(--amber)">
-    <div class="story-headline">Global Food Supply Risk: Hormuz Blockade Threatens 30% of World's Chemical Fertilizers</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Iran has maintained its chokehold on the Strait of Hormuz, disrupting global energy supplies. Chemical fertilizer supply has led to fears of food shortages — the Gulf region produces 30% of globally traded chemical fertilizers. UN food agencies have now formally joined the calls for Hormuz reopening, separate from the nuclear and political demands. The compounding effect of higher energy + higher fertilizer + disrupted shipping is beginning to affect food price indices globally.</p>
-    </div>
-    <div class="alert-box"><strong>Timeline:</strong> Gulf produces 30% of global chemical fertilisers · Planting seasons in the Northern Hemisphere are underway · Each week the blockade continues narrows the window for affected farmers to source alternatives · Next planting season impact will be felt regardless of when Hormuz reopens</div>
-  </div>
-</section>
-
-<!-- SCIENCE -->
-<section class="section" id="science">
-  <div class="section-header"><span class="section-icon">🧠</span><span class="section-title">Science & Neuroscience</span></div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-star">⭐⭐ ADHD + Menopause</span>
-    <div class="story-headline">ADHD Symptoms and Menopause Are Deeply Linked — And Mostly Invisible to Clinicians</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>A King's College London study of 656 women aged 45–60 (245 with ADHD diagnoses) found significant correlations between ADHD symptoms and menopausal complaints — but at a group level these were less prominent in those with ADHD, which could indicate different attribution of symptoms. In plain terms: women with ADHD may be attributing menopausal symptoms to their ADHD (and vice versa) — leading both conditions to be undertreated.</p>
-      <p>For women who had previously managed their ADHD symptoms well, menopause may initiate a period of increasingly unregulated symptoms. Declining estrogen directly affects the dopaminergic system — the same system at the centre of ADHD neurobiology. This means existing medication doses that worked pre-perimenopause may become insufficient without any change in the ADHD itself.</p>
-    </div>
-    <div class="why-matters">This is one of the most under-discussed aspects of adult ADHD in women. Perimenopause is not just "getting older" — it is a neurochemical shift that can destabilise a previously managed ADHD profile. The clinical system often misses this entirely. Worth discussing explicitly with any doctor managing both conditions.</div>
-  </div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-star">⭐ ADHD + Fibromyalgia</span>
-    <div class="story-headline">ADHD and Fibromyalgia Co-Occur at High Rates — And Each Makes the Other Worse</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>A published study found that fibromyalgia patients show significantly higher ADHD symptom scores, and that ADHD scores mediate the relationship between depression severity and quality of life in fibromyalgia patients. The mechanisms likely run in both directions: the central sensitisation underlying fibromyalgia amplifies the cognitive noise of ADHD; and ADHD's dysregulation of the stress response may worsen pain amplification.</p>
-      <p>Practically: managing ADHD more effectively may reduce fibromyalgia pain — not because they're the same condition, but because they share neurological substrate. ADHD is characterised by a hypodopaminergic state, and people with ADHD are more sensitive to pain than healthy controls.</p>
-    </div>
-    <div class="why-matters">This explains a pattern many people with both conditions notice: bad ADHD days tend to also be bad pain days. The nervous system isn't compartmentalised — what affects one system affects the whole.</div>
-  </div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-star">⭐ ADHD Brain</span>
-    <div class="story-headline">ADHD Brains Slip Into Sleep-Like States While Awake — New Brain Pattern Identified</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Researchers identified a surprising brain pattern that may help explain why people with ADHD often struggle to stay focused: even while awake, their brains can slip into brief episodes of sleep-like activity. These micro-episodes — moments where the brain enters a state normally associated with sleep or near-sleep — last only fractions of a second but are frequent enough to explain the "tuning out" experience that characterises ADHD attention gaps.</p>
-      <p>This is not laziness or choosing not to pay attention. It is an involuntary neurological event happening in real time, detectable on EEG. The finding has implications for both understanding ADHD and for designing interventions that address the brain state directly, rather than just the behaviour.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-science">Nerve Damage · Cambridge</span>
-    <div class="story-headline">"Irreversible" Nerve Damage May Not Be — Cambridge Lab Finds Reversal Pathway</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Cambridge researchers created miniature brain-and-spinal-cord systems in the lab that can send signals and trigger muscle contractions. They discovered that human neurons gradually lose their ability to regrow after damage. Critically, they identified the specific point at which this loss occurs — and found that intervening before that point may restore the regeneration capacity. The term "irreversible nerve damage" may need significant qualification for certain injury types and timings.</p>
-    </div>
-    <div class="why-matters">Relevant for disc hernia outcomes: nerve compression that has been considered permanent may have a treatment window that is longer than currently assumed. A paper worth discussing with any neurologist or neurosurgeon.</div>
-  </div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-science">Brain Aging · Stanford</span>
-    <div class="story-headline">Why the Brain Ages: Protein Machinery Begins to Jam — Stanford Discovery</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Scientists at Stanford may have uncovered a hidden reason brains decline with age: the cellular machinery responsible for building proteins begins to jam. Proteins are the workhorses of every cell — they carry out virtually every function. When the machines that build them start to malfunction, errors compound throughout the cell. The study used turquoise killifish, which have extraordinarily short lifespans and rapid aging, allowing the researchers to observe the full arc of brain aging in weeks.</p>
-    </div>
-  </div>
-
-  <div class="story" style="--accent:var(--teal)">
-    <span class="story-tag tag-science">Fatigue · B12</span>
-    <div class="story-headline">Chronic Fatigue Linked to "Normal" B12 and Folate — But Not Normal Enough</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Researchers in Japan found that low levels of key vitamins — especially vitamin B12 and folate — may quietly contribute to fatigue and lack of motivation, even in apparently healthy people. The study's key finding: levels classified as "within normal range" by standard clinical thresholds may still be insufficient to prevent fatigue, particularly in people with other neurological demands. The optimal B12 level for full neurological function appears to be higher than what most labs flag as deficient.</p>
-    </div>
-    <div class="why-matters">Relevant for fibromyalgia and ADHD: both conditions carry elevated fatigue burden that can be compounded by sub-optimal B12/folate. Standard blood panels may not catch this — worth requesting an active B12 test (holotranscobalamin) rather than the standard total B12 test.</div>
-  </div>
-</section>
-
-<!-- TECH -->
-<section class="section" id="tech">
-  <div class="section-header"><span class="section-icon">💻</span><span class="section-title">Tech & AI</span></div>
-
-  <div class="story" style="--accent:var(--lavender)">
-    <span class="story-tag tag-analysis">Anthropic</span>
-    <div class="story-headline">Anthropic at $950B — But Excluded from US Government AI Military Testing</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Anthropic is reportedly raising $30–50 billion at a $950 billion valuation — which would make it the most valuable AI company in the world, surpassing OpenAI's $852B. Enterprise success (Claude Code, Mythos, API) is driving the valuation. Karpathy (former OpenAI co-founder, ex-Tesla AI Director) joined Anthropic's pre-training team this week — one of the most significant AI talent moves in years.</p>
-      <p>Simultaneously: Microsoft, Google, and Musk's xAI were allowed access to classified US government networks for AI security testing. Anthropic was explicitly excluded — reportedly due to current administration politics, not technical concerns. The exclusion reflects the increasingly political nature of AI regulation in the US.</p>
-    </div>
-    <div class="perspectives">
-      <div class="perspectives-label">Perspectives</div>
-      <div class="perspective perspective-left">
-        <span class="perspective-source">Fortune <span class="lean-badge lean-l">L</span></span>
-        <span>Anthropic's enterprise-first strategy is winning commercially. The government exclusion is political noise — it doesn't affect Claude's capabilities or its commercial trajectory.</span>
-      </div>
-      <div class="perspective perspective-right">
-        <span class="perspective-source">WSJ <span class="lean-badge lean-r">R</span></span>
-        <span>At $950B valuation, the gap between AI company market prices and current revenues raises questions that the IPO market will eventually need to answer.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ARTS -->
-<section class="section" id="arts">
-  <div class="section-header"><span class="section-icon">🎭</span><span class="section-title">Arts & Culture</span></div>
-
-  <div class="story" style="--accent:var(--gold)">
-    <span class="story-tag tag-culture">BCN · This Week</span>
-    <div class="story-headline">Primavera Sound Opens Thursday — Plus ICEC Grant Window Opens TODAY</div>
-    <div class="what-happened-label">What happened</div>
-    <div class="story-body">
-      <p>Primavera a la Ciutat is running NOW (city-wide free shows at Sala Apolo, Razzmatazz, CCCB through Thursday). Main festival at Parc del Fòrum: Thursday June 4 — Doja Cat, Massive Attack, Bad Gyal. Friday June 5 — The Cure, Skrillex. Saturday June 6 — The xx, Gorillaz, My Bloody Valentine. All sold out.</p>
-      <p>The Joan Miró Foundation marks its 50th anniversary this week (June 10 main event). CaixaForum continues Matisse (Centre Pompidou works, until Aug 16). Grec 50th anniversary season opens June 29 across 39 venues. Tour de France Grand Départ confirmed from Barcelona July 4–6.</p>
-    </div>
-    <div class="fact-box"><strong>ICEC Modalitat A:</strong> The ICEC grant submission window opens TODAY — June 2. Closes June 22. Templates now available. T has the Memoria pre-draft and financial model ready. Blocked on: gestoría data (629 mayor, Modelo 200 2024) + Sarah + Laura CVs.</div>
-  </div>
-</section>
-
-<div class="rule"></div>
-<div class="sources-section">
-  <strong>Sources Consulted</strong>
-  Washington Post (C) · AP via NPR (C) · NPR (L) · OPB/AP (C) · Al Jazeera (C) · CBS News (C) · NBC News (C) · Axios (C) · CNN (C) · Commons Library UK (C) · Congress.gov CRS (C) · Euronews (C) · Politpro.eu (C) · ScienceDaily (neuroscience) · NCBI/PubMed — King's College London, Selçuk University · Stanford (protein aging) · Cambridge (nerve regeneration)
+<nav class="nav-bar" id="nav-bar"></nav>
+<div class="container" id="container">
+  <div class="status" id="status">Fetching today's edition…</div>
 </div>
-</div>
+
+<script>
+/* ------------------------------------------------------------------
+   THE TIMES OF CHAOS — durable renderer
+   Reads dispatch_data.json (same folder, PUBLIC, no token required).
+   To publish a new edition: overwrite dispatch_data.json. Nothing else.
+
+   dispatch_data.json schema
+   -------------------------
+   {
+     "date_label": "Monday, 29 June 2026 · Evening Edition",
+     "masthead_note": "optional override of the small top line",
+     "sections": [
+       {
+         "id": "conflicts", "icon": "⚔️", "title": "Active Conflicts",
+         "stories": [
+           {
+             "tag": "Breaking",              // optional
+             "tagClass": "tag-breaking",     // tag-breaking|tag-developing|tag-analysis|tag-culture|tag-science|tag-star
+             "accent": "--rose",             // any CSS var from :root
+             "headline": "…",
+             "label": "What happened",       // optional, defaults to "What happened"
+             "body": ["paragraph 1", "paragraph 2"],
+             "boxes": [ {"type":"fact|alert|green", "html":"<strong>X:</strong> …"} ],
+             "box":   {"type":"alert","html":"…"},   // singular also accepted
+             "whyMatters": "italic why-it-matters note",
+             "perspectives": [
+               {"source":"El País","lean":"L","text":"…"}   // lean: L|C|R
+             ]
+           }
+         ]
+       }
+     ],
+     "sources": "Source A · Source B · …"
+   }
+   Only "headline" is required on a story. Everything else is optional.
+   ------------------------------------------------------------------ */
+
+const DATA_URL = 'dispatch_data.json';
+
+const $ = (id) => document.getElementById(id);
+
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+const LEAN = {
+  L: { cls: 'perspective-left',   badge: 'lean-l' },
+  C: { cls: 'perspective-center', badge: 'lean-c' },
+  R: { cls: 'perspective-right',  badge: 'lean-r' }
+};
+
+function renderBoxes(story) {
+  let boxes = [];
+  if (Array.isArray(story.boxes)) boxes = boxes.concat(story.boxes);
+  if (story.box) boxes.push(story.box);
+  return boxes.map((b) => {
+    const type = (b && b.type) || 'fact';
+    const cls = type === 'alert' ? 'alert-box' : type === 'green' ? 'green-box' : 'fact-box';
+    return '<div class="' + cls + '">' + (b.html || esc(b.text)) + '</div>';
+  }).join('');
+}
+
+function renderPerspectives(story) {
+  const ps = Array.isArray(story.perspectives) ? story.perspectives : [];
+  if (!ps.length) return '';
+  const rows = ps.map((p) => {
+    const lean = LEAN[(p.lean || 'C').toUpperCase()] || LEAN.C;
+    const badge = p.lean ? '<span class="lean-badge ' + lean.badge + '">' + esc(p.lean.toUpperCase()) + '</span>' : '';
+    return '<div class="perspective ' + lean.cls + '">' +
+             '<span class="perspective-source">' + esc(p.source) + ' ' + badge + '</span>' +
+             '<span>' + esc(p.text) + '</span>' +
+           '</div>';
+  }).join('');
+  return '<div class="perspectives"><div class="perspectives-label">Perspectives</div>' + rows + '</div>';
+}
+
+function renderStory(story) {
+  const accent = story.accent ? ' style="--accent:var(' + esc(story.accent) + ')"' : '';
+  const tag = story.tag
+    ? '<span class="story-tag ' + esc(story.tagClass || 'tag-analysis') + '">' + esc(story.tag) + '</span>'
+    : '';
+  const paras = (Array.isArray(story.body) ? story.body : story.body ? [story.body] : [])
+    .map((p) => '<p>' + p + '</p>').join('');
+  const bodyBlock = paras
+    ? '<div class="what-happened-label">' + esc(story.label || 'What happened') + '</div>' +
+      '<div class="story-body">' + paras + '</div>'
+    : '';
+  const why = story.whyMatters ? '<div class="why-matters">' + esc(story.whyMatters) + '</div>' : '';
+
+  return '<div class="story"' + accent + '>' +
+           tag +
+           '<div class="story-headline">' + esc(story.headline) + '</div>' +
+           bodyBlock +
+           renderBoxes(story) +
+           why +
+           renderPerspectives(story) +
+         '</div>';
+}
+
+function renderSection(section) {
+  const stories = (section.stories || []).map(renderStory).join('');
+  return '<section class="section" id="' + esc(section.id) + '">' +
+           '<div class="section-header">' +
+             '<span class="section-icon">' + esc(section.icon || '') + '</span>' +
+             '<span class="section-title">' + esc(section.title) + '</span>' +
+           '</div>' + stories +
+         '</section>';
+}
+
+function renderNav(sections) {
+  $('nav-bar').innerHTML = sections.map((s) =>
+    '<a class="nav-pill" href="#' + esc(s.id) + '">' + esc(s.icon || '') + ' ' + esc(s.title) + '</a>'
+  ).join('');
+}
+
+function render(data) {
+  const sections = Array.isArray(data.sections) ? data.sections : [];
+  if (data.masthead_note) $('masthead-top').textContent = data.masthead_note;
+  $('masthead-date').textContent = data.date_label || '';
+  renderNav(sections);
+
+  let html = sections.map(renderSection).join('');
+  if (data.sources) {
+    html += '<div class="rule"></div>' +
+            '<div class="sources-section"><strong>Sources Consulted</strong>' + esc(data.sources) + '</div>';
+  }
+  $('container').innerHTML = html || '<div class="status">No stories in this edition.</div>';
+  document.title = 'The Times of Chaos — ' + (data.date_label || '');
+}
+
+function showError(msg) {
+  $('masthead-date').textContent = '—';
+  $('container').innerHTML =
+    '<div class="status">Could not load this edition.<br><code>' + esc(msg) + '</code>' +
+    '<button onclick="load()">Retry</button></div>';
+}
+
+async function load() {
+  $('container').innerHTML = '<div class="status">Fetching today\'s edition…</div>';
+  try {
+    // cache-bust so a freshly pushed JSON shows up immediately
+    const res = await fetch(DATA_URL + '?v=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status + ' fetching ' + DATA_URL);
+    const data = await res.json();
+    render(data);
+  } catch (err) {
+    showError(err.message || String(err));
+  }
+}
+
+load();
+</script>
 </body>
 </html>
