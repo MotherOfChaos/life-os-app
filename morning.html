@@ -318,7 +318,35 @@ document.getElementById('navDate').textContent =
 
 // ── GITHUB CONFIG ──
 const GITHUB_REPO = 'MotherOfChaos/Life-Operating-System';
-const _t = ['ghp_gpf9uT7','Op1jEe5x3L','0Nsk1zsBiEa7j3SbaOc'].join('');
+/* ── GITHUB TOKEN — single source of truth ──────────────────────────
+   Stored ONLY in this browser under localStorage key 'github-token'.
+   No token is hardcoded in this file. Migrates the legacy 'githubToken'
+   key automatically. Prompts once if missing. ------------------------ */
+function ghGetToken() {
+  var t = localStorage.getItem('github-token') || sessionStorage.getItem('github-token');
+  if (!t) {
+    var legacy = localStorage.getItem('githubToken');
+    if (legacy) { ghSetToken(legacy); localStorage.removeItem('githubToken'); return legacy; }
+  }
+  return t || '';
+}
+function ghSetToken(t) {
+  localStorage.setItem('github-token', t);
+  try { sessionStorage.setItem('github-token', t); } catch (e) {}
+}
+function ghClearToken() {
+  localStorage.removeItem('github-token');
+  localStorage.removeItem('githubToken');
+  try { sessionStorage.removeItem('github-token'); } catch (e) {}
+}
+function ghRequireToken() {
+  var t = ghGetToken();
+  if (!t) {
+    t = (window.prompt('GitHub token required (starts with ghp_). Stored only in this browser.') || '').trim();
+    if (t.indexOf('ghp_') === 0) { ghSetToken(t); } else { t = ''; }
+  }
+  return t;
+}
 const DATA_FILE = 'docs/morning_data.json';
 
 function fmt(iso) {
@@ -420,7 +448,7 @@ async function load() {
   try {
     const res = await fetch(
       `https://api.github.com/repos/${GITHUB_REPO}/contents/${DATA_FILE}`,
-      { headers: { 'Authorization': `token ${_t}`, 'Accept': 'application/vnd.github.v3.raw' } }
+      { headers: { 'Authorization': `token ${ghRequireToken()}`, 'Accept': 'application/vnd.github.v3.raw' } }
     );
     if (!res.ok) throw new Error('No data yet');
     const data = await res.json();
