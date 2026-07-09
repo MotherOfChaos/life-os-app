@@ -380,7 +380,35 @@ body {
 // ═══════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════
-const GH_TOKEN = 'ghp_gpf9uT7O' + 'p1jEe5x3L0Ns' + 'k1zsBiEa7j3SbaOc';
+/* ── GITHUB TOKEN — single source of truth ──────────────────────────
+   Stored ONLY in this browser under localStorage key 'github-token'.
+   No token is hardcoded in this file. Migrates the legacy 'githubToken'
+   key automatically. Prompts once if missing. ------------------------ */
+function ghGetToken() {
+  var t = localStorage.getItem('github-token') || sessionStorage.getItem('github-token');
+  if (!t) {
+    var legacy = localStorage.getItem('githubToken');
+    if (legacy) { ghSetToken(legacy); localStorage.removeItem('githubToken'); return legacy; }
+  }
+  return t || '';
+}
+function ghSetToken(t) {
+  localStorage.setItem('github-token', t);
+  try { sessionStorage.setItem('github-token', t); } catch (e) {}
+}
+function ghClearToken() {
+  localStorage.removeItem('github-token');
+  localStorage.removeItem('githubToken');
+  try { sessionStorage.removeItem('github-token'); } catch (e) {}
+}
+function ghRequireToken() {
+  var t = ghGetToken();
+  if (!t) {
+    t = (window.prompt('GitHub token required (starts with ghp_). Stored only in this browser.') || '').trim();
+    if (t.indexOf('ghp_') === 0) { ghSetToken(t); } else { t = ''; }
+  }
+  return t;
+}
 const GH_REPO  = 'MotherOfChaos/Life-Operating-System';
 const GH_FILE  = 'apps/packing_bbb_2026.json';
 
@@ -548,7 +576,7 @@ async function loadFromGit() {
   setStatus('Pulling from GitHub...');
   try {
     const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
-      headers: { 'Authorization': 'token ' + GH_TOKEN }
+      headers: { 'Authorization': 'token ' + ghRequireToken() }
     });
     if (r.status === 404) {
       setStatus('No saved list yet — using default');
@@ -581,7 +609,7 @@ async function saveToGit() {
     if (gitSHA) payload.sha = gitSHA;
     const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
       method: 'PUT',
-      headers: { 'Authorization': 'token ' + GH_TOKEN, 'Content-Type': 'application/json' },
+      headers: { 'Authorization': 'token ' + ghRequireToken(), 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     const d = await r.json();
