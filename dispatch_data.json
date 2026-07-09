@@ -1,22 +1,53 @@
 {
-  "date_label": "Monday, 29 June 2026 · Evening Edition",
+  "date_label": "Thursday, 9 July 2026 · Morning Edition",
   "sections": [
     {
       "id": "conflicts", "icon": "⚔️", "title": "Active Conflicts",
       "stories": [
         {
-          "tag": "Developing", "tagClass": "tag-breaking", "accent": "--rose",
-          "headline": "US–Iran Framework Fraying as Attacks Resume",
+          "tag": "Breaking", "tagClass": "tag-breaking", "accent": "--rose",
+          "headline": "Trump Declares the Iran Ceasefire Over; US Strikes 80+ Targets on Day 132",
           "body": [
-            "Iran and the US traded attacks over the weekend, throwing this week's technical talks into doubt. President Trump accused Iran of violating the framework agreement reached earlier this month; Tehran threatened to halt negotiations entirely.",
-            "Israel–Hezbollah violence continued in parallel."
+            "Speaking at the NATO summit in Ankara, President Trump said the ceasefire with Iran is finished. The trigger was a set of Iranian attacks on three commercial oil tankers in the Strait of Hormuz — the waterway that normally carries roughly a fifth of the world's oil. US Central Command answered by hitting more than 80 targets: air defences, radar installations and dozens of small boats. Trump's stated doctrine was retaliation at twenty-to-one.",
+            "Iran responded early Thursday by targeting Bahrain, Kuwait and Qatar. Tehran says 14 people were killed in the American strikes. The exchange landed in the middle of the funeral rites for former Supreme Leader Ali Khamenei, buried this week, with mourners gathering in Karbala and Najaf. Iran's foreign ministry calls the strikes a violation of the memorandum of understanding and has promised retribution. Explosions were also reported at Bushehr.",
+            "The interim deal meant to end the war is not formally dead. Nothing about the past 72 hours suggests it is alive."
+          ],
+          "boxes": [
+            { "type": "alert", "html": "<strong>Status board:</strong> Day 132 · Ceasefire declared over by Trump · 80+ Iranian targets struck · Iranian fire on Bahrain, Kuwait, Qatar · 3 tankers attacked in Hormuz · Khamenei buried · MOU still unsigned" }
+          ],
+          "perspectives": [
+            { "source": "NPR", "lean": "C", "text": "Frames the exchange as crossfire that once again threatens the interim deal — both sides escalating while the agreement they claim to want remains unsigned." },
+            { "source": "Fox News", "lean": "R", "text": "Leads with the Iranian attacks on commercial vessels as the provocation and the US response as proportionate force restoring deterrence in the Strait." },
+            { "source": "CBS News", "lean": "C", "text": "Centres the human toll and the timing: 14 dead by Tehran's count, with strikes landing as the country buries its former Supreme Leader." }
           ]
         },
         {
-          "tag": "Developing", "tagClass": "tag-developing", "accent": "--lavender",
-          "headline": "Lebanon Protests Over New Israel Framework",
+          "tag": "Developing", "tagClass": "tag-developing", "accent": "--fire",
+          "headline": "Trump Turns on NATO in Ankara — and Revives the Greenland Demand",
           "body": [
-            "The recently signed framework agreement with Israel spurred protests and sharp criticism inside Lebanon."
+            "The Ankara summit opened badly. Trump told the alliance it had let him down over Iran, singled out Italy for refusing use of its bases, and reopened his claim on Greenland — arguing the territory matters to the United States and to global security in a way it does not to Denmark. Danish Prime Minister Mette Frederiksen restated that Greenland is not for sale, and that Danish sovereignty and Greenlandic self-determination are not negotiable.",
+            "NATO Secretary General Mark Rutte spent the summit threading a needle: conceding the American point about keeping Russia and China out of the Arctic while insisting on a step-by-step arrangement that respects Copenhagen and Nuuk. Officials from all three governments are now meeting to work out next steps. Trump left calling it a successful summit and saying he had felt love in the room.",
+            "On Ukraine, the concrete outcome was a licence for Kyiv to manufacture Patriot air-defence missiles domestically — announced after Trump met Zelensky on the margins."
+          ],
+          "perspectives": [
+            { "source": "WORLD / AP", "lean": "C", "text": "Reads Rutte's position as damage limitation — accommodating Trump's Arctic security argument without conceding anything on sovereignty." },
+            { "source": "Quotidiano Nazionale", "lean": "C", "text": "Reports Brussels closing ranks behind Copenhagen: the future of Greenland is for Danes and Greenlanders to decide, full stop." },
+            { "source": "Fox News", "lean": "R", "text": "Presents the Patriot licensing deal as the substantive win of the summit, and evidence that pressure on allies produces results." }
+          ]
+        },
+        {
+          "tag": "Ukraine · Ongoing", "tagClass": "tag-developing", "accent": "--lavender",
+          "headline": "Ukraine's Drone War Reaches Russia's Fuel Supply — Moscow Bans Diesel Exports",
+          "body": [
+            "Ukraine struck 21 vessels and multiple Russian refineries across three days, in what one account described as an industrial-scale campaign against energy infrastructure. Fuel shortages are being reported inside Russia, and Moscow has responded by banning diesel exports.",
+            "This is a shift in kind, not degree. Long-range strikes on refineries and tankers move the war from Ukrainian territory to Russian economic capacity, and the export ban is the first official admission that the strategy is biting."
+          ],
+          "boxes": [
+            { "type": "fact", "html": "<strong>Why the diesel ban matters:</strong> Russia is a top-three global diesel exporter. A domestic-supply-first order signals refinery capacity has been genuinely degraded, not merely inconvenienced." }
+          ],
+          "perspectives": [
+            { "source": "Fox News", "lean": "R", "text": "Emphasises scale and success — the tempo of strikes on tankers and refineries as evidence Kyiv can impose real cost without Western troops." },
+            { "source": "NPR", "lean": "C", "text": "Ties the strikes back to the summit: Ukraine's leverage is precisely what makes the Patriot manufacturing licence significant rather than symbolic." }
           ]
         }
       ]
@@ -25,17 +56,31 @@
       "id": "spain", "icon": "🇪🇸", "title": "Spain",
       "stories": [
         {
-          "accent": "--rose",
-          "headline": "Zapatero Gifts/Jewellery Case Continues",
+          "tag": "Politics", "tagClass": "tag-analysis", "accent": "--rose",
+          "headline": "Sánchez Answers the Courts With Legislation — Housing, Dependencia, Regional Finance",
           "body": [
-            "The former PM faced a deadline to inform the judge in connection with gifts and jewellery, amid reporting on secret meetings and an alleged large commission tied to a major project."
+            "Moncloa has decided to go on the offensive. With the news cycle dominated by judicial cases, the government has assembled a July package of social reforms: a housing law, reform of the dependency system, and a push on regional financing. The stated goal is to change the subject from courtrooms to delivery.",
+            "Regional financing is the dangerous one. García-Page (Castilla-La Mancha) and Barbón (Asturias) have both said they will not accept a model that disadvantages their communities, while the PSC continues to press for a singular arrangement for Catalonia. Hacienda plans to table a basis for negotiation at a Cumbre de Presidentes at the end of July. García-Page has separately predicted a hammering for the PSOE at the next general election, and criticised Sánchez for a lack of self-criticism.",
+            "The judicial drumbeat continues underneath: Guardia Civil commander Rubén Villalba is testifying in the caso Leire; the European Public Prosecutor has now vindicated — two years on — the first people who raised concerns about Begoña Gómez; Feijóo is activating the PP's electoral calendar."
+          ],
+          "boxes": [
+            { "type": "fact", "html": "<strong>Also from Moncloa:</strong> Spain joins NATO's Forward Land Forces mission in Finland · Plan Estatal de Fertilizantes announced, on top of €1.1bn mobilised for the primary sector over the Middle East crisis · First €800m of the 2026–2030 housing plan sent to the autonomous communities" }
+          ],
+          "perspectives": [
+            { "source": "Moncloa.com", "lean": "C", "text": "Describes the strategy plainly: govern loudly enough to drown out the courts, and use the reform package to project competence a year and a half from the next cycle." },
+            { "source": "García-Page (PSOE)", "lean": "L", "text": "From inside the party: the electoral defeat is already priced in, and the leadership's refusal to engage in self-criticism is itself the problem." },
+            { "source": "PP / Feijóo", "lean": "R", "text": "Treats the reform push as a distraction and is setting out an electoral timetable on the assumption the legislature is exhausted." }
           ]
         },
         {
-          "accent": "--amber",
-          "headline": "Two Dead in Barcelona After Poblenou Police Chase",
+          "tag": "Barcelona", "tagClass": "tag-culture", "accent": "--amber",
+          "headline": "Tour de France Grand Départ Reshapes the City",
           "body": [
-            "Two people died following a police pursuit in the Poblenou district."
+            "Barcelona has installed new information totems across the city for the Tour de France Grand Départ, carrying maps, timetables, services, and mobility and safety advice. Expect road closures and unusual crowd patterns around the start.",
+            "Elsewhere in Catalonia, firefighters have stabilised the Les Gavarres fire."
+          ],
+          "perspectives": [
+            { "source": "Ajuntament de Barcelona", "lean": "C", "text": "Positions the totems as public-information infrastructure — the city's answer to a foreseeable mobility problem rather than a promotional gesture." }
           ]
         }
       ]
@@ -44,10 +89,20 @@
       "id": "italy", "icon": "🇮🇹", "title": "Italy",
       "stories": [
         {
-          "accent": "--lavender",
-          "headline": "Milan Markets Slip; Friction With Turkey in Focus",
+          "tag": "Politics", "tagClass": "tag-analysis", "accent": "--lavender",
+          "headline": "Meloni Holds the Line on Defence Spending — and Says the Money Stays in Italy",
           "body": [
-            "The FTSE MIB eased about half a percent, weighed by banks and luxury names; the BTP–Bund spread held above 70 points. Diplomatic tension with Ankara was also in the headlines."
+            "At her closing press conference in Ankara, Giorgia Meloni confirmed Italy will raise defence spending, but on Italian terms — her own timing, methods and priorities. Italy arrived at the summit at 2.8% of GDP, up 0.71 points on the previous year; roughly €19bn more is expected over two years. Her framing: if Italy invests in defence, the money must stay in Italian factories, Italian research, Italian territory. Not cheques abroad. She called the accusation that she would close hospitals to buy tanks ridiculous.",
+            "She spent 140 seconds of a 28-minute press conference on Trump, who had publicly criticised her over Iran and complained that Italy's bases were denied. She regrets nothing about the relationship, describes it as cordial, and declined to engage further. On Iran she was blunt: she sees no concrete results from the military operation and has not given up on negotiation. Italy will continue military aid to Ukraine, with Crosetto assessing.",
+            "Meloni will be in Palermo on Monday commemorating Falcone; Tajani goes to Paris in her place for the coalition of the willing. She rejects the reading that this is disengagement — she simply cannot afford to disengage from Italy."
+          ],
+          "boxes": [
+            { "type": "fact", "html": "<strong>Also this week:</strong> Fratelli d'Italia tables a bill — convicted migrants repatriated immediately, citizenship revocable · Fire at the BRT depot in Milan brought under control, residents in the north told to keep windows shut · Israel–Lebanon negotiations may continue in Rome" }
+          ],
+          "perspectives": [
+            { "source": "ANSA", "lean": "C", "text": "Reads the performance as the opening of a long election campaign: sovereignty as the narrative wrapper for an unpopular but unavoidable spending commitment." },
+            { "source": "Il Sole 24 Ore", "lean": "C", "text": "Focuses on the substance of the absence — Tajani in Paris, Mattarella in France for the national day — and on whether Italy's position on Ukraine is quietly shifting." },
+            { "source": "Campo largo / Conte", "lean": "L", "text": "The opposition's counter-rally in Naples put minimum wage first: defence percentages are being chosen over wages and healthcare." }
           ]
         }
       ]
@@ -56,59 +111,262 @@
       "id": "europe", "icon": "🇪🇺", "title": "Europe",
       "stories": [
         {
-          "tag": "Breaking", "tagClass": "tag-breaking", "accent": "--fire",
-          "headline": "Record Heatwave Death Toll Tops 1,300",
+          "tag": "France", "tagClass": "tag-developing", "accent": "--rose",
+          "headline": "Le Pen Sentenced to an Electronic Monitor — and Announces She Will Run Anyway",
           "body": [
-            "Europe's record heatwave shifted eastward with a death toll reported above 1,300, including around a thousand deaths in France. WHO Europe urged governments to treat heatwaves as a public-health crisis."
+            "The far-right leader was sentenced on appeal on Tuesday to wear a court-ordered electronic monitor for embezzlement. On Wednesday she said she will run for the French presidency next year regardless.",
+            "The legal question of whether the sentence bars her candidacy and the political question of whether it damages her are, on current evidence, entirely separate questions."
           ],
-          "box": { "type": "alert", "html": "<strong>Stay safe:</strong> hydrate and avoid midday sun." }
-        }
-      ]
-    },
-    {
-      "id": "science", "icon": "🧠", "title": "Science & Health",
-      "stories": [
-        {
-          "tag": "⭐ ADHD + Menopause", "tagClass": "tag-star", "accent": "--teal",
-          "headline": "ADHD Shapes the Menopause Experience",
-          "body": [
-            "King's College London research links worse ADHD symptom scores to worse menopausal complaints. The Icelandic SAGA cohort found perimenopausal symptoms are more severe and begin up to 10 years earlier (ages 35–39) in women with ADHD — about 54% report debilitating symptoms, versus roughly a third without ADHD."
+          "perspectives": [
+            { "source": "AP via NPR", "lean": "C", "text": "Presents the announcement as a direct test of whether French judicial disqualification mechanisms survive contact with a determined mass movement." },
+            { "source": "Rassemblement National", "lean": "R", "text": "Casts the conviction as the establishment using the courts to remove a candidate it cannot beat at the ballot box." }
           ]
         },
         {
-          "tag": "Science", "tagClass": "tag-science", "accent": "--teal",
-          "headline": "ADHD × Fibromyalgia, and Pain Modulation",
+          "tag": "United Kingdom", "tagClass": "tag-analysis", "accent": "--teal",
+          "headline": "Andy Burnham, and the Question of Whether Manchester Scales",
           "body": [
-            "A University Hospital of Tours trial (updated June 2026) is measuring how often ADHD and fibromyalgia co-occur and their shared neurobiology.",
-            "Separately, a strength-training study showed measurable improvement in conditioned pain modulation — the body's own pain-dampening system — in fibromyalgia patients."
+            "As mayor of Manchester, Burnham brought growth to a postindustrial city. He is now widely discussed as a possible next prime minister. The open question is whether a model built on a single metropolitan region — devolved transport, housing, skills — translates to a national government where none of those levers sit in the same configuration."
+          ],
+          "perspectives": [
+            { "source": "NPR", "lean": "C", "text": "Frames it as a genuine test case for city-region governance as a national political theory, not merely a leadership story." }
           ]
         }
       ]
     },
     {
-      "id": "tech", "icon": "💻", "title": "Tech",
+      "id": "science", "icon": "🧠", "title": "Science & Neuroscience",
       "stories": [
         {
-          "tag": "Analysis", "tagClass": "tag-analysis", "accent": "--lavender",
-          "headline": "Gemma 4, an AI Encyclical, and Meta Layoffs",
+          "tag": "⭐⭐ ADHD", "tagClass": "tag-star", "accent": "--teal",
+          "headline": "Centanafadine Phase 3: Gains Beyond Core Symptoms, FDA Decision Advancing",
           "body": [
-            "Google DeepMind released Gemma 4, an open model family built for reasoning and agentic workflows. Pope Leo XIV issued his first encyclical, Magnifica Humanitas, on AI ethics — urging that AI be \"disarmed\" so it doesn't concentrate power. Meta began roughly 8,000 layoffs in an AI-focused restructuring, while Qualcomm is reportedly in early talks to buy AI-chip firm Tenstorrent for $8–10B."
+            "New phase 3 analyses report that centanafadine improves executive function and emotional regulation in adults with ADHD — not only the core inattention and hyperactivity measures that trials usually chase. FDA review is advancing toward a July 2026 decision.",
+            "The significance is the endpoint, not the molecule. Executive dysfunction and emotional dysregulation are the parts of adult ADHD that wreck logistics and relationships, and they have historically been treated as secondary outcomes. A non-stimulant that moves them directly changes what a treatment conversation can be about."
+          ],
+          "whyMatters": "A non-stimulant with a documented effect on exactly the domains that methylphenidate manages unevenly. Worth putting on the table at a psychiatry appointment — as a question, not a switch.",
+          "perspectives": [
+            { "source": "CHADD", "lean": "C", "text": "Reports the analyses at face value and flags that the FDA timeline is the thing to watch, not the press release." },
+            { "source": "Clinical skeptics", "lean": "C", "text": "Phase 3 secondary-endpoint improvements are among the most over-interpreted results in psychiatry. Effect size and durability data will decide whether this matters." }
+          ]
+        },
+        {
+          "tag": "⭐ ADHD", "tagClass": "tag-star", "accent": "--teal",
+          "headline": "The Psychedelic Microdosing Evidence for ADHD: A Review Says It Isn't There",
+          "body": [
+            "Interest among adults with ADHD in microdosing psilocybin and LSD has grown on the strength of personal accounts — better concentration, better impulse control, improved wellbeing. A review from Wrocław Medical University concludes the available scientific evidence does not permit any confirmation that psychedelics are effective for ADHD.",
+            "Not a claim that they don't work. A claim that nobody has yet run the studies that would let anyone say either way."
+          ],
+          "whyMatters": "This is the useful shape of a negative result: it separates absence of evidence from evidence of absence, and names the anecdote pipeline for what it is.",
+          "perspectives": [
+            { "source": "Wrocław Medical University", "lean": "C", "text": "The reviewers' position: the trials that would settle the question have not been run, and online testimony cannot substitute for them." },
+            { "source": "Patient communities", "lean": "C", "text": "Counter that trials of a Schedule I substance in a stimulant-treated population have been structurally near-impossible to fund and run." }
+          ]
+        },
+        {
+          "tag": "⭐ Menopause", "tagClass": "tag-star", "accent": "--teal",
+          "headline": "Lifetime Ovarian Hormone Exposure Tracks With Healthier Brain Aging",
+          "body": [
+            "A study in <em>NeuroImage</em> examined 459 women aged 65–80 and found that greater lifetime exposure to ovarian hormones — hormonal contraception in young adulthood, menopausal hormone therapy, later menopause — correlated with larger brain volumes and thicker cortex in regions central to memory, cognition and information processing.",
+            "Context that makes this urgent rather than merely interesting: nearly two-thirds of US adults living with Alzheimer's are women, most of them postmenopausal. A March 2026 paper in <em>Menopause</em> pressed the same point clinically, urging GPs to test for confounders — sleep, mood, low iron, autoimmune conditions — before attributing midlife cognitive symptoms to hormones, and noting that women are left asking whether what they are experiencing is dementia, menopause, or the ADHD so often diagnosed for the first time in perimenopause."
+          ],
+          "whyMatters": "The ADHD–perimenopause–cognition tangle is now being named in the clinical literature, not just in patient forums. That is the precondition for anyone getting properly assessed.",
+          "boxes": [
+            { "type": "alert", "html": "<strong>Read this correctly:</strong> correlation in an observational cohort. Women who took HRT differ systematically from women who did not. It's a reason to have the conversation, not a prescription." }
+          ],
+          "perspectives": [
+            { "source": "NeuroImage authors", "lean": "C", "text": "Argue lifetime hormone exposure should be treated as a modifiable variable in models of women's brain aging, rather than as background noise." },
+            { "source": "Psychological Medicine / UK Biobank", "lean": "C", "text": "A separate 125,000-participant analysis found reduced hippocampal and anterior cingulate volumes in postmenopausal women — and, awkwardly, lower volumes in the HRT group than the non-HRT group. The picture is not settled." }
+          ]
+        },
+        {
+          "tag": "Pain · Fibromyalgia", "tagClass": "tag-science", "accent": "--teal",
+          "headline": "Cannabis Terpenes Show an Analgesic Effect; the Largest Opioid Review Yet Finds Little",
+          "body": [
+            "Two results that belong side by side. First: the aromatic compounds that give cannabis and many other plants their smell — terpenes — significantly relieved chronic pain in new research, pointing at a mechanism separate from THC or CBD. Second: the largest review ever conducted of opioids for acute pain found the benefits are frequently small and short-lived, and that for several common conditions — including some surgeries and kidney-stone pain — opioids performed no better than the alternatives.",
+            "Read together, they describe a field re-sorting itself: the drug class that dominated pain medicine for thirty years underperforming its reputation, while unglamorous plant chemistry earns a second look."
+          ],
+          "whyMatters": "For central sensitisation conditions the mechanism question is everything. Terpene analgesia acting outside the cannabinoid receptors would open a target fibromyalgia treatment has not had.",
+          "perspectives": [
+            { "source": "ScienceDaily", "lean": "C", "text": "Treats the terpene result as early-stage and mechanistic — a promising target, not a therapy." },
+            { "source": "Pain medicine consensus", "lean": "C", "text": "The opioid review is the more consequential finding: it undercuts a prescribing default across surgery and emergency medicine, and it is a review, not a single trial." }
+          ]
+        },
+        {
+          "tag": "Consciousness", "tagClass": "tag-science", "accent": "--teal",
+          "headline": "The Anaesthetised Brain Is Still Reading the Room",
+          "body": [
+            "Patients under general anaesthesia can still process language at a sophisticated level, according to research published in late June. The unconscious brain, it turns out, is doing considerably more than the word implies.",
+            "Alongside it, a paper from the University of Oslo in <em>Entropy</em> argues that the dominant modern model of the brain — a prediction machine constantly anticipating the world — closely mirrors ideas psychoanalysis has been developing for over a century. Freud, on this reading, was describing the predictive brain without the vocabulary to name it."
+          ],
+          "perspectives": [
+            { "source": "University of Oslo", "lean": "C", "text": "The claim is convergence, not vindication: two traditions arriving at overlapping structure from incompatible starting points." },
+            { "source": "Empirical neuroscience", "lean": "C", "text": "A structural resemblance between a formal model and a 130-year-old theory is not evidence for the theory. Predictive processing earns its keep by making testable predictions; psychoanalysis largely did not." }
+          ]
+        },
+        {
+          "tag": "Deep Time", "tagClass": "tag-science", "accent": "--gold",
+          "headline": "One in a Million: 450-Million-Year-Old Soft Tissue, and Bees That Nested in Skulls",
+          "body": [
+            "University of Oklahoma palaeontologists have described preserved tube feet in <em>Dendrocrinus simcoensis</em>, an Ordovician crinoid — one of only two known instances of fossilised crinoid soft tissue, and by far the oldest. For scale: these tissues are more than 200 million years older than the oldest dinosaur. The specimen had been sitting in a small community-funded museum in Montréal for years.",
+            "Elsewhere in a strange week for the fossil record: ancient bees were found to have nested inside the empty tooth sockets of mammal bones, after owls scattered them across a cave floor 20,000 years ago. The first dinosaur fossil ever found on the Antarctic continent — a vertebra collected on a 1985 British Antarctic Survey expedition — has finally been described scientifically, four decades later. And a study published 6 July in <em>Nature Communications</em> suggests that two of the best-known trends in human evolution, brain growth and the shrinking of the face and jaw, may be far less attributable to the usual causes than assumed."
+          ],
+          "whyMatters": "The through-line is museum drawers. Most of these discoveries came from specimens already collected, catalogued and shelved — waiting for someone with the right question.",
+          "perspectives": [
+            { "source": "Lena Cole, Univ. of Oklahoma", "lean": "C", "text": "Makes the institutional argument: without community donations keeping a small Montréal museum alive, this research could not have happened." },
+            { "source": "Field palaeontology", "lean": "C", "text": "The counterweight: collections research depends on collections, and collections come from expeditions that are increasingly hard to fund." }
+          ]
+        },
+        {
+          "tag": "Space", "tagClass": "tag-science", "accent": "--lavender",
+          "headline": "Perseverance Finds Complex Organics on Mars; a Habitable-Zone Super-Earth 25 Light-Years Out",
+          "body": [
+            "NASA's Perseverance rover has detected complex organic matter on Mars. Separately, astronomers have identified a potentially habitable super-Earth roughly 25 light-years away — close enough, in principle, for the next generation of instruments to characterise its atmosphere.",
+            "Complex organics are not life. They are the carbon chemistry from which life, on the one example we have, was assembled."
+          ],
+          "perspectives": [
+            { "source": "Sci.News", "lean": "C", "text": "Reports both as instrument-capability stories: what has changed is not Mars or the star system but our ability to see them." },
+            { "source": "Astrobiology caution", "lean": "C", "text": "Abiotic processes generate complex organics routinely. The finding constrains the search space; it does not narrow it to biology." }
           ]
         }
       ]
     },
     {
-      "id": "arts", "icon": "🎭", "title": "Arts",
+      "id": "tech", "icon": "💻", "title": "Tech & AI",
       "stories": [
         {
-          "tag": "Culture", "tagClass": "tag-culture", "accent": "--gold",
-          "headline": "World's First AI-Arts Museum Opens in LA",
+          "tag": "Today", "tagClass": "tag-breaking", "accent": "--fire",
+          "headline": "Two Frontier Model Families Launch on the Same Day",
           "body": [
-            "DATALAND, co-founded by artist Refik Anadol and billed as the world's first Museum of AI Arts, opened June 20 at Frank Gehry's The Grand in Los Angeles. The inaugural show is \"Machine Dreams: Rainforest.\""
+            "Today, 9 July, OpenAI released GPT-5.6 in three tiers — Sol, Terra and Luna — to ChatGPT users and API developers. SpaceXAI launched Grok 4.5 publicly a day earlier with an Opus-class performance claim. Three frontier models going public within 24 hours has not happened before.",
+            "The pricing tells the story better than the benchmarks. Sol sits at $5/$30 per million tokens, Terra at $2.50/$15, Luna at $1/$6 — a budget tier OpenAI has never previously offered. Anthropic's Claude Sonnet 5, released 30 June and now the default across Claude plans, is at $2/$10 introductory through 31 August. The frontier is being commoditised from below while the top end is gated more tightly than ever."
+          ],
+          "boxes": [
+            { "type": "fact", "html": "<strong>Migration note:</strong> the gpt-5.5-latest endpoint does not auto-migrate to GPT-5.6 — pin explicit model IDs. New prompt caching (explicit breakpoints, 30-minute minimum, 90% discount on cache reads) is live across all three tiers from today." }
+          ],
+          "perspectives": [
+            { "source": "Build Fast with AI", "lean": "C", "text": "Calls it the most consequential single day in model release history, and argues Sonnet 5's near-Opus performance at Terra's price point is the actual competitive story." },
+            { "source": "Market skeptics", "lean": "C", "text": "Simultaneous launches are a coordination signal, not a capability one. Three labs racing to occupy the same news cycle says more about competitive anxiety than about progress." }
+          ]
+        },
+        {
+          "tag": "Governance", "tagClass": "tag-analysis", "accent": "--lavender",
+          "headline": "Anthropic Overtakes OpenAI on Revenue; Washington Drafts Release Standards",
+          "body": [
+            "Anthropic has passed OpenAI on self-reported revenue — roughly $47bn annualised run-rate against $25–33bn — and on business subscriptions. Monthly ChatGPT visits fell below a majority of the generative AI market for the first time in May.",
+            "The regulatory backdrop is heavier. Claude Fable 5 returned to users worldwide on 1 July, after the US Department of Commerce lifted export controls it had imposed on 12 June — a 19-day, government-ordered suspension of a commercial model. Reporting describes an escalation triggered by a borderline jailbreak finding. Anthropic is now co-developing a framework with Amazon, Microsoft and Google for scoring how dangerous a given jailbreak actually is, and is publicly asking that any pre-release regime be codified in regulation and applied equally to all frontier developers. The Financial Times reports the White House is in advanced talks with OpenAI, Google and Anthropic on voluntary release standards.",
+            "OpenAI has separately proposed handing the US government a 5% equity stake."
+          ],
+          "perspectives": [
+            { "source": "Anthropic", "lean": "C", "text": "The stated position: government involvement in model releases needs a durable, transparent process applied equally across labs — not ad hoc intervention." },
+            { "source": "Industry critics", "lean": "C", "text": "A framework written by the four largest labs, scoring the danger of findings about their own products, is regulatory capture with extra steps." },
+            { "source": "Axios (via secondary reporting)", "lean": "C", "text": "Its account of the Fable 5 ban — a Treasury call, engineers flown to DC, an NSA unsatisfied with initial fixes — suggests the process was improvised at every stage." }
+          ]
+        },
+        {
+          "tag": "Security", "tagClass": "tag-breaking", "accent": "--rose",
+          "headline": "JADEPUFFER: The First Autonomous Ransomware",
+          "body": [
+            "Reported 7 July: a ransomware strain described as the first genuinely autonomous one — selecting targets, moving laterally and negotiating without a human operator in the loop.",
+            "Every prior generation of ransomware had a bottleneck at the human. This does not."
+          ],
+          "boxes": [
+            { "type": "alert", "html": "<strong>Practical:</strong> offline backups, MFA everywhere, and rotate any credential that has ever been pasted into a chat window or committed to a repository." }
+          ],
+          "perspectives": [
+            { "source": "Security researchers", "lean": "C", "text": "The autonomy claim is the thing to interrogate — much of what gets called agentic is scripted automation with a language model narrating it." },
+            { "source": "Defensive posture", "lean": "C", "text": "Either way the practical response is unchanged, which is itself the argument for doing it now rather than waiting for the taxonomy to settle." }
+          ]
+        },
+        {
+          "tag": "China", "tagClass": "tag-analysis", "accent": "--amber",
+          "headline": "GLM-5.2 Reopens the Parity Debate; China's AI Companion Law Lands 15 July",
+          "body": [
+            "Z.ai's GLM-5.2 is cheap and competitive with frontier models from Anthropic and OpenAI, and has become the centrepiece of the argument about whether China has closed the gap. Chinese models account for roughly 46% of measured usage by some counts. China's AI companion law takes effect on 15 July.",
+            "Anthropic, meanwhile, is closing the relay services and cloud intermediaries that let Chinese firms including Ant Group reach Claude."
+          ],
+          "perspectives": [
+            { "source": "Industry analysts", "lean": "C", "text": "Read GLM-5.2 as vindication of the fast-follower strategy: IP advantages converted efficiently into working models at a fraction of the training cost." },
+            { "source": "Counter-argument", "lean": "C", "text": "Benchmark parity at the mid-tier is not frontier parity, and the labs setting the frontier are still the ones absorbing the compute bill." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arts", "icon": "🎭", "title": "Arts & Culture",
+      "stories": [
+        {
+          "tag": "Barcelona · Now", "tagClass": "tag-culture", "accent": "--gold",
+          "headline": "The Grec Turns Fifty",
+          "body": [
+            "The 50th edition of the Grec runs 29 June – 31 July across roughly fifty spaces in the city. It opened with <em>L'òpera de tres rals</em> — Brecht and Weill, staged by Marta Pazos, putting Brecht's critical spirit against a present still asking the same questions about inequality, opportunism and survival. Returning names: Calixto Bieito, Anne Teresa De Keersmaeker, Angélica Liddell, Christiane Jatahy, Hofesh Shechter. Debuting: Florentina Holzinger, Andrea Peña, Mucha Muchacha, Sergi Casero Nieto.",
+            "The anniversary party was yesterday, 8 July, at the Teatre Grec — a conversation with people who made the 1976 first edition, four commissioned short films on the festival's history (Sílvia Munt, Jaume Claret, Marc Salicrú, Núria Giménez Lorang), and a DJ set in the gardens. Still to come: <em>Arrels de llum</em> at the Sagrada Família, with Cor Cererols, Lídia Pujol and Maria Arnal. At the CCCB through 20 July: Romeo Castellucci's installation <em>Credere alle Maschere</em>, and Pau Aran's <em>La misma diferencia</em>."
+          ],
+          "boxes": [
+            { "type": "fact", "html": "<strong>Also running:</strong> a Palestinian artist's installation putting the dreams and hopes of Gaza's inhabitants into the mouths of five puppets · a Grec archive project opening this autumn as a living space rather than a repository" }
+          ],
+          "perspectives": [
+            { "source": "Institut de Cultura de Barcelona", "lean": "C", "text": "Frames the anniversary as continuity: the festival's evolution has tracked the transformation of the city itself, and the archive is the evidence." },
+            { "source": "Juan Carlos Olivares (critic)", "lean": "C", "text": "Has written historical mirrors pairing each programme entry with a moment from Barcelona's performing-arts past — an implicit argument that the Grec's radicalism is a recurring, not continuous, property." }
+          ]
+        },
+        {
+          "tag": "London", "tagClass": "tag-culture", "accent": "--rose",
+          "headline": "Ana Mendieta at Tate Modern — the Retrospective That Includes the Films",
+          "body": [
+            "Tate Modern opens a Mendieta retrospective this month that goes past the widely reproduced photographs documenting her performances on the body and sexual violence. The show foregrounds her films, several newly remastered, and the less-seen parts of the work.",
+            "Her previous retrospectives — the New Museum in 1987, the Hirshhorn in 2004, Museum der Moderne Salzburg in 2014 — were each larger than the last. This one is the largest."
+          ],
+          "perspectives": [
+            { "source": "ARTnews", "lean": "C", "text": "The remastered films are the point: they shift Mendieta from a photographic artist with a violent biography to a moving-image artist whose medium was duration." },
+            { "source": "The persistent reading", "lean": "C", "text": "Every Mendieta show is haunted by the circumstances of her death and the acquittal that followed. Curators keep trying to let the work stand alone; audiences keep declining to." }
+          ]
+        },
+        {
+          "tag": "Museums", "tagClass": "tag-culture", "accent": "--amber",
+          "headline": "The Bayeux Tapestry Is a Blockbuster; the Met's Looted-Objects Figure Passes $95M",
+          "body": [
+            "The British Museum has taken $3.3m in ticket sales for the Bayeux Tapestry, with tens of thousands attempting to book. Its concurrent exhibition recasts America's founding through Indigenous eyes.",
+            "At the Metropolitan Museum, the value of objects identified as looted has now passed $95m after new seizures. In Marseille, the president and general manager of Mucem has been suspended amid workplace allegations. In Chile, a León Ferrari exhibition has been cancelled amid culture-budget cuts. In New York, Mayor Mamdani has approved a record $323m in cultural funding."
+          ],
+          "perspectives": [
+            { "source": "The Art Newspaper", "lean": "C", "text": "Argues museum expansion is being measured in square footage when it should be measured in accessibility — a glass-and-steel critique with the US 250th anniversary as its occasion." },
+            { "source": "Restitution advocates", "lean": "L", "text": "A $95m figure that keeps rising is not a scandal being resolved. It is an inventory being taken, slowly, under external pressure." }
+          ]
+        },
+        {
+          "tag": "Venice", "tagClass": "tag-analysis", "accent": "--lavender",
+          "headline": "\"In Minor Keys\": the Biennale Its Curator Did Not Live to See",
+          "body": [
+            "The 2026 Venice Biennale is the first in the festival's history to have lost its curator during production. Koyo Kouoh, the star curator of the African art scene, died suddenly in 2025, having kept her cancer private. She left behind the framework and the title — <em>In Minor Keys</em> — and a set of curators she had already assembled are seeing it through."
+          ],
+          "perspectives": [
+            { "source": "ARTnews", "lean": "C", "text": "Treats the situation as unprecedented and largely unresolvable: authorship in a curated exhibition is not transferable, and the show will be read through the absence." }
+          ]
+        },
+        {
+          "tag": "Archaeology", "tagClass": "tag-culture", "accent": "--teal",
+          "headline": "An Undisturbed Maya City Found in the Mexican Jungle",
+          "body": [
+            "Archaeologists have located an undisturbed ancient Maya city — undisturbed being the operative and unusual word. The overwhelming majority of known Maya sites were looted long before they were surveyed."
+          ],
+          "perspectives": [
+            { "source": "Art Spell / Hyperallergic", "lean": "C", "text": "Notes the immediate tension: publication attracts both scholarship and looters, and the discipline has no good answer to that." }
+          ]
+        },
+        {
+          "tag": "Market", "tagClass": "tag-culture", "accent": "--gold",
+          "headline": "A T. Rex Named Gus, and the Auction House Betting on AI",
+          "body": [
+            "One of the world's most complete Tyrannosaurus rex skeletons, nicknamed Gus, went on show at Sotheby's in New York ahead of its sale this month. Sotheby's auctioneer Oliver Barker is separately talking about an AI windfall he believes could change the art market. Old Masters are attracting new money."
+          ],
+          "perspectives": [
+            { "source": "Sotheby's", "lean": "R", "text": "Sees AI-driven provenance research and buyer matching as an expansion of the market rather than a disruption of it." },
+            { "source": "Palaeontologists", "lean": "C", "text": "Have objected to fossil auctions for two decades on the same ground: a specimen in a private collection is a specimen removed from science." }
           ]
         }
       ]
     }
   ],
-  "sources": "Al Jazeera · NPR · Euronews · King's College London / SAGA cohort · ClinicalTrials.gov · blog.google · arts & tech trade press. Paraphrased; verify specifics before citing."
+  "sources": "NPR · Fox News · CBS News · WORLD Radio / AP · Global News · ANSA · Il Sole 24 Ore · Quotidiano Nazionale · DIRE · Today.it · governo.it · La Moncloa · Moncloa.com · Infobae · Ajuntament de Barcelona / Institut de Cultura · CCCB · ScienceDaily · phys.org · Sci.News · NeuroImage · Menopause (journal) · Psychological Medicine / UK Biobank · University of Oslo (Entropy) · University of Oklahoma · Nature Communications · CHADD · Wrocław Medical University · Build Fast with AI · llm-stats · Releasebot · Axios and Financial Times (via secondary reporting) · ARTnews · Artnet · The Art Newspaper · ArtReview · Art Spell. All summaries paraphrased. Perspectives characterise each outlet's framing, not verbatim editorial positions — verify before citing."
 }
