@@ -1,0 +1,114 @@
+{
+  "date_label": "Monday, 29 June 2026 · Evening Edition",
+  "sections": [
+    {
+      "id": "conflicts", "icon": "⚔️", "title": "Active Conflicts",
+      "stories": [
+        {
+          "tag": "Developing", "tagClass": "tag-breaking", "accent": "--rose",
+          "headline": "US–Iran Framework Fraying as Attacks Resume",
+          "body": [
+            "Iran and the US traded attacks over the weekend, throwing this week's technical talks into doubt. President Trump accused Iran of violating the framework agreement reached earlier this month; Tehran threatened to halt negotiations entirely.",
+            "Israel–Hezbollah violence continued in parallel."
+          ]
+        },
+        {
+          "tag": "Developing", "tagClass": "tag-developing", "accent": "--lavender",
+          "headline": "Lebanon Protests Over New Israel Framework",
+          "body": [
+            "The recently signed framework agreement with Israel spurred protests and sharp criticism inside Lebanon."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spain", "icon": "🇪🇸", "title": "Spain",
+      "stories": [
+        {
+          "accent": "--rose",
+          "headline": "Zapatero Gifts/Jewellery Case Continues",
+          "body": [
+            "The former PM faced a deadline to inform the judge in connection with gifts and jewellery, amid reporting on secret meetings and an alleged large commission tied to a major project."
+          ]
+        },
+        {
+          "accent": "--amber",
+          "headline": "Two Dead in Barcelona After Poblenou Police Chase",
+          "body": [
+            "Two people died following a police pursuit in the Poblenou district."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "italy", "icon": "🇮🇹", "title": "Italy",
+      "stories": [
+        {
+          "accent": "--lavender",
+          "headline": "Milan Markets Slip; Friction With Turkey in Focus",
+          "body": [
+            "The FTSE MIB eased about half a percent, weighed by banks and luxury names; the BTP–Bund spread held above 70 points. Diplomatic tension with Ankara was also in the headlines."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "europe", "icon": "🇪🇺", "title": "Europe",
+      "stories": [
+        {
+          "tag": "Breaking", "tagClass": "tag-breaking", "accent": "--fire",
+          "headline": "Record Heatwave Death Toll Tops 1,300",
+          "body": [
+            "Europe's record heatwave shifted eastward with a death toll reported above 1,300, including around a thousand deaths in France. WHO Europe urged governments to treat heatwaves as a public-health crisis."
+          ],
+          "box": { "type": "alert", "html": "<strong>Stay safe:</strong> hydrate and avoid midday sun." }
+        }
+      ]
+    },
+    {
+      "id": "science", "icon": "🧠", "title": "Science & Health",
+      "stories": [
+        {
+          "tag": "⭐ ADHD + Menopause", "tagClass": "tag-star", "accent": "--teal",
+          "headline": "ADHD Shapes the Menopause Experience",
+          "body": [
+            "King's College London research links worse ADHD symptom scores to worse menopausal complaints. The Icelandic SAGA cohort found perimenopausal symptoms are more severe and begin up to 10 years earlier (ages 35–39) in women with ADHD — about 54% report debilitating symptoms, versus roughly a third without ADHD."
+          ]
+        },
+        {
+          "tag": "Science", "tagClass": "tag-science", "accent": "--teal",
+          "headline": "ADHD × Fibromyalgia, and Pain Modulation",
+          "body": [
+            "A University Hospital of Tours trial (updated June 2026) is measuring how often ADHD and fibromyalgia co-occur and their shared neurobiology.",
+            "Separately, a strength-training study showed measurable improvement in conditioned pain modulation — the body's own pain-dampening system — in fibromyalgia patients."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech", "icon": "💻", "title": "Tech",
+      "stories": [
+        {
+          "tag": "Analysis", "tagClass": "tag-analysis", "accent": "--lavender",
+          "headline": "Gemma 4, an AI Encyclical, and Meta Layoffs",
+          "body": [
+            "Google DeepMind released Gemma 4, an open model family built for reasoning and agentic workflows. Pope Leo XIV issued his first encyclical, Magnifica Humanitas, on AI ethics — urging that AI be \"disarmed\" so it doesn't concentrate power. Meta began roughly 8,000 layoffs in an AI-focused restructuring, while Qualcomm is reportedly in early talks to buy AI-chip firm Tenstorrent for $8–10B."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arts", "icon": "🎭", "title": "Arts",
+      "stories": [
+        {
+          "tag": "Culture", "tagClass": "tag-culture", "accent": "--gold",
+          "headline": "World's First AI-Arts Museum Opens in LA",
+          "body": [
+            "DATALAND, co-founded by artist Refik Anadol and billed as the world's first Museum of AI Arts, opened June 20 at Frank Gehry's The Grand in Los Angeles. The inaugural show is \"Machine Dreams: Rainforest.\""
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": "Al Jazeera · NPR · Euronews · King's College London / SAGA cohort · ClinicalTrials.gov · blog.google · arts & tech trade press. Paraphrased; verify specifics before citing."
+}
